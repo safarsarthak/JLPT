@@ -6,9 +6,9 @@
 <style>
 :root{--bg:#f5f6fa;--white:#fff;--text:#202337;--muted:#777b91;--border:#e5e7ef;--accent:#6258e8;--light:#eeecff;--sidebar:#17182a}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}button{font:inherit;cursor:pointer}.app{min-height:100vh}.sidebar{width:280px;position:fixed;inset:0 auto 0 0;z-index:10;padding:24px 16px;background:var(--sidebar);color:#f4f4ff;overflow-y:auto;transition:transform .25s}.brand{font-size:23px;font-weight:800}.brand span{display:block;color:#aaa5ff}.subtitle{font-size:12px;color:#aaaac2;line-height:1.6;margin-top:8px}.menu-label{font-size:10px;letter-spacing:1.5px;color:#9999b4;font-weight:800;margin:26px 0 10px;text-transform:uppercase}.category-toggle{display:flex;justify-content:space-between;width:100%;padding:12px;margin-bottom:6px;border:1px solid #373751;border-radius:9px;background:#292944;color:#fff;font-weight:750;text-align:left}.category-toggle.active{background:#39365f;border-color:#6258e8}.verb-list{display:flex;flex-direction:column;gap:4px;margin:0 0 12px 8px}.verb-item{display:flex;flex-direction:column;gap:3px;width:100%;padding:9px 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:#eeeefe;text-align:left}.verb-item:hover{background:#292944}.verb-item.active{background:#39365f;border-color:#6258e8}.verb-jp{font-weight:750;font-size:15px}.verb-en{font-size:11px;color:#b4b4ca;line-height:1.4}.main{min-height:100vh;margin-left:280px;padding:30px clamp(16px,4vw,54px);transition:margin-left .25s}.app.sidebar-collapsed .sidebar{transform:translateX(-100%)}.app.sidebar-collapsed .main{margin-left:0}.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:24px}.header-left{display:flex;align-items:flex-start;gap:12px}.button{padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text);font-size:12px;font-weight:750}.button:hover:not(:disabled){border-color:var(--accent)}.button.primary{background:var(--accent);border-color:var(--accent);color:white}.button:disabled{opacity:.35;cursor:not-allowed}.icon-button{width:40px;height:40px;padding:0;font-size:18px;flex-shrink:0}.eyebrow{font-size:10px;color:var(--accent);font-weight:800;letter-spacing:1.5px;text-transform:uppercase}h1{font-size:clamp(24px,3vw,34px);letter-spacing:-1px;margin:7px 0}.description{font-size:13px;color:var(--muted);line-height:1.6}.set-picker{max-width:850px;margin:0 auto 22px;padding:18px;border:1px solid var(--border);border-radius:14px;background:#fff}.set-picker label{display:block;margin-bottom:10px;font-size:12px;font-weight:800}.set-options{display:flex;gap:10px;flex-wrap:wrap}.set-option{flex:1;min-width:145px;padding:12px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text);text-align:left}.set-option strong,.set-option span{display:block}.set-option strong{font-size:13px}.set-option span{font-size:11px;color:var(--muted);margin-top:4px}.set-option.active{background:var(--light);border-color:var(--accent)}.progress-area{max-width:850px;margin:0 auto 18px}.progress-label{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;font-size:11px;font-weight:700;color:var(--muted)}.progress-track{height:6px;border-radius:20px;background:#e4e5ef;overflow:hidden}.progress-fill{height:100%;width:0;background:var(--accent);transition:width .2s}.flashcard{max-width:850px;min-height:350px;margin:auto;padding:32px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:22px;background:#fff;box-shadow:0 8px 30px #25254408;text-align:center}.card-label{margin-bottom:24px;font-size:10px;letter-spacing:1.6px;font-weight:800;color:var(--muted);text-transform:uppercase}.japanese{font-size:clamp(44px,8vw,76px);font-weight:800;line-height:1.35;overflow-wrap:anywhere}.answer{width:100%;margin-top:22px}.reading{font-size:clamp(20px,4vw,28px);font-weight:800;color:var(--accent);margin-bottom:8px}.meaning{font-size:20px;font-weight:800}.group-label{display:inline-block;margin-top:9px;padding:6px 11px;border-radius:25px;background:var(--light);color:var(--accent);font-size:11px;font-weight:800}.forms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:22px;text-align:left}.form-box{min-width:0;padding:12px;border:1px solid var(--border);border-radius:10px;background:#fcfcff}.form-name{margin-bottom:7px;color:var(--muted);font-size:10px;font-weight:700}.form-value{font-size:clamp(16px,2vw,20px);font-weight:800;overflow-wrap:anywhere}.flip-row{text-align:center;margin-top:20px}.flip-row .button{min-width:170px}.controls{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;max-width:850px;margin:18px auto}.controls .button{min-width:90px}.tip{max-width:700px;margin:20px auto;color:var(--muted);font-size:12px;line-height:1.7;text-align:center}.kanji-breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:20px;text-align:left}.char-box{border:1px solid var(--border);border-radius:12px;padding:13px;background:#fcfcff}.char-symbol{font-size:32px;font-weight:800;text-align:center}.char-reading{font-size:14px;color:var(--accent);font-weight:800;text-align:center;margin:3px 0 7px}.char-meaning{font-size:12px;line-height:1.5;text-align:center}.section-label{font-size:10px;font-weight:800;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-top:20px}
-@media(max-width:700px){.sidebar{width:min(300px,86vw);box-shadow:12px 0 35px #0002}.main{margin-left:0;padding:18px 13px 26px}.topbar{gap:8px;margin-bottom:22px}.header-left{gap:8px}h1{font-size:24px}.description{font-size:12px}.topbar>.button{padding:10px;white-space:nowrap}.flashcard{min-height:310px;padding:24px 14px}.forms{gap:7px}.form-box{padding:10px}.controls .button{flex:1 1 40%}}
+@media(max-width:700px){.sidebar{width:min(300px,86vw);box-shadow:12px 0 35px #0002}.app.sidebar-collapsed .sidebar{transform:translateX(-100%)}.app:not(.sidebar-collapsed) .sidebar{transform:translateX(0)}.main{margin-left:0;padding:18px 13px 26px}.topbar{gap:8px;margin-bottom:22px}.header-left{gap:8px}h1{font-size:24px}.description{font-size:12px}.topbar>.button{padding:10px;white-space:nowrap}.flashcard{min-height:310px;padding:24px 14px}.forms{gap:7px}.form-box{padding:10px}.controls .button{flex:1 1 40%}}
 </style></head>
-<body><div class="app" id="app"><aside class="sidebar"><div class="brand">JLPT N5 <span>Revision</span></div><div class="subtitle">A focused revision space for Japanese learners.</div><div class="menu-label">Study sets</div><div id="sidebarSets"></div></aside>
+<body><div class="app sidebar-collapsed" id="app"><aside class="sidebar"><div class="brand">JLPT N5 <span>Revision</span></div><div class="subtitle">A focused revision space for Japanese learners.</div><div class="menu-label">Study sets</div><div id="sidebarSets"></div></aside>
 <main class="main"><header class="topbar"><div class="header-left"><button class="button icon-button" id="toggleSidebar" aria-label="Toggle sidebar">☰</button><div><div class="eyebrow">Japanese · N5 Vocabulary</div><h1 id="pageTitle">Verb Flashcards</h1><div class="description">Recall the meaning. Conjugate the verb. Repeat.</div></div></div><button class="button" id="shuffleBtn">🔀 Shuffle</button></header>
 <section class="set-picker"><label>What do you want to revise?</label><div class="set-options"><button class="set-option active" data-set="1-6"><strong>Verbs 1–6</strong><span>Verb conjugation</span></button><button class="set-option" data-set="7-12"><strong>Verbs 7–12</strong><span>Verb conjugation</span></button><button class="set-option" data-set="kanji"><strong>N5 Kanji with Words</strong><span>Word and character meanings</span></button></div></section>
 <section class="progress-area"><div class="progress-label"><span id="progressText"></span><span id="percentText"></span></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></section>
@@ -49,6 +49,7 @@ const setInfo = {
 };
 
 let currentSet = "1-6";
+let expandedSet = null;
 let originalDeck = [...sets[currentSet]];
 let deck = [...originalDeck];
 let currentIndex = 0;
@@ -64,6 +65,7 @@ const currentVerb = () => deck[currentIndex];
 
 function switchSet(key) {
   currentSet = key;
+  expandedSet = null;
   originalDeck = [...sets[key]];
   deck = [...originalDeck];
   currentIndex = 0;
@@ -81,17 +83,27 @@ function renderSidebar() {
   root.innerHTML = "";
 
   Object.keys(setInfo).forEach(key => {
+    const isExpanded = expandedSet === key;
     const toggle = document.createElement("button");
     toggle.className = "category-toggle" + (currentSet === key ? " active" : "");
-    toggle.innerHTML = `<span>${setInfo[key]}</span><span>›</span>`;
-    toggle.addEventListener("click", () => switchSet(key));
+    toggle.setAttribute("aria-expanded", String(isExpanded));
+    toggle.innerHTML = `<span>${setInfo[key]}</span><span>${isExpanded ? "⌄" : "›"}</span>`;
+    toggle.addEventListener("click", () => {
+      if (currentSet !== key) {
+        switchSet(key);
+        expandedSet = key;
+      } else {
+        expandedSet = isExpanded ? null : key;
+      }
+      renderSidebar();
+    });
     root.appendChild(toggle);
 
-    if (currentSet === key) {
+    if (isExpanded) {
       const list = document.createElement("div");
       list.className = "verb-list";
 
-      // Keep the sidebar list stable and in the source order, even when shuffled.
+      // Keep the sidebar list stable and in source order, even when shuffled.
       sets[key].forEach((v, i) => {
         const b = document.createElement("button");
         b.className = "verb-item" + (
@@ -109,12 +121,15 @@ function renderSidebar() {
 
         b.append(jp, en);
         b.addEventListener("click", () => {
-          // Choosing a sidebar item returns to the original deck.
+          if (currentSet !== key) switchSet(key);
           reviewMode = false;
-          currentIndex = Math.max(0, deck.findIndex(item => item.id === v.id));
-          if (currentIndex < 0) currentIndex = i;
+          const foundIndex = deck.findIndex(item => item.id === v.id);
+          currentIndex = foundIndex >= 0 ? foundIndex : i;
           isFlipped = false;
           render();
+          if (window.matchMedia("(max-width: 700px)").matches) {
+            $("app").classList.add("sidebar-collapsed");
+          }
         });
         list.appendChild(b);
       });
@@ -122,7 +137,6 @@ function renderSidebar() {
     }
   });
 }
-
 function renderCard() {
   const v = reviewMode ? reviewQueue[reviewIndex] : currentVerb();
   if (!v) return;
@@ -252,6 +266,15 @@ document.querySelectorAll(".set-option").forEach(b =>
   b.addEventListener("click", () => switchSet(b.dataset.set))
 );
 $("toggleSidebar").addEventListener("click", () => $("app").classList.toggle("sidebar-collapsed"));
+document.addEventListener("click", event => {
+  const app = $("app");
+  if (window.matchMedia("(max-width: 700px)").matches &&
+      !app.classList.contains("sidebar-collapsed") &&
+      !event.target.closest(".sidebar") &&
+      !event.target.closest("#toggleSidebar")) {
+    app.classList.add("sidebar-collapsed");
+  }
+});
 $("flipBtn").addEventListener("click", () => {
   isFlipped = !isFlipped;
   render();
