@@ -3,783 +3,317 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JLPT N5 Revision | Verb Flashcards</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JLPT N5 Revision</title>
 <style>
-:root {
-  --bg: #f5f6fa;
-  --surface: #ffffff;
-  --text: #202337;
-  --muted: #777b91;
-  --border: #e5e7ef;
-  --accent: #6258e8;
-  --accent-light: #eeecff;
-  --sidebar: #17182a;
-  --sidebar-text: #f4f4ff;
-  --green: #17865c;
-}
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
-
-button { font: inherit; }
-
-.app { min-height: 100vh; }
-
-.sidebar {
-  width: 280px;
-  position: fixed;
-  inset: 0 auto 0 0;
-  z-index: 10;
-  padding: 26px 18px;
-  overflow-y: auto;
-  background: var(--sidebar);
-  color: var(--sidebar-text);
-  transition: transform .25s ease;
-}
-
-.brand {
-  font-size: 23px;
-  font-weight: 800;
-  letter-spacing: -.7px;
-}
-
-.brand span {
-  display: block;
-  color: #aaa5ff;
-}
-
-.subtitle {
-  color: #aaaac2;
-  font-size: 12px;
-  line-height: 1.6;
-  margin-top: 9px;
-}
-
-.menu-label {
-  margin: 30px 0 12px;
-  color: #9999b4;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-.tab {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 12px;
-  border: 0;
-  border-radius: 10px;
-  background: #292944;
-  color: white;
-  font-weight: 700;
-}
-
-.verb-list {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.verb-item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 100%;
-  text-align: left;
-  padding: 10px 12px;
-  border: 1px solid transparent;
-  border-radius: 9px;
-  background: transparent;
-  color: #efefff;
-  cursor: pointer;
-}
-
-.verb-item:hover { background: #292944; }
-
-.verb-item.active {
-  background: #39365f;
-  border-color: #6258e8;
-}
-
-.verb-jp {
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.verb-en {
-  color: #b4b4ca;
-  font-size: 11px;
-  line-height: 1.4;
-}
-
-.main {
-  min-height: 100vh;
-  margin-left: 280px;
-  padding: 32px clamp(18px, 4vw, 56px);
-  transition: margin-left .25s ease;
-}
-
-.app.sidebar-collapsed .sidebar {
-  transform: translateX(-100%);
-}
-
-.app.sidebar-collapsed .main {
-  margin-left: 0;
-}
-
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 18px;
-  margin-bottom: 34px;
-}
-
-.header-left {
-  display: flex;
-  align-items: flex-start;
-  gap: 13px;
-}
-
-.eyebrow {
-  color: var(--accent);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-h1 {
-  margin: 7px 0;
-  font-size: clamp(24px, 3vw, 34px);
-  letter-spacing: -1px;
-}
-
-.description {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-.button {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--surface);
-  color: var(--text);
-  padding: 11px 15px;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: .15s ease;
-}
-
-.button:hover:not(:disabled) {
-  border-color: var(--accent);
-  transform: translateY(-1px);
-}
-
-.button:disabled {
-  opacity: .35;
-  cursor: not-allowed;
-}
-
-.button.primary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: white;
-}
-
-.button.primary:hover:not(:disabled) {
-  background: #5146d5;
-}
-
-.icon-button {
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  font-size: 18px;
-}
-
-.progress-area {
-  max-width: 850px;
-  margin: 0 auto 20px;
-}
-
-.progress-label {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 9px;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.progress-track {
-  height: 6px;
-  overflow: hidden;
-  border-radius: 20px;
-  background: #e4e5ef;
-}
-
-.progress-fill {
-  width: 0;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--accent);
-  transition: width .25s ease;
-}
-
-.flashcard {
-  max-width: 850px;
-  min-height: 350px;
-  margin: auto;
-  padding: 34px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  background: var(--surface);
-  box-shadow: 0 8px 30px #25254408;
-  text-align: center;
-}
-
-.card-label {
-  margin-bottom: 27px;
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-}
-
-.japanese {
-  font-size: clamp(48px, 9vw, 76px);
-  line-height: 1.3;
-  font-weight: 800;
-  letter-spacing: 1px;
-  overflow-wrap: anywhere;
-}
-
-.answer {
-  width: 100%;
-  margin-top: 26px;
-}
-
-.meaning {
-  font-size: 20px;
-  font-weight: 800;
-}
-
-.group-label {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 6px 11px;
-  border-radius: 30px;
-  background: var(--accent-light);
-  color: var(--accent);
-  font-size: 11px;
-  font-weight: 800;
-}
-
-.forms {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 24px;
-  text-align: left;
-}
-
-.form-box {
-  min-width: 0;
-  padding: 13px;
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  background: #fcfcff;
-}
-
-.form-name {
-  margin-bottom: 8px;
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.form-value {
-  font-size: clamp(16px, 2vw, 20px);
-  font-weight: 800;
-  overflow-wrap: anywhere;
-}
-
-.flip-row {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.flip-row .button { min-width: 170px; }
-
-.controls {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 9px;
-  max-width: 850px;
-  margin: 20px auto 0;
-}
-
-.tip {
-  max-width: 700px;
-  margin: 23px auto;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.7;
-  text-align: center;
-}
-
-@media (max-width: 700px) {
-  .sidebar {
-    width: min(300px, 86vw);
-    box-shadow: 12px 0 35px #0002;
-  }
-
-  .main {
-    margin-left: 0;
-    padding: 20px 14px 28px;
-  }
-
-  .app:not(.sidebar-collapsed) .main {
-    margin-left: 0;
-  }
-
-  .topbar {
-    gap: 10px;
-    margin-bottom: 26px;
-  }
-
-  .header-left { gap: 9px; }
-
-  h1 { font-size: 24px; }
-
-  .description { font-size: 12px; }
-
-  .topbar > .button {
-    padding: 10px;
-    white-space: nowrap;
-  }
-
-  .flashcard {
-    min-height: 320px;
-    padding: 25px 15px;
-  }
-
-  .forms { gap: 8px; }
-
-  .form-box { padding: 11px; }
-
-  .controls .button {
-    flex: 1 1 40%;
-  }
+:root{--bg:#f5f6fa;--white:#fff;--text:#202337;--muted:#777b91;--border:#e5e7ef;--accent:#6258e8;--light:#eeecff;--sidebar:#17182a}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+button,select{font:inherit}
+.app{min-height:100vh}
+.sidebar{width:280px;position:fixed;inset:0 auto 0 0;z-index:10;padding:24px 16px;background:var(--sidebar);color:#f4f4ff;overflow-y:auto;transition:transform .25s}
+.brand{font-size:23px;font-weight:800}.brand span{display:block;color:#aaa5ff}
+.subtitle{font-size:12px;color:#aaaac2;line-height:1.6;margin-top:8px}
+.menu-label{font-size:10px;letter-spacing:1.5px;color:#9999b4;font-weight:800;margin:26px 0 10px;text-transform:uppercase}
+.category-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;padding:12px;margin-bottom:6px;border:1px solid #373751;border-radius:9px;background:#292944;color:#fff;font-weight:750;text-align:left;cursor:pointer}
+.category-toggle.active{background:#39365f;border-color:#6258e8}
+.verb-list{display:flex;flex-direction:column;gap:4px;margin:0 0 12px 8px}
+.verb-item{display:flex;flex-direction:column;gap:3px;width:100%;padding:9px 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:#eeeefe;text-align:left;cursor:pointer}
+.verb-item:hover{background:#292944}.verb-item.active{background:#39365f;border-color:#6258e8}
+.verb-jp{font-weight:750;font-size:15px}.verb-en{font-size:11px;color:#b4b4ca;line-height:1.4}
+.main{min-height:100vh;margin-left:280px;padding:30px clamp(16px,4vw,54px);transition:margin-left .25s}
+.app.sidebar-collapsed .sidebar{transform:translateX(-100%)}
+.app.sidebar-collapsed .main{margin-left:0}
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:26px}
+.header-left{display:flex;align-items:flex-start;gap:12px}
+.button{padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text);font-size:12px;font-weight:750;cursor:pointer}
+.button:hover:not(:disabled){border-color:var(--accent)}
+.button.primary{background:var(--accent);border-color:var(--accent);color:white}
+.button:disabled{opacity:.35;cursor:not-allowed}
+.icon-button{width:40px;height:40px;padding:0;font-size:18px;flex-shrink:0}
+.eyebrow{font-size:10px;color:var(--accent);font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+h1{font-size:clamp(24px,3vw,34px);letter-spacing:-1px;margin:7px 0}
+.description{font-size:13px;color:var(--muted);line-height:1.6}
+.set-picker{max-width:850px;margin:0 auto 22px;padding:18px;border:1px solid var(--border);border-radius:14px;background:#fff}
+.set-picker label{display:block;margin-bottom:10px;font-size:12px;font-weight:800}
+.set-options{display:flex;gap:10px;flex-wrap:wrap}
+.set-option{flex:1;min-width:150px;padding:12px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text);text-align:left;cursor:pointer}
+.set-option strong,.set-option span{display:block}
+.set-option strong{font-size:13px}.set-option span{font-size:11px;color:var(--muted);margin-top:4px}
+.set-option.active{background:var(--light);border-color:var(--accent)}
+.progress-area{max-width:850px;margin:0 auto 18px}
+.progress-label{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;font-size:11px;font-weight:700;color:var(--muted)}
+.progress-track{height:6px;border-radius:20px;background:#e4e5ef;overflow:hidden}
+.progress-fill{height:100%;width:0;background:var(--accent);transition:width .2s}
+.flashcard{max-width:850px;min-height:350px;margin:auto;padding:32px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:22px;background:#fff;box-shadow:0 8px 30px #25254408;text-align:center}
+.card-label{margin-bottom:24px;font-size:10px;letter-spacing:1.6px;font-weight:800;color:var(--muted);text-transform:uppercase}
+.japanese{font-size:clamp(44px,8vw,76px);font-weight:800;line-height:1.35;overflow-wrap:anywhere}
+.answer{width:100%;margin-top:22px}.meaning{font-size:20px;font-weight:800}
+.group-label{display:inline-block;margin-top:9px;padding:6px 11px;border-radius:25px;background:var(--light);color:var(--accent);font-size:11px;font-weight:800}
+.forms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:22px;text-align:left}
+.form-box{min-width:0;padding:12px;border:1px solid var(--border);border-radius:10px;background:#fcfcff}
+.form-name{margin-bottom:7px;color:var(--muted);font-size:10px;font-weight:700}
+.form-value{font-size:clamp(16px,2vw,20px);font-weight:800;overflow-wrap:anywhere}
+.flip-row{text-align:center;margin-top:20px}.flip-row .button{min-width:170px}
+.controls{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;max-width:850px;margin:18px auto}
+.controls .button{min-width:90px}
+.tip{max-width:700px;margin:20px auto;color:var(--muted);font-size:12px;line-height:1.7;text-align:center}
+@media(max-width:700px){
+ .sidebar{width:min(300px,86vw);box-shadow:12px 0 35px #0002}
+ .main{margin-left:0;padding:18px 13px 26px}
+ .topbar{gap:8px;margin-bottom:22px}
+ .header-left{gap:8px}h1{font-size:24px}
+ .description{font-size:12px}
+ .topbar>.button{padding:10px;white-space:nowrap}
+ .flashcard{min-height:310px;padding:24px 14px}
+ .forms{gap:7px}.form-box{padding:10px}
+ .controls .button{flex:1 1 40%}
 }
 </style>
 </head>
-
 <body>
 <div class="app" id="app">
+ <aside class="sidebar">
+  <div class="brand">JLPT N5 <span>Revision</span></div>
+  <div class="subtitle">A focused revision space for Japanese learners.</div>
+  <div class="menu-label">Study sets</div>
+  <div id="sidebarSets"></div>
+ </aside>
 
-  <aside class="sidebar" id="sidebar">
-    <div class="brand">JLPT N5 <span>Revision</span></div>
-    <div class="subtitle">
-      A focused revision space for Japanese learners.
+ <main class="main">
+  <header class="topbar">
+   <div class="header-left">
+    <button class="button icon-button" id="toggleSidebar" type="button" aria-label="Toggle sidebar">☰</button>
+    <div>
+     <div class="eyebrow">Japanese · N5 Vocabulary</div>
+     <h1>Verb Flashcards</h1>
+     <div class="description">Recall the meaning. Conjugate the verb. Repeat.</div>
     </div>
+   </div>
+   <button class="button" id="shuffleBtn" type="button">🔀 Shuffle</button>
+  </header>
 
-    <div class="menu-label">Study menu</div>
-    <button class="tab" type="button">📚 &nbsp; Verbs · Lessons 1–6</button>
+  <section class="set-picker">
+   <label>Which verb set do you want to revise?</label>
+   <div class="set-options">
+    <button class="set-option active" data-set="1-6" type="button">
+     <strong>Verbs 1–6</strong><span>Previous set</span>
+    </button>
+    <button class="set-option" data-set="7-12" type="button">
+     <strong>Verbs 7–12</strong><span>New set</span>
+    </button>
+   </div>
+  </section>
 
-    <div class="menu-label">Choose a verb</div>
-    <div class="verb-list" id="verbList"></div>
-  </aside>
+  <section class="progress-area">
+   <div class="progress-label"><span id="progressText"></span><span id="percentText"></span></div>
+   <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </section>
 
-  <main class="main">
-    <header class="topbar">
-      <div class="header-left">
-        <button
-          class="button icon-button"
-          id="toggleSidebar"
-          type="button"
-          aria-label="Toggle sidebar"
-          title="Toggle sidebar"
-        >☰</button>
+  <section class="flashcard" aria-live="polite">
+   <div class="card-label" id="cardLabel">Masu form</div>
+   <div class="japanese" id="japanese"></div>
+   <div class="answer" id="answer" hidden>
+    <div class="meaning" id="meaning"></div>
+    <div class="group-label" id="groupLabel"></div>
+    <div class="forms" id="forms"></div>
+   </div>
+  </section>
 
-        <div>
-          <div class="eyebrow">Japanese · N5 Vocabulary</div>
-          <h1>Verb Flashcards</h1>
-          <div class="description">
-            Recall the meaning. Conjugate the verb. Repeat.
-          </div>
-        </div>
-      </div>
-
-      <button class="button" id="shuffleBtn" type="button">
-        🔀 Shuffle
-      </button>
-    </header>
-
-    <section class="progress-area">
-      <div class="progress-label">
-        <span id="progressText">Card 1 of 48</span>
-        <span id="percentText">2% through deck</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-    </section>
-
-    <section class="flashcard" aria-live="polite">
-      <div class="card-label" id="cardLabel">Masu form</div>
-      <div class="japanese" id="japanese">のみます</div>
-
-      <div class="answer" id="answer" hidden>
-        <div class="meaning" id="meaning"></div>
-        <div class="group-label" id="groupLabel"></div>
-        <div class="forms" id="forms"></div>
-      </div>
-    </section>
-
-    <div class="flip-row">
-      <button class="button primary" id="flipBtn" type="button">
-        See answer ↗
-      </button>
-    </div>
-
-    <div class="controls">
-      <button class="button" id="prevBtn" type="button">← Previous</button>
-      <button class="button" id="reviewBtn" type="button">↻ Review</button>
-      <button class="button primary" id="nextBtn" type="button">Next →</button>
-      <button class="button" id="restartBtn" type="button">Restart</button>
-    </div>
-
-    <p class="tip">
-      Try to recall the meaning and conjugations before revealing the answer.
-      Use Review to add a difficult verb to the end of your study deck.
-    </p>
-  </main>
+  <div class="flip-row"><button class="button primary" id="flipBtn" type="button">See answer ↗</button></div>
+  <div class="controls">
+   <button class="button" id="prevBtn" type="button">← Previous</button>
+   <button class="button" id="reviewBtn" type="button">↻ Review</button>
+   <button class="button primary" id="nextBtn" type="button">Next →</button>
+   <button class="button" id="restartBtn" type="button">Restart</button>
+  </div>
+  <p class="tip">Try to recall the meaning and conjugations before revealing the answer. Use Review to add a difficult verb to the end of the current set.</p>
+ </main>
 </div>
 
 <script>
-/*
-  VERB DATA
-  Japanese text is written in hiragana only.
-  Group I = Godan, Group II = Ichidan, Group III = Irregular.
+/* Japanese entries use hiragana only. Katakana words from the PDF
+   are represented in hiragana for consistent script practice. */
 
-  The entries follow the supplied Lessons 1–6 PDF.
-  Apparent conjugation errors have been corrected for study.
-*/
+const sets = {
+"1-6": [
+["のみます","To drink","I","のむ","のまない","のんだ","のまなかった","のんで"],
+["ききます","To listen","I","きく","きかない","きいた","きかなかった","きいて"],
+["かきます","To write","I","かく","かかない","かいた","かかなかった","かいて"],
+["よみます","To read","I","よむ","よまない","よんだ","よまなかった","よんで"],
+["はなします","To speak / talk","I","はなす","はなさない","はなした","はなさなかった","はなして"],
+["いきます","To go","I","いく","いかない","いった","いかなかった","いって"],
+["かえります","To return","I","かえる","かえらない","かえった","かえらなかった","かえって"],
+["あいます","To meet","I","あう","あわない","あった","あわなかった","あって"],
+["かいます","To buy","I","かう","かわない","かった","かわなかった","かって"],
+["とります","To take a picture","I","とる","とらない","とった","とらなかった","とって"],
+["まちます","To wait","I","まつ","またない","まった","またなかった","まって"],
+["わかります","To understand","I","わかる","わからない","わかった","わからなかった","わかって"],
+["あります","To exist (non-living things)","I","ある","ない","あった","なかった","あって"],
+["およぎます","To swim","I","およぐ","およがない","およいだ","およがなかった","およいで"],
+["ききます","To ask someone","I","きく","きかない","きいた","きかなかった","きいて"],
+["のります","To ride / board","I","のる","のらない","のった","のらなかった","のって"],
+["はいります","To enter","I","はいる","はいらない","はいった","はいらなかった","はいって"],
+["やります","To do / perform","I","やる","やらない","やった","やらなかった","やって"],
+["あそびます","To play","I","あそぶ","あそばない","あそんだ","あそばなかった","あそんで"],
+["いそぎます","To hurry","I","いそぐ","いそがない","いそいだ","いそがなかった","いそいで"],
+["かえします","To return something","I","かえす","かえさない","かえした","かえさなかった","かえして"],
+["けします","To turn off / erase","I","けす","けさない","けした","けさなかった","けして"],
+["しにます","To die","I","しぬ","しなない","しんだ","しななかった","しんで"],
+["すいます","To smoke / inhale","I","すう","すわない","すった","すわなかった","すって"],
+["たちます","To stand up","I","たつ","たたない","たった","たたなかった","たって"],
+["すわります","To sit down","I","すわる","すわらない","すわった","すわらなかった","すわって"],
+["つかいます","To use","I","つかう","つかわない","つかった","つかわなかった","つかって"],
+["てつだいます","To help","I","てつだう","てつだわない","てつだった","てつだわなかった","てつだって"],
+["やすみます","To rest / be absent","I","やすむ","やすまない","やすんだ","やすまなかった","やすんで"],
+["もちます","To hold / carry","I","もつ","もたない","もった","もたなかった","もって"],
+["います","To exist (living things)","II","いる","いない","いた","いなかった","いて"],
+["ねます","To sleep","II","ねる","ねない","ねた","ねなかった","ねて"],
+["みます","To see / watch","II","みる","みない","みた","みなかった","みて"],
+["たべます","To eat","II","たべる","たべない","たべた","たべなかった","たべて"],
+["でかけます","To go out","II","でかける","でかけない","でかけた","でかけなかった","でかけて"],
+["つけます","To turn on","II","つける","つけない","つけた","つけなかった","つけて"],
+["あけます","To open","II","あける","あけない","あけた","あけなかった","あけて"],
+["しめます","To close","II","しめる","しめない","しめた","しめなかった","しめて"],
+["おしえます","To teach","II","おしえる","おしえない","おしえた","おしえなかった","おしえて"],
+["わすれます","To forget","II","わすれる","わすれない","わすれた","わすれなかった","わすれて"],
+["あびます","To take a shower","II","あびる","あびない","あびた","あびなかった","あびて"],
+["おります","To get off","II","おりる","おりない","おりた","おりなかった","おりて"],
+["かります","To borrow","II","かりる","かりない","かりた","かりなかった","かりて"],
+["おきます","To get up","II","おきる","おきない","おきた","おきなかった","おきて"],
+["します","To do","III","する","しない","した","しなかった","して"],
+["べんきょうします","To study","III","べんきょうする","べんきょうしない","べんきょうした","べんきょうしなかった","べんきょうして"],
+["でんわします","To call by phone","III","でんわする","でんわしない","でんわした","でんわしなかった","でんわして"],
+["きます","To come","III","くる","こない","きた","こなかった","きて"],
+["もってきます","To bring a thing","III","もってくる","もってこない","もってきた","もってこなかった","もってきて"],
+["つれてきます","To bring a person","III","つれてくる","つれてこない","つれてきた","つれてこなかった","つれてきて"]
+],
+"7-12": [
+["かぶります","To put on a hat","I","かぶる","かぶらない","かぶった","かぶらなかった","かぶって"],
+["はきます","To put on pants / a skirt","I","はく","はかない","はいた","はかなかった","はいて"],
+["すみます","To live (in a place)","I","すむ","すまない","すんだ","すまなかった","すんで"],
+["はたらきます","To work","I","はたらく","はたらかない","はたらいた","はたらかなかった","はたらいて"],
+["うたいます","To sing","I","うたう","うたわない","うたった","うたわなかった","うたって"],
+["しります","To know","I","しる","しらない","しった","しらなかった","しって"],
+["ふとります","To gain weight","I","ふとる","ふとらない","ふとった","ふとらなかった","ふとって"],
+["あらいます","To wash","I","あらう","あらわない","あらった","あらわなかった","あらって"],
+["いいます","To say","I","いう","いわない","いった","いわなかった","いって"],
+["いります","To need","I","いる","いらない","いった","いらなかった","いって"],
+["おそくなります","To be late","I","おそくなる","おそくならない","おそくなった","おそくならなかった","おそくなって"],
+["はいります","To take a bath","I","はいる","はいらない","はいった","はいらなかった","はいって"],
+["おもいます","To think","I","おもう","おもわない","おもった","おもわなかった","おもって"],
+["きります","To cut","I","きる","きらない","きった","きらなかった","きって"],
+["つくります","To make","I","つくる","つくらない","つくった","つくらなかった","つくって"],
+["ふります","Rain / snow falls","I","ふる","ふらない","ふった","ふらなかった","ふって"],
+["もっていきます","To take a thing","I","もっていく","もっていかない","もっていった","もっていかなかった","もっていって"],
+["おどります","To dance","I","おどる","おどらない","おどった","おどらなかった","おどって"],
+["おわります","Something ends","I","おわる","おわらない","おわった","おわらなかった","おわって"],
+["のみます","To take medicine","I","のむ","のまない","のんだ","のまなかった","のんで"],
+["あります","To be popular","I","ある","ない","あった","なかった","あって"],
+["はじまります","Something begins","I","はじまる","はじまらない","はじまった","はじまらなかった","はじまって"],
+["ひきます","To play an instrument","I","ひく","ひかない","ひいた","ひかなかった","ひいて"],
+["もらいます","To receive","I","もらう","もらわない","もらった","もらわなかった","もらって"],
+["かかります","To take time / money","I","かかる","かからない","かかった","かからなかった","かかって"],
+["とまります","To stay at a hotel","I","とまる","とまらない","とまった","とまらなかった","とまって"],
+["なります","To become","I","なる","ならない","なった","ならなかった","なって"],
+["つきます","To tell a lie","I","つく","つかない","ついた","つかなかった","ついて"],
+["すきます","To become hungry","I","すく","すかない","すいた","すかなかった","すいて"],
+["かいます","To own a pet","I","かう","かわない","かった","かわなかった","かって"],
+["さぼります","To skip classes","I","さぼる","さぼらない","さぼった","さぼらなかった","さぼって"],
+["とります","To take classes","I","とる","とらない","とった","とらなかった","とって"],
+["ならいます","To learn","I","ならう","ならわない","ならった","ならわなかった","ならって"],
+["のぼります","To climb","I","のぼる","のぼらない","のぼった","のぼらなかった","のぼって"],
+["はしります","To run","I","はしる","はしらない","はしった","はしらなかった","はしって"],
+["あるきます","To walk","I","あるく","あるかない","あるいた","あるかなかった","あるいて"],
+["ひきます","To catch a cold","I","ひく","ひかない","ひいた","ひかなかった","ひいて"],
+["あります","To have a fever","I","ある","ない","あった","なかった","あって"],
+["かわきます","To become thirsty","I","かわく","かわかない","かわいた","かわかなかった","かわいて"],
+["はらいます","To pay","I","はらう","はらわない","はらった","はらわなかった","はらって"],
+["なくします","To lose something","I","なくす","なくさない","なくした","なくさなかった","なくして"],
+["あります","To be interested in","I","ある","ない","あった","なかった","あって"],
+["きます","To put on clothes","II","きる","きない","きた","きなかった","きて"],
+["おぼえます","To memorise","II","おぼえる","おぼえない","おぼえた","おぼえなかった","おぼえて"],
+["でます","To exit / appear / attend","II","でる","でない","でた","でなかった","でて"],
+["かけます","To put on glasses","II","かける","かけない","かけた","かけなかった","かけて"],
+["やせます","To lose weight","II","やせる","やせない","やせた","やせなかった","やせて"],
+["すてます","To throw away","II","すてる","すてない","すてた","すてなかった","すてて"],
+["はじめます","To begin","II","はじめる","はじめない","はじめた","はじめなかった","はじめて"],
+["でます","To cough","II","でる","でない","でた","でなかった","でて"],
+["わかれます","To break up / separate","II","わかれる","わかれない","わかれた","わかれなかった","わかれて"],
+["きめます","To decide","II","きめる","きめない","きめた","きめなかった","きめて"],
+["つかれます","To get tired","II","つかれる","つかれない","つかれた","つかれなかった","つかれて"],
+["やめます","To quit","II","やめる","やめない","やめた","やめなかった","やめて"],
+["けっこんします","To marry","III","けっこんする","けっこんしない","けっこんした","けっこんしなかった","けっこんして"],
+["うんてんします","To drive","III","うんてんする","うんてんしない","うんてんした","うんてんしなかった","うんてんして"],
+["せんたくします","To do laundry","III","せんたくする","せんたくしない","せんたくした","せんたくしなかった","せんたくして"],
+["そうじします","To clean","III","そうじする","そうじしない","そうじした","そうじしなかった","そうじして"],
+["りょうりします","To cook","III","りょうりする","りょうりしない","りょうりした","りょうりしなかった","りょうりして"],
+["うんどうします","To exercise","III","うんどうする","うんどうしない","うんどうした","うんどうしなかった","うんどうして"],
+["さんぽします","To take a walk","III","さんぽする","さんぽしない","さんぽした","さんぽしなかった","さんぽして"],
+["りょこうします","To travel","III","りょこうする","りょこうしない","りょこうした","りょこうしなかった","りょこうして"],
+["ごろごろします","To chill out at home","III","ごろごろする","ごろごろしない","ごろごろした","ごろごろしなかった","ごろごろして"],
+["れんしゅうします","To practise","III","れんしゅうする","れんしゅうしない","れんしゅうした","れんしゅうしなかった","れんしゅうして"],
+["けんかします","To fight / quarrel","III","けんかする","けんかしない","けんかした","けんかしなかった","けんかして"],
+["しょうかいします","To introduce","III","しょうかいする","しょうかいしない","しょうかいした","しょうかいしなかった","しょうかいして"],
+["だいえっとします","To diet","III","だいえっとする","だいえっとしない","だいえっとした","だいえっとしなかった","だいえっとして"],
+["ちこくします","To be late for an appointment","III","ちこくする","ちこくしない","ちこくした","ちこくしなかった","ちこくして"],
+["りゅうがくします","To study abroad","III","りゅうがくする","りゅうがくしない","りゅうがくした","りゅうがくしなかった","りゅうがくして"],
+["きんちょうします","To get nervous","III","きんちょうする","きんちょうしない","きんちょうした","きんちょうしなかった","きんちょうして"],
+["しんぱいします","To worry","III","しんぱいする","しんぱいしない","しんぱいした","しんぱいしなかった","しんぱいして"]
+]
+};
 
-const verbs = [
-  // LESSONS 1–6: GROUP I
-
-  {
-    masu:"のみます", meaning:"To drink", group:"Group I",
-    dictionary:"のむ", nai:"のまない", ta:"のんだ",
-    nakatta:"のまなかった", te:"のんで"
-  },
-  {
-    masu:"ききます", meaning:"To listen", group:"Group I",
-    dictionary:"きく", nai:"きかない", ta:"きいた",
-    nakatta:"きかなかった", te:"きいて"
-  },
-  {
-    masu:"かきます", meaning:"To write", group:"Group I",
-    dictionary:"かく", nai:"かかない", ta:"かいた",
-    nakatta:"かかなかった", te:"かいて"
-  },
-  {
-    masu:"よみます", meaning:"To read", group:"Group I",
-    dictionary:"よむ", nai:"よまない", ta:"よんだ",
-    nakatta:"よまなかった", te:"よんで"
-  },
-  {
-    masu:"はなします", meaning:"To speak / talk", group:"Group I",
-    dictionary:"はなす", nai:"はなさない", ta:"はなした",
-    nakatta:"はなさなかった", te:"はなして"
-  },
-  {
-    masu:"いきます", meaning:"To go", group:"Group I",
-    dictionary:"いく", nai:"いかない", ta:"いった",
-    nakatta:"いかなかった", te:"いって"
-  },
-  {
-    masu:"かえります", meaning:"To return", group:"Group I",
-    dictionary:"かえる", nai:"かえらない", ta:"かえった",
-    nakatta:"かえらなかった", te:"かえって"
-  },
-  {
-    masu:"あいます", meaning:"To meet", group:"Group I",
-    dictionary:"あう", nai:"あわない", ta:"あった",
-    nakatta:"あわなかった", te:"あって"
-  },
-  {
-    masu:"かいます", meaning:"To buy", group:"Group I",
-    dictionary:"かう", nai:"かわない", ta:"かった",
-    nakatta:"かわなかった", te:"かって"
-  },
-  {
-    masu:"とります", meaning:"To take a picture", group:"Group I",
-    dictionary:"とる", nai:"とらない", ta:"とった",
-    nakatta:"とらなかった", te:"とって"
-  },
-  {
-    masu:"まちます", meaning:"To wait", group:"Group I",
-    dictionary:"まつ", nai:"またない", ta:"まった",
-    nakatta:"またなかった", te:"まって"
-  },
-  {
-    masu:"わかります", meaning:"To understand", group:"Group I",
-    dictionary:"わかる", nai:"わからない", ta:"わかった",
-    nakatta:"わからなかった", te:"わかって"
-  },
-  {
-    masu:"あります", meaning:"To exist (non-living things)", group:"Group I",
-    dictionary:"ある", nai:"ない", ta:"あった",
-    nakatta:"なかった", te:"あって"
-  },
-  {
-    masu:"およぎます", meaning:"To swim", group:"Group I",
-    dictionary:"およぐ", nai:"およがない", ta:"およいだ",
-    nakatta:"およがなかった", te:"およいで"
-  },
-  {
-    masu:"ききます", meaning:"To ask (someone)", group:"Group I",
-    dictionary:"きく", nai:"きかない", ta:"きいた",
-    nakatta:"きかなかった", te:"きいて"
-  },
-  {
-    masu:"のります", meaning:"To ride / board", group:"Group I",
-    dictionary:"のる", nai:"のらない", ta:"のった",
-    nakatta:"のらなかった", te:"のって"
-  },
-  {
-    masu:"はいります", meaning:"To enter", group:"Group I",
-    dictionary:"はいる", nai:"はいらない", ta:"はいった",
-    nakatta:"はいらなかった", te:"はいって"
-  },
-  {
-    masu:"やります", meaning:"To do / perform", group:"Group I",
-    dictionary:"やる", nai:"やらない", ta:"やった",
-    nakatta:"やらなかった", te:"やって"
-  },
-  {
-    masu:"あそびます", meaning:"To play", group:"Group I",
-    dictionary:"あそぶ", nai:"あそばない", ta:"あそんだ",
-    nakatta:"あそばなかった", te:"あそんで"
-  },
-  {
-    masu:"いそぎます", meaning:"To hurry", group:"Group I",
-    dictionary:"いそぐ", nai:"いそがない", ta:"いそいだ",
-    nakatta:"いそがなかった", te:"いそいで"
-  },
-  {
-    masu:"かえします", meaning:"To return something to someone", group:"Group I",
-    dictionary:"かえす", nai:"かえさない", ta:"かえした",
-    nakatta:"かえさなかった", te:"かえして"
-  },
-  {
-    masu:"けします", meaning:"To turn off / erase", group:"Group I",
-    dictionary:"けす", nai:"けさない", ta:"けした",
-    nakatta:"けさなかった", te:"けして"
-  },
-  {
-    masu:"しにます", meaning:"To die", group:"Group I",
-    dictionary:"しぬ", nai:"しなない", ta:"しんだ",
-    nakatta:"しななかった", te:"しんで"
-  },
-  {
-    masu:"すいます", meaning:"To smoke / inhale", group:"Group I",
-    dictionary:"すう", nai:"すわない", ta:"すった",
-    nakatta:"すわなかった", te:"すって"
-  },
-  {
-    masu:"たちます", meaning:"To stand up", group:"Group I",
-    dictionary:"たつ", nai:"たたない", ta:"たった",
-    nakatta:"たたなかった", te:"たって"
-  },
-  {
-    masu:"すわります", meaning:"To sit down", group:"Group I",
-    dictionary:"すわる", nai:"すわらない", ta:"すわった",
-    nakatta:"すわらなかった", te:"すわって"
-  },
-  {
-    masu:"つかいます", meaning:"To use", group:"Group I",
-    dictionary:"つかう", nai:"つかわない", ta:"つかった",
-    nakatta:"つかわなかった", te:"つかって"
-  },
-  {
-    masu:"てつだいます", meaning:"To help", group:"Group I",
-    dictionary:"てつだう", nai:"てつだわない", ta:"てつだった",
-    nakatta:"てつだわなかった", te:"てつだって"
-  },
-  {
-    masu:"やすみます", meaning:"To rest / be absent", group:"Group I",
-    dictionary:"やすむ", nai:"やすまない", ta:"やすんだ",
-    nakatta:"やすまなかった", te:"やすんで"
-  },
-  {
-    masu:"もちます", meaning:"To hold / carry", group:"Group I",
-    dictionary:"もつ", nai:"もたない", ta:"もった",
-    nakatta:"もたなかった", te:"もって"
-  },
-
-  // GROUP II
-
-  {
-    masu:"います", meaning:"To exist (living things)", group:"Group II",
-    dictionary:"いる", nai:"いない", ta:"いた",
-    nakatta:"いなかった", te:"いて"
-  },
-  {
-    masu:"ねます", meaning:"To sleep", group:"Group II",
-    dictionary:"ねる", nai:"ねない", ta:"ねた",
-    nakatta:"ねなかった", te:"ねて"
-  },
-  {
-    masu:"みます", meaning:"To see / watch", group:"Group II",
-    dictionary:"みる", nai:"みない", ta:"みた",
-    nakatta:"みなかった", te:"みて"
-  },
-  {
-    masu:"たべます", meaning:"To eat", group:"Group II",
-    dictionary:"たべる", nai:"たべない", ta:"たべた",
-    nakatta:"たべなかった", te:"たべて"
-  },
-  {
-    masu:"でかけます", meaning:"To go out", group:"Group II",
-    dictionary:"でかける", nai:"でかけない", ta:"でかけた",
-    nakatta:"でかけなかった", te:"でかけて"
-  },
-  {
-    masu:"つけます", meaning:"To turn on", group:"Group II",
-    dictionary:"つける", nai:"つけない", ta:"つけた",
-    nakatta:"つけなかった", te:"つけて"
-  },
-  {
-    masu:"あけます", meaning:"To open", group:"Group II",
-    dictionary:"あける", nai:"あけない", ta:"あけた",
-    nakatta:"あけなかった", te:"あけて"
-  },
-  {
-    masu:"しめます", meaning:"To close", group:"Group II",
-    dictionary:"しめる", nai:"しめない", ta:"しめた",
-    nakatta:"しめなかった", te:"しめて"
-  },
-  {
-    masu:"おしえます", meaning:"To teach", group:"Group II",
-    dictionary:"おしえる", nai:"おしえない", ta:"おしえた",
-    nakatta:"おしえなかった", te:"おしえて"
-  },
-  {
-    masu:"わすれます", meaning:"To forget", group:"Group II",
-    dictionary:"わすれる", nai:"わすれない", ta:"わすれた",
-    nakatta:"わすれなかった", te:"わすれて"
-  },
-  {
-    masu:"あびます", meaning:"To take a shower", group:"Group II",
-    dictionary:"あびる", nai:"あびない", ta:"あびた",
-    nakatta:"あびなかった", te:"あびて"
-  },
-  {
-    masu:"おります", meaning:"To get off", group:"Group II",
-    dictionary:"おりる", nai:"おりない", ta:"おりた",
-    nakatta:"おりなかった", te:"おりて"
-  },
-  {
-    masu:"かります", meaning:"To borrow", group:"Group II",
-    dictionary:"かりる", nai:"かりない", ta:"かりた",
-    nakatta:"かりなかった", te:"かりて"
-  },
-  {
-    masu:"おきます", meaning:"To get up", group:"Group II",
-    dictionary:"おきる", nai:"おきない", ta:"おきた",
-    nakatta:"おきなかった", te:"おきて"
-  },
-
-  // GROUP III: IRREGULAR VERBS
-
-  {
-    masu:"します", meaning:"To do", group:"Group III · Irregular",
-    dictionary:"する", nai:"しない", ta:"した",
-    nakatta:"しなかった", te:"して"
-  },
-  {
-    masu:"べんきょうします", meaning:"To study", group:"Group III · Irregular",
-    dictionary:"べんきょうする", nai:"べんきょうしない",
-    ta:"べんきょうした", nakatta:"べんきょうしなかった",
-    te:"べんきょうして"
-  },
-  {
-    masu:"でんわします", meaning:"To call (by phone)", group:"Group III · Irregular",
-    dictionary:"でんわする", nai:"でんわしない", ta:"でんわした",
-    nakatta:"でんわしなかった", te:"でんわして"
-  },
-  {
-    masu:"きます", meaning:"To come", group:"Group III · Irregular",
-    dictionary:"くる", nai:"こない", ta:"きた",
-    nakatta:"こなかった", te:"きて"
-  },
-  {
-    masu:"もってきます", meaning:"To bring a thing", group:"Group III · Irregular",
-    dictionary:"もってくる", nai:"もってこない", ta:"もってきた",
-    nakatta:"もってこなかった", te:"もってきて"
-  },
-  {
-    masu:"つれてきます", meaning:"To bring a person", group:"Group III · Irregular",
-    dictionary:"つれてくる", nai:"つれてこない", ta:"つれてきた",
-    nakatta:"つれてこなかった", te:"つれてきて"
-  }
-];
-
-/* Give every entry a stable ID for sidebar navigation. */
-verbs.forEach((verb, index) => {
-  verb.id = index;
+/* Convert each row into a flashcard object with a stable ID. */
+Object.entries(sets).forEach(([setName, rows]) => {
+ sets[setName] = rows.map((row, index) => ({
+  id: `${setName}-${index}`,
+  masu: row[0], meaning: row[1], group: row[2],
+  dictionary: row[3], nai: row[4], ta: row[5],
+  nakatta: row[6], te: row[7]
+ }));
 });
 
-/* STUDY DECK */
-let deck = [...verbs];
+let currentSet = "1-6";
+let deck = [...sets[currentSet]];
 let currentIndex = 0;
 let isFlipped = false;
+let expanded = {"1-6":true,"7-12":true};
 
 const $ = id => document.getElementById(id);
+const currentVerb = () => deck[currentIndex];
 
-function currentVerb() {
-  return deck[currentIndex];
-}
-
-/* SIDEBAR INDEX
-   This always uses the original list, never the shuffled deck. */
 function renderSidebar() {
-  const list = $("verbList");
-  list.innerHTML = "";
+ const root = $("sidebarSets");
+ root.innerHTML = "";
 
-  verbs.forEach(verb => {
+ [
+  {key:"1-6", label:"Verbs 1–6"},
+  {key:"7-12", label:"Verbs 7–12"}
+ ].forEach(item => {
+  const wrap = document.createElement("section");
+
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "category-toggle" +
+    (currentSet === item.key ? " active" : "");
+  toggle.innerHTML = `<span>${item.label}</span><span>${expanded[item.key] ? "−" : "+"}</span>`;
+  toggle.addEventListener("click", () => {
+   expanded[item.key] = !expanded[item.key];
+   renderSidebar();
+  });
+  wrap.appendChild(toggle);
+
+  if (expanded[item.key]) {
+   const list = document.createElement("div");
+   list.className = "verb-list";
+
+   sets[item.key].forEach(verb => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "verb-item";
     button.classList.toggle(
       "active",
-      verb.id === currentVerb().id
+      currentSet === item.key && currentVerb().id === verb.id
     );
 
     const jp = document.createElement("span");
@@ -791,153 +325,146 @@ function renderSidebar() {
     en.textContent = verb.meaning;
 
     button.append(jp, en);
-
     button.addEventListener("click", () => {
-      const index = deck.findIndex(item => item.id === verb.id);
-      if (index !== -1) {
-        currentIndex = index;
-        isFlipped = false;
-        render();
-      }
+     if (currentSet !== item.key) switchSet(item.key);
+     const found = deck.findIndex(v => v.id === verb.id);
+     if (found !== -1) {
+      currentIndex = found;
+      isFlipped = false;
+      render();
+     }
     });
-
     list.appendChild(button);
-  });
+   });
+   wrap.appendChild(list);
+  }
+  root.appendChild(wrap);
+ });
 }
 
-/* FLASHCARD */
 function renderCard() {
-  const verb = currentVerb();
+ const verb = currentVerb();
+ $("japanese").textContent = verb.masu;
+ $("answer").hidden = !isFlipped;
+ $("cardLabel").textContent = isFlipped
+  ? "Translation & verb forms" : "Masu form";
+ $("flipBtn").textContent = isFlipped
+  ? "↩ Hide answer" : "See answer ↗";
 
-  $("japanese").textContent = verb.masu;
-  $("answer").hidden = !isFlipped;
+ if (!isFlipped) return;
 
-  $("cardLabel").textContent = isFlipped
-    ? "Translation & verb forms"
-    : "Masu form";
+ $("meaning").textContent = verb.meaning;
+ $("groupLabel").textContent = `Group ${verb.group}`;
 
-  $("flipBtn").textContent = isFlipped
-    ? "↩ Hide answer"
-    : "See answer ↗";
+ const forms = $("forms");
+ forms.innerHTML = "";
 
-  if (!isFlipped) return;
-
-  $("meaning").textContent = verb.meaning;
-  $("groupLabel").textContent = verb.group;
-
-  const formItems = [
-    ["Dictionary Form", verb.dictionary],
-    ["Nai Form", verb.nai],
-    ["Ta Form", verb.ta],
-    ["Nakatta Form", verb.nakatta],
-    ["Te Form", verb.te]
-  ];
-
-  const forms = $("forms");
-  forms.innerHTML = "";
-
-  formItems.forEach(([label, value]) => {
-    const box = document.createElement("div");
-    box.className = "form-box";
-
-    const name = document.createElement("div");
-    name.className = "form-name";
-    name.textContent = label;
-
-    const val = document.createElement("div");
-    val.className = "form-value";
-    val.textContent = value;
-
-    box.append(name, val);
-    forms.appendChild(box);
-  });
+ [
+  ["Dictionary Form",verb.dictionary],
+  ["Nai Form",verb.nai],
+  ["Ta Form",verb.ta],
+  ["Nakatta Form",verb.nakatta],
+  ["Te Form",verb.te]
+ ].forEach(([label,value]) => {
+  const box = document.createElement("div");
+  box.className = "form-box";
+  const name = document.createElement("div");
+  name.className = "form-name";
+  name.textContent = label;
+  const val = document.createElement("div");
+  val.className = "form-value";
+  val.textContent = value;
+  box.append(name,val);
+  forms.appendChild(box);
+ });
 }
 
-/* PROGRESS */
 function renderProgress() {
-  const total = deck.length;
-  const number = currentIndex + 1;
-  const percent = Math.round(number / total * 100);
+ const total = deck.length;
+ const number = currentIndex + 1;
+ const percent = Math.round(number / total * 100);
+ $("progressText").textContent = `Card ${number} of ${total}`;
+ $("percentText").textContent = `${percent}% through this set`;
+ $("progressFill").style.width = `${percent}%`;
+ $("prevBtn").disabled = currentIndex === 0;
+ $("nextBtn").disabled = currentIndex === total - 1;
+}
 
-  $("progressText").textContent =
-    `Card ${number} of ${total}`;
-
-  $("percentText").textContent =
-    `${percent}% through deck`;
-
-  $("progressFill").style.width = `${percent}%`;
-
-  $("prevBtn").disabled = currentIndex === 0;
-  $("nextBtn").disabled = currentIndex === total - 1;
+function renderSetPicker() {
+ document.querySelectorAll(".set-option").forEach(button => {
+  button.classList.toggle("active", button.dataset.set === currentSet);
+ });
 }
 
 function render() {
-  renderCard();
-  renderProgress();
-  renderSidebar();
+ renderSetPicker();
+ renderCard();
+ renderProgress();
+ renderSidebar();
 }
 
-/* FLIP */
-$("flipBtn").addEventListener("click", () => {
-  isFlipped = !isFlipped;
-  render();
+function switchSet(setName) {
+ currentSet = setName;
+ deck = [...sets[currentSet]];
+ currentIndex = 0;
+ isFlipped = false;
+ render();
+}
+
+document.querySelectorAll(".set-option").forEach(button => {
+ button.addEventListener("click", () => switchSet(button.dataset.set));
 });
 
-/* NEXT */
-$("nextBtn").addEventListener("click", () => {
-  if (currentIndex < deck.length - 1) {
-    currentIndex++;
-    isFlipped = false;
-    render();
-  }
-});
-
-/* PREVIOUS */
-$("prevBtn").addEventListener("click", () => {
-  if (currentIndex > 0) {
-    currentIndex--;
-    isFlipped = false;
-    render();
-  }
-});
-
-/* REVIEW: add a copy of the current verb to the end */
-$("reviewBtn").addEventListener("click", () => {
-  const verbToReview = currentVerb();
-  deck.push(verbToReview);
-  currentIndex = deck.length - 1;
-  isFlipped = false;
-  render();
-});
-
-/* SHUFFLE: shuffle all original verbs, removing review duplicates */
-$("shuffleBtn").addEventListener("click", () => {
-  deck = [...verbs];
-
-  for (let i = deck.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [deck[i], deck[j]] = [deck[j], deck[i]];
-  }
-
-  currentIndex = 0;
-  isFlipped = false;
-  render();
-});
-
-/* RESTART: restore the original order */
-$("restartBtn").addEventListener("click", () => {
-  deck = [...verbs];
-  currentIndex = 0;
-  isFlipped = false;
-  render();
-});
-
-/* COLLAPSIBLE SIDEBAR */
 $("toggleSidebar").addEventListener("click", () => {
-  $("app").classList.toggle("sidebar-collapsed");
+ $("app").classList.toggle("sidebar-collapsed");
 });
 
-/* INITIAL RENDER */
+$("flipBtn").addEventListener("click", () => {
+ isFlipped = !isFlipped;
+ render();
+});
+
+$("nextBtn").addEventListener("click", () => {
+ if (currentIndex < deck.length - 1) {
+  currentIndex++;
+  isFlipped = false;
+  render();
+ }
+});
+
+$("prevBtn").addEventListener("click", () => {
+ if (currentIndex > 0) {
+  currentIndex--;
+  isFlipped = false;
+  render();
+ }
+});
+
+$("reviewBtn").addEventListener("click", () => {
+ deck.push(currentVerb());
+ currentIndex = deck.length - 1;
+ isFlipped = false;
+ render();
+});
+
+$("shuffleBtn").addEventListener("click", () => {
+ deck = [...sets[currentSet]];
+ for (let i = deck.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [deck[i],deck[j]] = [deck[j],deck[i]];
+ }
+ currentIndex = 0;
+ isFlipped = false;
+ render();
+});
+
+$("restartBtn").addEventListener("click", () => {
+ deck = [...sets[currentSet]];
+ currentIndex = 0;
+ isFlipped = false;
+ render();
+});
+
 render();
 </script>
 </body>
