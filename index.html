@@ -13,7 +13,7 @@
 <section class="set-picker"><label>What do you want to revise?</label><div class="set-options"><button class="set-option active" data-set="1-6"><strong>Verbs 1–6</strong><span>Verb conjugation</span></button><button class="set-option" data-set="7-12"><strong>Verbs 7–12</strong><span>Verb conjugation</span></button><button class="set-option" data-set="kanji"><strong>N5 Kanji with Words</strong><span>Word and character meanings</span></button></div></section>
 <section class="progress-area"><div class="progress-label"><span id="progressText"></span><span id="percentText"></span></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></section>
 <section class="flashcard" aria-live="polite"><div class="card-label" id="cardLabel">Masu form</div><div class="japanese" id="japanese"></div><div class="answer" id="answer" hidden><div class="reading" id="reading"></div><div class="meaning" id="meaning"></div><div class="group-label" id="groupLabel"></div><div class="section-label" id="formsLabel">Conjugations</div><div class="forms" id="forms"></div><div class="section-label" id="breakdownLabel" hidden>Kanji breakdown</div><div class="kanji-breakdown" id="kanjiBreakdown"></div></div></section>
-<div class="flip-row"><button class="button primary" id="flipBtn">See answer ↗</button></div><div class="controls"><button class="button" id="prevBtn">← Previous</button><button class="button" id="reviewBtn">↻ Review</button><button class="button primary" id="nextBtn">Next →</button><button class="button" id="restartBtn">Restart</button></div><p class="tip">Try to recall the answer before flipping. Use Review to add a difficult card to the end of the current set.</p></main></div>
+<div class="flip-row"><button class="button primary" id="flipBtn">See answer ↗</button></div><div class="controls"><button class="button" id="prevBtn">← Previous</button><button class="button" id="reviewBtn">↻ Review</button><button class="button primary" id="nextBtn">Next →</button><button class="button" id="restartBtn">Restart</button></div><p class="tip">Try to recall the answer before flipping. Mark difficult cards with Review; they appear after you finish the original set.</p></main></div>
 <script>
 const makeVerb=(masu,meaning,group,dictionary,nai,ta,nakatta,te)=>({masu,meaning,group,dictionary,nai,ta,nakatta,te});
 const sets={
@@ -37,14 +37,317 @@ K("上","うえ","Up / on top",[["上","うえ","above / top"]]),K("下","した
 ];
 
 // Attach stable identifiers and readings to every study set.
-Object.entries(sets).forEach(([name,rows])=>sets[name]=rows.map((v,i)=>({...v,id:name+'-'+i,reading:v.masu})));
-sets.kanji=kanji.map((v,i)=>({...v,id:'kanji-'+i,masu:v.word,group:'Kanji'}));
-const setInfo={'1-6':'Verbs 1–6','7-12':'Verbs 7–12','kanji':'N5 Kanji with Words'};
-let currentSet='1-6',deck=[...sets[currentSet]],currentIndex=0,isFlipped=false;
-const $=id=>document.getElementById(id),currentVerb=()=>deck[currentIndex];
-function switchSet(key){currentSet=key;deck=[...sets[key]];currentIndex=0;isFlipped=false;render()}
-function renderSidebar(){const root=$('sidebarSets');root.innerHTML='';Object.keys(setInfo).forEach(key=>{const toggle=document.createElement('button');toggle.className='category-toggle'+(currentSet===key?' active':'');toggle.innerHTML=`<span>${setInfo[key]}</span><span>›</span>`;toggle.addEventListener('click',()=>switchSet(key));root.appendChild(toggle);if(currentSet===key){const list=document.createElement('div');list.className='verb-list';sets[key].forEach((v,i)=>{const b=document.createElement('button');b.className='verb-item'+(i===currentIndex?' active':'');const jp=document.createElement('span');jp.className='verb-jp';jp.textContent=key==='kanji'?v.word:v.masu;const en=document.createElement('span');en.className='verb-en';en.textContent=v.meaning;b.append(jp,en);b.addEventListener('click',()=>{currentIndex=i;isFlipped=false;render()});list.appendChild(b)});root.appendChild(list)}})}
-function renderCard(){const v=currentVerb(),isKanji=currentSet==='kanji';$('pageTitle').textContent=isKanji?'N5 Kanji with Words':'Verb Flashcards';$('japanese').textContent=isKanji?v.word:v.masu;$('answer').hidden=!isFlipped;$('cardLabel').textContent=isFlipped?(isKanji?'Word meaning & kanji breakdown':'Translation & verb forms'):(isKanji?'Kanji word':'Masu form');$('flipBtn').textContent=isFlipped?'↩ Hide answer':'See answer ↗';$('reading').hidden=!isKanji;$('meaning').textContent=v.meaning;$('groupLabel').textContent=isKanji?'Vocabulary meaning':`Group ${v.group}`;$('formsLabel').hidden=isKanji;$('forms').hidden=isKanji;$('breakdownLabel').hidden=!isKanji;$('kanjiBreakdown').hidden=!isKanji;if(isKanji){$('reading').textContent=v.reading;$('forms').innerHTML='';const box=$('kanjiBreakdown');box.innerHTML='';if(!v.chars||!v.chars.length){const note=document.createElement('div');note.className='form-box';note.textContent='The PDF provides the word reading and meaning but does not provide a clear character-by-character breakdown for this entry.';box.appendChild(note)}else v.chars.forEach(([symbol,reading,meaning])=>{const c=document.createElement('div');c.className='char-box';const s=document.createElement('div');s.className='char-symbol';s.textContent=symbol;const r=document.createElement('div');r.className='char-reading';r.textContent=reading;const m=document.createElement('div');m.className='char-meaning';m.textContent=meaning;c.append(s,r,m);box.appendChild(c)});}else{$('reading').textContent='';const forms=$('forms');forms.innerHTML='';[['Dictionary Form',v.dictionary],['Nai Form',v.nai],['Ta Form',v.ta],['Nakatta Form',v.nakatta],['Te Form',v.te]].forEach(([label,value])=>{const b=document.createElement('div');b.className='form-box';const n=document.createElement('div');n.className='form-name';n.textContent=label;const x=document.createElement('div');x.className='form-value';x.textContent=value;b.append(n,x);forms.appendChild(b)})}}
-function render(){const total=deck.length,n=currentIndex+1;renderCard();renderSidebar();document.querySelectorAll('.set-option').forEach(b=>b.classList.toggle('active',b.dataset.set===currentSet));$('progressText').textContent=`Card ${n} of ${total}`;$('percentText').textContent=`${Math.round(n/total*100)}% through set`;$('progressFill').style.width=`${n/total*100}%`;$('prevBtn').disabled=currentIndex===0;$('nextBtn').disabled=currentIndex===total-1}
-document.querySelectorAll('.set-option').forEach(b=>b.addEventListener('click',()=>switchSet(b.dataset.set)));$('toggleSidebar').addEventListener('click',()=>$('app').classList.toggle('sidebar-collapsed'));$('flipBtn').addEventListener('click',()=>{isFlipped=!isFlipped;render()});$('nextBtn').addEventListener('click',()=>{if(currentIndex<deck.length-1){currentIndex++;isFlipped=false;render()}});$('prevBtn').addEventListener('click',()=>{if(currentIndex>0){currentIndex--;isFlipped=false;render()}});$('reviewBtn').addEventListener('click',()=>{deck.push(currentVerb());currentIndex=deck.length-1;isFlipped=false;render()});$('shuffleBtn').addEventListener('click',()=>{deck=[...sets[currentSet]];for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]]}currentIndex=0;isFlipped=false;render()});$('restartBtn').addEventListener('click',()=>{deck=[...sets[currentSet]];currentIndex=0;isFlipped=false;render()});render();
+Object.entries(sets).forEach(([name, rows]) => {
+  sets[name] = rows.map((v, i) => ({ ...v, id: name + "-" + i, reading: v.masu }));
+});
+sets.kanji = kanji.map((v, i) => ({ ...v, id: "kanji-" + i, masu: v.word, group: "Kanji" }));
+
+const setInfo = {
+  "1-6": "Verbs 1–6",
+  "7-12": "Verbs 7–12",
+  kanji: "N5 Kanji with Words"
+};
+
+let currentSet = "1-6";
+let originalDeck = [...sets[currentSet]];
+let deck = [...originalDeck];
+let currentIndex = 0;
+let isFlipped = false;
+let reviewIds = new Set();
+let reviewQueue = [];
+let reviewIndex = 0;
+let reviewMode = false;
+let completedOriginalDeck = false;
+
+const $ = id => document.getElementById(id);
+const currentVerb = () => deck[currentIndex];
+
+function switchSet(key) {
+  currentSet = key;
+  originalDeck = [...sets[key]];
+  deck = [...originalDeck];
+  currentIndex = 0;
+  isFlipped = false;
+  reviewIds = new Set();
+  reviewQueue = [];
+  reviewIndex = 0;
+  reviewMode = false;
+  completedOriginalDeck = false;
+  render();
+}
+
+function renderSidebar() {
+  const root = $("sidebarSets");
+  root.innerHTML = "";
+
+  Object.keys(setInfo).forEach(key => {
+    const toggle = document.createElement("button");
+    toggle.className = "category-toggle" + (currentSet === key ? " active" : "");
+    toggle.innerHTML = `<span>${setInfo[key]}</span><span>›</span>`;
+    toggle.addEventListener("click", () => switchSet(key));
+    root.appendChild(toggle);
+
+    if (currentSet === key) {
+      const list = document.createElement("div");
+      list.className = "verb-list";
+
+      // Keep the sidebar list stable and in the source order, even when shuffled.
+      sets[key].forEach((v, i) => {
+        const b = document.createElement("button");
+        b.className = "verb-item" + (
+          (!reviewMode && deck[currentIndex]?.id === v.id) ||
+          (reviewMode && reviewQueue[reviewIndex]?.id === v.id) ? " active" : ""
+        );
+
+        const jp = document.createElement("span");
+        jp.className = "verb-jp";
+        jp.textContent = key === "kanji" ? v.word : v.masu;
+
+        const en = document.createElement("span");
+        en.className = "verb-en";
+        en.textContent = v.meaning;
+
+        b.append(jp, en);
+        b.addEventListener("click", () => {
+          // Choosing a sidebar item returns to the original deck.
+          reviewMode = false;
+          currentIndex = Math.max(0, deck.findIndex(item => item.id === v.id));
+          if (currentIndex < 0) currentIndex = i;
+          isFlipped = false;
+          render();
+        });
+        list.appendChild(b);
+      });
+      root.appendChild(list);
+    }
+  });
+}
+
+function renderCard() {
+  const v = reviewMode ? reviewQueue[reviewIndex] : currentVerb();
+  if (!v) return;
+
+  const isKanji = currentSet === "kanji";
+  $("pageTitle").textContent = isKanji ? "N5 Kanji with Words" : "Verb Flashcards";
+  $("japanese").textContent = isKanji ? v.word : v.masu;
+  $("answer").hidden = !isFlipped;
+  $("cardLabel").textContent = isFlipped
+    ? (isKanji ? "Word meaning & kanji breakdown" : "Translation & verb forms")
+    : (isKanji ? "Kanji word" : "Masu form");
+  $("flipBtn").textContent = isFlipped ? "↩ Hide answer" : "See answer ↗";
+  $("reading").hidden = !isKanji;
+  $("meaning").textContent = v.meaning;
+  $("groupLabel").textContent = isKanji ? "Vocabulary meaning" : `Group ${v.group}`;
+  $("formsLabel").hidden = isKanji;
+  $("forms").hidden = isKanji;
+  $("breakdownLabel").hidden = !isKanji;
+  $("kanjiBreakdown").hidden = !isKanji;
+
+  if (isKanji) {
+    $("reading").textContent = v.reading;
+    $("forms").innerHTML = "";
+    const box = $("kanjiBreakdown");
+    box.innerHTML = "";
+    if (!v.chars || !v.chars.length) {
+      const note = document.createElement("div");
+      note.className = "form-box";
+      note.textContent = "The source sheet does not provide a clear character-by-character breakdown for this entry.";
+      box.appendChild(note);
+    } else {
+      v.chars.forEach(([symbol, reading, meaning]) => {
+        const c = document.createElement("div");
+        c.className = "char-box";
+        const s = document.createElement("div");
+        s.className = "char-symbol";
+        s.textContent = symbol;
+        const r = document.createElement("div");
+        r.className = "char-reading";
+        r.textContent = reading;
+        const m = document.createElement("div");
+        m.className = "char-meaning";
+        m.textContent = meaning;
+        c.append(s, r, m);
+        box.appendChild(c);
+      });
+    }
+  } else {
+    $("reading").textContent = "";
+    const forms = $("forms");
+    forms.innerHTML = "";
+    [["Dictionary Form", v.dictionary], ["Nai Form", v.nai], ["Ta Form", v.ta],
+     ["Nakatta Form", v.nakatta], ["Te Form", v.te]].forEach(([label, value]) => {
+      const b = document.createElement("div");
+      b.className = "form-box";
+      const n = document.createElement("div");
+      n.className = "form-name";
+      n.textContent = label;
+      const x = document.createElement("div");
+      x.className = "form-value";
+      x.textContent = value;
+      b.append(n, x);
+      forms.appendChild(b);
+    });
+  }
+}
+
+function render() {
+  const total = reviewMode ? reviewQueue.length : originalDeck.length;
+  const n = reviewMode ? reviewIndex + 1 : currentIndex + 1;
+
+  renderCard();
+  renderSidebar();
+  document.querySelectorAll(".set-option").forEach(b =>
+    b.classList.toggle("active", b.dataset.set === currentSet)
+  );
+
+  if (reviewMode) {
+    $("progressText").textContent = `Review ${n} of ${total}`;
+    $("percentText").textContent = "Reviewing marked cards";
+  } else if (completedOriginalDeck) {
+    $("progressText").textContent = "Original deck complete";
+    $("percentText").textContent = reviewIds.size ? `${reviewIds.size} card(s) marked for review` : "All done";
+  } else {
+    $("progressText").textContent = `Card ${n} of ${total}`;
+    $("percentText").textContent = `${Math.round(n / total * 100)}% through set`;
+  }
+
+  $("progressFill").style.width = total ? `${Math.min(100, n / total * 100)}%` : "0%";
+  $("prevBtn").disabled = reviewMode ? reviewIndex === 0 : currentIndex === 0;
+  $("nextBtn").disabled = reviewMode
+    ? reviewIndex === reviewQueue.length - 1
+    : currentIndex === originalDeck.length - 1 && !reviewIds.size && !completedOriginalDeck;
+
+  $("reviewBtn").textContent = reviewIds.has((reviewMode ? reviewQueue[reviewIndex] : currentVerb())?.id)
+    ? "✓ Marked"
+    : "↻ Review";
+
+  if (reviewMode && reviewIndex === reviewQueue.length - 1) {
+    $("nextBtn").textContent = "Finish review";
+  } else if (!reviewMode && currentIndex === originalDeck.length - 1 && reviewIds.size) {
+    $("nextBtn").textContent = "Start review →";
+    $("nextBtn").disabled = false;
+  } else if (completedOriginalDeck && !reviewMode) {
+    $("nextBtn").textContent = "Finished";
+    $("nextBtn").disabled = true;
+  } else {
+    $("nextBtn").textContent = "Next →";
+  }
+}
+
+function startReview() {
+  reviewQueue = originalDeck.filter(v => reviewIds.has(v.id));
+  if (!reviewQueue.length) {
+    completedOriginalDeck = true;
+    reviewMode = false;
+    render();
+    return;
+  }
+  reviewMode = true;
+  reviewIndex = 0;
+  isFlipped = false;
+  render();
+}
+
+document.querySelectorAll(".set-option").forEach(b =>
+  b.addEventListener("click", () => switchSet(b.dataset.set))
+);
+$("toggleSidebar").addEventListener("click", () => $("app").classList.toggle("sidebar-collapsed"));
+$("flipBtn").addEventListener("click", () => {
+  isFlipped = !isFlipped;
+  render();
+});
+$("nextBtn").addEventListener("click", () => {
+  if (reviewMode) {
+    if (reviewIndex < reviewQueue.length - 1) {
+      reviewIndex++;
+      isFlipped = false;
+      render();
+    } else {
+      reviewMode = false;
+      completedOriginalDeck = true;
+      reviewQueue = [];
+      reviewIndex = 0;
+      render();
+    }
+    return;
+  }
+
+  if (currentIndex < originalDeck.length - 1) {
+    currentIndex++;
+    isFlipped = false;
+    render();
+  } else if (reviewIds.size) {
+    startReview();
+  } else {
+    completedOriginalDeck = true;
+    render();
+  }
+});
+$("prevBtn").addEventListener("click", () => {
+  if (reviewMode) {
+    if (reviewIndex > 0) {
+      reviewIndex--;
+      isFlipped = false;
+      render();
+    }
+  } else if (currentIndex > 0) {
+    currentIndex--;
+    completedOriginalDeck = false;
+    isFlipped = false;
+    render();
+  }
+});
+$("reviewBtn").addEventListener("click", () => {
+  const v = reviewMode ? reviewQueue[reviewIndex] : currentVerb();
+  if (!v) return;
+
+  // Toggle a stable ID in a set: marking a card never inserts it into the main deck.
+  if (reviewIds.has(v.id)) reviewIds.delete(v.id);
+  else reviewIds.add(v.id);
+
+  // If the user changes a mark while in review, rebuild the remaining queue.
+  if (reviewMode) {
+    const currentId = reviewQueue[reviewIndex]?.id;
+    reviewQueue = originalDeck.filter(item => reviewIds.has(item.id));
+    const found = reviewQueue.findIndex(item => item.id === currentId);
+    if (!reviewQueue.length) {
+      reviewMode = false;
+      completedOriginalDeck = true;
+      reviewIndex = 0;
+    } else {
+      reviewIndex = found >= 0 ? found : Math.min(reviewIndex, reviewQueue.length - 1);
+    }
+  }
+  isFlipped = false;
+  render();
+});
+$("shuffleBtn").addEventListener("click", () => {
+  originalDeck = [...sets[currentSet]];
+  for (let i = originalDeck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [originalDeck[i], originalDeck[j]] = [originalDeck[j], originalDeck[i]];
+  }
+  deck = [...originalDeck];
+  currentIndex = 0;
+  isFlipped = false;
+  reviewMode = false;
+  reviewQueue = [];
+  reviewIndex = 0;
+  completedOriginalDeck = false;
+  reviewIds = new Set([...reviewIds].filter(id => originalDeck.some(v => v.id === id)));
+  render();
+});
+$("restartBtn").addEventListener("click", () => {
+  originalDeck = [...sets[currentSet]];
+  deck = [...originalDeck];
+  currentIndex = 0;
+  isFlipped = false;
+  reviewIds = new Set();
+  reviewQueue = [];
+  reviewIndex = 0;
+  reviewMode = false;
+  completedOriginalDeck = false;
+  render();
+});
+render();
 </script></body></html>
