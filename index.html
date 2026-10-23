@@ -14,7 +14,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap');
 :root{--bg:#b8d8cf;--white:#e9f5e9;--text:#17252b;--muted:#50686b;--border:#1d3339;--accent:#d9272e;--light:#c7e6d7;--sidebar:#172328}
 html{background:#b8d8cf}
-body{font-family:'Nunito',system-ui,sans-serif;background:#b8d8cf url('assets/pixel-landscape.png') center center/cover fixed;color:var(--text);min-height:100vh}
+body{font-family:'Nunito',system-ui,sans-serif;background:#b8d8cf url('assets/pixel-landscape.svg') center center/cover fixed;color:var(--text);min-height:100vh}
 body:before{content:"";position:fixed;inset:0;background:linear-gradient(#152a3010,#152a301c);pointer-events:none;z-index:0}
 .app{position:relative;z-index:1;min-height:100vh;padding:20px 22px 26px 300px}
 .sidebar{width:270px;left:20px;top:20px;bottom:20px;height:auto;padding:22px 15px;background:linear-gradient(155deg,#27373c,#11191d);border:5px solid #b91f27;border-radius:24px;box-shadow:inset 0 0 0 2px #ff7777,0 8px 0 #78171c,0 14px 30px #10242b60;color:#f5fbf7}
@@ -59,7 +59,7 @@ h1{font-family:'Press Start 2P',monospace;font-size:clamp(14px,1.7vw,22px);line-
 .level-btn.selected{outline:4px solid #17252a;outline-offset:2px;transform:translateY(-2px)}
 .status-tag{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border:2px solid #24383d;border-radius:5px;font-size:10px;font-weight:900;letter-spacing:.4px;margin:0 auto 14px}
 .status-mastered{background:#20a65a;color:#fff}.status-intermediate{background:#ffd84b;color:#20251e}.status-needs{background:#ef5350;color:#fff}
-.completion-panel{max-width:850px;margin:18px auto;padding:28px 20px;background:#e8f5eb url('assets/pixel-landscape.png') center/cover;border:5px solid #172b31;border-radius:12px;text-align:center;box-shadow:0 0 0 4px #e53b40,0 7px 0 #70171c;position:relative}
+.completion-panel{max-width:850px;margin:18px auto;padding:28px 20px;background:#e8f5eb url('assets/pixel-landscape.svg') center/cover;border:5px solid #172b31;border-radius:12px;text-align:center;box-shadow:0 0 0 4px #e53b40,0 7px 0 #70171c;position:relative}
 .completion-panel h2{font-family:'Press Start 2P',monospace;font-size:clamp(14px,2.5vw,22px);line-height:1.9;color:#b91f27;text-shadow:1px 1px #fff}
 .completion-panel p{font-weight:900;background:#e8f5ebdd;display:table;margin:10px auto;padding:5px 10px;border-radius:4px}
 .controls{max-width:850px}.controls .button{min-height:42px}
@@ -72,6 +72,7 @@ h1{font-family:'Press Start 2P',monospace;font-size:clamp(14px,1.7vw,22px);line-
 
 <style id="device-panel-layout">
 .device-status{position:absolute;top:36px;right:24px;width:190px;display:grid;gap:12px;color:#e9f5e9}
+.completion-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px}.completion-actions button{margin:0}
 .device-status-card{padding:14px;background:linear-gradient(145deg,#1d2d33,#0e171b);border:3px solid #071216;border-radius:13px;box-shadow:inset 0 0 0 2px #4b6870,0 3px 0 #74171c;font-size:12px;line-height:1.6}
 .device-status-heading{font-family:'Press Start 2P',monospace;font-size:7px;line-height:1.8;color:#b7d7d6;margin-bottom:9px}
 .mini-progress{height:12px;border:2px solid #a7c5bb;border-radius:4px;background:#263a40;overflow:hidden;margin-bottom:8px}
@@ -85,7 +86,7 @@ h1{font-family:'Press Start 2P',monospace;font-size:clamp(14px,1.7vw,22px);line-
 <main class="main"><header class="topbar"><div class="header-left"><button class="button icon-button" id="toggleSidebar" aria-label="Toggle sidebar">☰</button><div><div class="eyebrow">POKÉDEX · N5 VOCABULARY</div><h1 id="pageTitle">Verb Flashcards</h1><div class="description">Register entries. Reveal answers. Master your set.</div></div></div><button class="button" id="shuffleBtn">🔀 Shuffle</button></header>
 <section class="set-picker"><label>SELECT A POKÉDEX CATEGORY</label><div class="set-options"><button class="set-option active" data-set="1-6"><strong>Verbs 1–6</strong><span>Verb conjugation</span></button><button class="set-option" data-set="7-12"><strong>Verbs 7–12</strong><span>Verb conjugation</span></button><button class="set-option" data-set="kanji"><strong>N5 Kanji with Words</strong><span>Word and character meanings</span></button></div></section>
 <section class="progress-area"><div class="progress-label"><span id="progressText"></span><span id="percentText"></span></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></section>
-<div id="completionPanel" class="completion-panel" hidden><h2>ENTRY COMPLETE!</h2><p id="completionMessage">You have completed this Pokédex set.</p><p>お疲れ様でした！</p><button class="button primary" id="completionReviewBtn">Review marked entries</button></div><section class="flashcard" aria-live="polite"><div id="statusTag" class="status-tag" hidden></div><div class="card-label" id="cardLabel">Masu form</div><div class="japanese" id="japanese"></div><div class="answer" id="answer" hidden><div class="reading" id="reading"></div><div class="meaning" id="meaning"></div><div class="group-label" id="groupLabel"></div><div class="section-label" id="formsLabel">Conjugations</div><div class="forms" id="forms"></div><div class="section-label" id="breakdownLabel" hidden>Kanji breakdown</div><div class="kanji-breakdown" id="kanjiBreakdown"></div></div></section>
+<div id="completionPanel" class="completion-panel" hidden><h2>ENTRY COMPLETE!</h2><p id="completionMessage">You have completed this Pokédex set.</p><p>お疲れ様でした！</p><div class="completion-actions"><button class="button primary" id="completionReviewBtn">↻ Review marked entries</button><button class="button" id="completionRestartBtn">⚡ Start a new adventure</button></div></div><section class="flashcard" aria-live="polite"><div id="statusTag" class="status-tag" hidden></div><div class="card-label" id="cardLabel">Masu form</div><div class="japanese" id="japanese"></div><div class="answer" id="answer" hidden><div class="reading" id="reading"></div><div class="meaning" id="meaning"></div><div class="group-label" id="groupLabel"></div><div class="section-label" id="formsLabel">Conjugations</div><div class="forms" id="forms"></div><div class="section-label" id="breakdownLabel" hidden>Kanji breakdown</div><div class="kanji-breakdown" id="kanjiBreakdown"></div></div></section>
 <div class="flip-row"><button class="button primary" id="flipBtn">◉ SEE ANSWER</button></div>
 <div class="learning-levels" id="learningLevels" aria-label="Choose your learning level">
 <button class="level-btn level-mastered" data-level="mastered">✓ MASTERED<small>I remembered it correctly</small></button>
@@ -312,7 +313,9 @@ function render() {
   if ($("sideCurrentWord")) $("sideCurrentWord").textContent = shownCard ? (currentSet === "kanji" ? shownCard.word : shownCard.masu) : "Set complete";
   if ($("sideStudyMode")) $("sideStudyMode").textContent = reviewMode ? "Review round" : completedOriginalDeck ? "Set complete" : "Learning · First round";
   $("completionPanel").hidden = !completedOriginalDeck || reviewMode;
-  $("completionMessage").textContent = `${setInfo[currentSet]} complete. ${reviewIds.size ? reviewIds.size + " entries queued for revision." : "All entries mastered for this session."}`;
+  $("completionMessage").textContent = `${setInfo[currentSet]} complete. ${reviewIds.size ? reviewIds.size + " entries still need a review." : "All entries mastered for this session."}`;
+  $("completionReviewBtn").disabled = reviewIds.size === 0;
+  $("completionReviewBtn").textContent = reviewIds.size ? `↻ Review marked entries (${reviewIds.size})` : "✓ No marked entries to review";
   $("learningLevels").hidden = completedOriginalDeck && !reviewMode;
   $("flipBtn").hidden = completedOriginalDeck && !reviewMode;
   $("prevBtn").hidden = completedOriginalDeck && !reviewMode;
@@ -344,7 +347,7 @@ function render() {
 
 function startReview() {
   reviewQueue = originalDeck.filter(v => reviewIds.has(v.id))
-    .sort((a,b) => (cardLevels.get(b.id)==="needs" ? 1 : 0) - (cardLevels.get(a.id)==="needs" ? 1 : 0));
+    .sort((a,b) => (cardLevels.get(a.id)==="needs" ? -1 : 0) - (cardLevels.get(b.id)==="needs" ? -1 : 0));
   if (!reviewQueue.length) {
     completedOriginalDeck = true;
     reviewMode = false;
@@ -430,8 +433,26 @@ $("prevBtn").addEventListener("click", () => {
   }
 });
 $("completionReviewBtn").addEventListener("click", () => {
-  if (reviewIds.size) startReview();
+  if (!reviewIds.size) return;
+  // Build a fresh, finite review round from the entries still marked.
+  reviewMode = false;
+  completedOriginalDeck = true;
+  startReview();
 });
+function restartAdventure() {
+  originalDeck = [...sets[currentSet]];
+  deck = [...originalDeck];
+  currentIndex = 0;
+  isFlipped = false;
+  reviewIds = new Set();
+  cardLevels.clear();
+  reviewQueue = [];
+  reviewIndex = 0;
+  reviewMode = false;
+  completedOriginalDeck = false;
+  render();
+}
+$("completionRestartBtn").addEventListener("click", restartAdventure);
 $("soundBtn").addEventListener("click", () => {
   soundEnabled = !soundEnabled;
   if (soundEnabled) playTone("select");
@@ -453,18 +474,6 @@ $("shuffleBtn").addEventListener("click", () => {
   reviewIds = new Set([...reviewIds].filter(id => originalDeck.some(v => v.id === id)));
   render();
 });
-$("restartBtn").addEventListener("click", () => {
-  originalDeck = [...sets[currentSet]];
-  deck = [...originalDeck];
-  currentIndex = 0;
-  isFlipped = false;
-  reviewIds = new Set();
-  cardLevels.clear();
-  reviewQueue = [];
-  reviewIndex = 0;
-  reviewMode = false;
-  completedOriginalDeck = false;
-  render();
-});
+$("restartBtn").addEventListener("click", restartAdventure);
 render();
 </script></body></html>
