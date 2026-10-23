@@ -1,19 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JLPT N5 Revision</title>
+<meta charset="UTF-8"><meta name="theme-color" content="#d9272e"><meta name="description" content="A Pokédex-inspired Japanese JLPT N5 revision flashcard tool."><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pokédex · JLPT N5 Revision</title>
 <style>
 :root{--bg:#f5f6fa;--white:#fff;--text:#202337;--muted:#777b91;--border:#e5e7ef;--accent:#6258e8;--light:#eeecff;--sidebar:#17182a}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}button{font:inherit;cursor:pointer}.app{min-height:100vh}.sidebar{width:280px;position:fixed;inset:0 auto 0 0;z-index:10;padding:24px 16px;background:var(--sidebar);color:#f4f4ff;overflow-y:auto;transition:transform .25s}.brand{font-size:23px;font-weight:800}.brand span{display:block;color:#aaa5ff}.subtitle{font-size:12px;color:#aaaac2;line-height:1.6;margin-top:8px}.menu-label{font-size:10px;letter-spacing:1.5px;color:#9999b4;font-weight:800;margin:26px 0 10px;text-transform:uppercase}.category-toggle{display:flex;justify-content:space-between;width:100%;padding:12px;margin-bottom:6px;border:1px solid #373751;border-radius:9px;background:#292944;color:#fff;font-weight:750;text-align:left}.category-toggle.active{background:#39365f;border-color:#6258e8}.verb-list{display:flex;flex-direction:column;gap:4px;margin:0 0 12px 8px}.verb-item{display:flex;flex-direction:column;gap:3px;width:100%;padding:9px 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:#eeeefe;text-align:left}.verb-item:hover{background:#292944}.verb-item.active{background:#39365f;border-color:#6258e8}.verb-jp{font-weight:750;font-size:15px}.verb-en{font-size:11px;color:#b4b4ca;line-height:1.4}.main{min-height:100vh;margin-left:280px;padding:30px clamp(16px,4vw,54px);transition:margin-left .25s}.app.sidebar-collapsed .sidebar{transform:translateX(-100%)}.app.sidebar-collapsed .main{margin-left:0}.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:24px}.header-left{display:flex;align-items:flex-start;gap:12px}.button{padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text);font-size:12px;font-weight:750}.button:hover:not(:disabled){border-color:var(--accent)}.button.primary{background:var(--accent);border-color:var(--accent);color:white}.button:disabled{opacity:.35;cursor:not-allowed}.icon-button{width:40px;height:40px;padding:0;font-size:18px;flex-shrink:0}.eyebrow{font-size:10px;color:var(--accent);font-weight:800;letter-spacing:1.5px;text-transform:uppercase}h1{font-size:clamp(24px,3vw,34px);letter-spacing:-1px;margin:7px 0}.description{font-size:13px;color:var(--muted);line-height:1.6}.set-picker{max-width:850px;margin:0 auto 22px;padding:18px;border:1px solid var(--border);border-radius:14px;background:#fff}.set-picker label{display:block;margin-bottom:10px;font-size:12px;font-weight:800}.set-options{display:flex;gap:10px;flex-wrap:wrap}.set-option{flex:1;min-width:145px;padding:12px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text);text-align:left}.set-option strong,.set-option span{display:block}.set-option strong{font-size:13px}.set-option span{font-size:11px;color:var(--muted);margin-top:4px}.set-option.active{background:var(--light);border-color:var(--accent)}.progress-area{max-width:850px;margin:0 auto 18px}.progress-label{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;font-size:11px;font-weight:700;color:var(--muted)}.progress-track{height:6px;border-radius:20px;background:#e4e5ef;overflow:hidden}.progress-fill{height:100%;width:0;background:var(--accent);transition:width .2s}.flashcard{max-width:850px;min-height:350px;margin:auto;padding:32px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:22px;background:#fff;box-shadow:0 8px 30px #25254408;text-align:center}.card-label{margin-bottom:24px;font-size:10px;letter-spacing:1.6px;font-weight:800;color:var(--muted);text-transform:uppercase}.japanese{font-size:clamp(44px,8vw,76px);font-weight:800;line-height:1.35;overflow-wrap:anywhere}.answer{width:100%;margin-top:22px}.reading{font-size:clamp(20px,4vw,28px);font-weight:800;color:var(--accent);margin-bottom:8px}.meaning{font-size:20px;font-weight:800}.group-label{display:inline-block;margin-top:9px;padding:6px 11px;border-radius:25px;background:var(--light);color:var(--accent);font-size:11px;font-weight:800}.forms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:22px;text-align:left}.form-box{min-width:0;padding:12px;border:1px solid var(--border);border-radius:10px;background:#fcfcff}.form-name{margin-bottom:7px;color:var(--muted);font-size:10px;font-weight:700}.form-value{font-size:clamp(16px,2vw,20px);font-weight:800;overflow-wrap:anywhere}.flip-row{text-align:center;margin-top:20px}.flip-row .button{min-width:170px}.controls{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;max-width:850px;margin:18px auto}.controls .button{min-width:90px}.tip{max-width:700px;margin:20px auto;color:var(--muted);font-size:12px;line-height:1.7;text-align:center}.kanji-breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:20px;text-align:left}.char-box{border:1px solid var(--border);border-radius:12px;padding:13px;background:#fcfcff}.char-symbol{font-size:32px;font-weight:800;text-align:center}.char-reading{font-size:14px;color:var(--accent);font-weight:800;text-align:center;margin:3px 0 7px}.char-meaning{font-size:12px;line-height:1.5;text-align:center}.section-label{font-size:10px;font-weight:800;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-top:20px}
 @media(max-width:700px){.sidebar{width:min(300px,86vw);box-shadow:12px 0 35px #0002}.app.sidebar-collapsed .sidebar{transform:translateX(-100%)}.app:not(.sidebar-collapsed) .sidebar{transform:translateX(0)}.main{margin-left:0;padding:18px 13px 26px}.topbar{gap:8px;margin-bottom:22px}.header-left{gap:8px}h1{font-size:24px}.description{font-size:12px}.topbar>.button{padding:10px;white-space:nowrap}.flashcard{min-height:310px;padding:24px 14px}.forms{gap:7px}.form-box{padding:10px}.controls .button{flex:1 1 40%}}
-</style></head>
-<body><div class="app sidebar-collapsed" id="app"><aside class="sidebar"><div class="brand">JLPT N5 <span>Revision</span></div><div class="subtitle">A focused revision space for Japanese learners.</div><div class="menu-label">Study sets</div><div id="sidebarSets"></div></aside>
-<main class="main"><header class="topbar"><div class="header-left"><button class="button icon-button" id="toggleSidebar" aria-label="Toggle sidebar">☰</button><div><div class="eyebrow">Japanese · N5 Vocabulary</div><h1 id="pageTitle">Verb Flashcards</h1><div class="description">Recall the meaning. Conjugate the verb. Repeat.</div></div></div><button class="button" id="shuffleBtn">🔀 Shuffle</button></header>
-<section class="set-picker"><label>What do you want to revise?</label><div class="set-options"><button class="set-option active" data-set="1-6"><strong>Verbs 1–6</strong><span>Verb conjugation</span></button><button class="set-option" data-set="7-12"><strong>Verbs 7–12</strong><span>Verb conjugation</span></button><button class="set-option" data-set="kanji"><strong>N5 Kanji with Words</strong><span>Word and character meanings</span></button></div></section>
+</style>
+
+
+<style id="pokedex-device-theme">
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap');
+:root{--bg:#b8d8cf;--white:#e9f5e9;--text:#17252b;--muted:#50686b;--border:#1d3339;--accent:#d9272e;--light:#c7e6d7;--sidebar:#172328}
+html{background:#b8d8cf}
+body{font-family:'Nunito',system-ui,sans-serif;background:#b8d8cf url('assets/pixel-landscape.svg') center center/cover fixed;color:var(--text);min-height:100vh}
+body:before{content:"";position:fixed;inset:0;background:linear-gradient(#152a3010,#152a301c);pointer-events:none;z-index:0}
+.app{position:relative;z-index:1;min-height:100vh;padding:20px 22px 26px 300px}
+.sidebar{width:270px;left:20px;top:20px;bottom:20px;height:auto;padding:22px 15px;background:linear-gradient(155deg,#27373c,#11191d);border:5px solid #b91f27;border-radius:24px;box-shadow:inset 0 0 0 2px #ff7777,0 8px 0 #78171c,0 14px 30px #10242b60;color:#f5fbf7}
+.brand{font-family:'Press Start 2P',monospace;font-size:13px;line-height:1.8;color:#fff;text-shadow:2px 2px #101719}
+.brand:before{content:"";display:inline-block;width:32px;height:32px;vertical-align:middle;margin-right:8px;background:url('assets/capture-orb.svg') center/contain no-repeat}
+.brand span{font-family:'Nunito',sans-serif;color:#b9d9d7;font-size:12px;letter-spacing:1px}
+.subtitle,.verb-en{color:#b9d0ce}.menu-label{color:#9abbb8}
+.category-toggle{background:#15262c;border:2px solid #526a6c;border-radius:8px;color:#f8ffff;box-shadow:inset 0 1px #ffffff20}
+.category-toggle.active{background:#24505a;border-color:#e94c50}
+.verb-item:hover,.verb-item.active{background:#345158;border-color:#d94a4e}
+.main{margin-left:0!important;padding:24px 26px 26px;max-width:1320px;min-height:calc(100vh - 40px);background:linear-gradient(145deg,#c51f26,#e63a35 30%,#a91920);border:6px solid #70171c;border-radius:36px;box-shadow:inset 0 0 0 3px #ff8580,inset 0 0 0 8px #b91f27,0 10px 0 #6e171b,0 18px 40px #142b3050;position:relative}
+.main:before{content:"";position:absolute;left:18px;right:18px;top:12px;height:10px;border-radius:8px;background:repeating-linear-gradient(90deg,#831a20 0 14px,#e96a5e 14px 24px,#9b1a20 24px 38px);opacity:.8}
+.topbar{margin:14px 0 22px;align-items:center}
+.header-left{align-items:center}
+.icon-button{background:#152a32;color:#fff;border:3px solid #050f13;border-radius:9px;box-shadow:inset 0 0 0 2px #52727b}
+.eyebrow{font-family:'Press Start 2P',monospace;font-size:8px;line-height:1.8;color:#d9f4e9;letter-spacing:0}
+h1{font-family:'Press Start 2P',monospace;font-size:clamp(14px,1.7vw,22px);line-height:1.7;letter-spacing:0;color:#fff;text-shadow:2px 3px #7f151a}
+.description{color:#f8d9d5}
+.button,.set-option{border:2px solid #1d353c;background:#e9f5e9;color:#17252b;border-radius:7px;box-shadow:0 3px 0 #789b91;transition:transform .12s,box-shadow .12s}
+.button:hover:not(:disabled),.set-option:hover{border-color:#e23b40;transform:translateY(-1px);box-shadow:0 4px 0 #789b91}
+.button.primary{background:#133746;border-color:#091a20;color:#fff;box-shadow:0 4px 0 #5e9294}
+.topbar>.button{background:#172b33;color:#fff;border-color:#07171d;box-shadow:0 3px 0 #7f171c}
+.set-picker,.flashcard{background:#e8f5e9;border:4px solid #172b31;border-radius:13px;box-shadow:0 0 0 4px #6f151b,0 0 0 7px #f05b55,0 7px 0 #70171c}
+.set-picker{padding:17px;margin-top:8px}
+.set-option.active{background:#c1e4d2;border-color:#d9272e}
+.progress-area{padding:10px 14px;margin-bottom:14px;background:#17272e;border:3px solid #071419;border-radius:10px;color:#e9f5e9;box-shadow:inset 0 0 0 2px #45626a}
+.progress-label{color:#d4e9e1}.progress-track{height:12px;border:2px solid #a8c5bc;background:#25383d;border-radius:4px}.progress-fill{background:#e9333a}
+.flashcard{position:relative;min-height:330px;margin-top:10px;background-color:#e0f1e3;background-image:linear-gradient(#315f5a12 1px,transparent 1px),linear-gradient(90deg,#315f5a12 1px,transparent 1px);background-size:18px 18px}
+.flashcard:after{content:"";position:absolute;right:18px;top:18px;width:32px;height:32px;background:url('assets/capture-orb.svg') center/contain no-repeat;opacity:.95;pointer-events:none}
+.card-label{font-family:'Press Start 2P',monospace;font-size:8px;color:#426466;letter-spacing:0;line-height:1.9}
+.japanese{color:#122328;text-shadow:1px 1px #fff}
+.reading{color:#b91f27}
+.group-label{background:#c3e2d2;color:#193d3f;border:1px solid #638a7e}
+.form-box,.char-box{background:#f3faf3;border:1px solid #a8c9bc;border-radius:6px}
+.form-name,.section-label{color:#4a6d6a}
+.learning-levels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:850px;margin:18px auto}
+.level-btn{min-height:84px;padding:12px 9px;border:3px solid #253b3e;border-radius:8px;font-weight:900;text-align:center;box-shadow:0 4px 0 #789b91;line-height:1.3}
+.level-btn small{display:block;font-size:11px;font-weight:800;margin-top:5px}
+.level-mastered{background:#20a65a;color:#fff;border-color:#126d3b}
+.level-intermediate{background:#ffd84b;color:#24251d;border-color:#b58c13}
+.level-needs{background:#ef5350;color:#fff;border-color:#a62228}
+.level-btn.selected{outline:4px solid #17252a;outline-offset:2px;transform:translateY(-2px)}
+.status-tag{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border:2px solid #24383d;border-radius:5px;font-size:10px;font-weight:900;letter-spacing:.4px;margin:0 auto 14px}
+.status-mastered{background:#20a65a;color:#fff}.status-intermediate{background:#ffd84b;color:#20251e}.status-needs{background:#ef5350;color:#fff}
+.completion-panel{max-width:850px;margin:18px auto;padding:28px 20px;background:#e8f5eb url('assets/pixel-landscape.svg') center/cover;border:5px solid #172b31;border-radius:12px;text-align:center;box-shadow:0 0 0 4px #e53b40,0 7px 0 #70171c;position:relative}
+.completion-panel h2{font-family:'Press Start 2P',monospace;font-size:clamp(14px,2.5vw,22px);line-height:1.9;color:#b91f27;text-shadow:1px 1px #fff}
+.completion-panel p{font-weight:900;background:#e8f5ebdd;display:table;margin:10px auto;padding:5px 10px;border-radius:4px}
+.controls{max-width:850px}.controls .button{min-height:42px}
+.tip{max-width:700px;margin:20px auto;color:#f8e5e2;font-size:11px;line-height:1.7;text-align:center}
+@media(min-width:1250px){.app{padding-left:310px;padding-right:22px}.main{padding:26px 32px 30px}.set-picker,.progress-area,.flashcard,.learning-levels,.controls{max-width:920px}}
+@media(max-width:900px){.app{padding:14px}.sidebar{left:14px;top:14px;bottom:14px}.main{padding:22px 16px}.app.sidebar-collapsed .sidebar{transform:translateX(-120%)}.app:not(.sidebar-collapsed) .sidebar{transform:translateX(0)}}
+@media(max-width:700px){.app{padding:10px}.sidebar{width:min(300px,86vw);left:10px;top:10px;bottom:10px;border-width:4px}.main{padding:20px 12px 20px;border-radius:24px;border-width:4px}.topbar{gap:8px;margin-bottom:16px}.header-left{gap:8px}h1{font-size:12px}.eyebrow{font-size:7px}.description{font-size:11px}.topbar>.button{padding:9px;font-size:10px}.flashcard{min-height:290px;padding:24px 12px}.forms{gap:7px}.form-box{padding:10px}.learning-levels{grid-template-columns:1fr;gap:8px}.level-btn{min-height:58px;padding:9px}.level-btn small{display:inline;margin-left:5px}.set-picker{padding:13px}.set-option{min-width:100%;}.completion-panel{padding:20px 10px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}
+</style>
+
+<style id="device-panel-layout">
+.device-status{position:absolute;top:36px;right:24px;width:190px;display:grid;gap:12px;color:#e9f5e9}
+.device-status-card{padding:14px;background:linear-gradient(145deg,#1d2d33,#0e171b);border:3px solid #071216;border-radius:13px;box-shadow:inset 0 0 0 2px #4b6870,0 3px 0 #74171c;font-size:12px;line-height:1.6}
+.device-status-heading{font-family:'Press Start 2P',monospace;font-size:7px;line-height:1.8;color:#b7d7d6;margin-bottom:9px}
+.mini-progress{height:12px;border:2px solid #a7c5bb;border-radius:4px;background:#263a40;overflow:hidden;margin-bottom:8px}
+.mini-progress span{display:block;height:100%;width:0;background:#e9333a;transition:width .2s}
+.status-legend{display:grid;gap:4px;margin-top:10px;font-size:10px;color:#c2dbd5}
+@media(min-width:1450px){.main{padding-right:235px}.device-status{right:22px;width:190px}.set-picker,.progress-area,.flashcard,.learning-levels,.controls{max-width:calc(100% - 210px)}}
+@media(max-width:1449px){.device-status{display:none}}
+</style>
+</head>
+<body><div class="app sidebar-collapsed" id="app"><aside class="sidebar"><div class="brand">POKÉDEX <span>JLPT N5 REVISION</span></div><div class="subtitle">Catalogue your Japanese. Master every entry.</div><div class="menu-label">POKÉDEX INDEX</div><div id="sidebarSets"></div></aside>
+<main class="main"><header class="topbar"><div class="header-left"><button class="button icon-button" id="toggleSidebar" aria-label="Toggle sidebar">☰</button><div><div class="eyebrow">POKÉDEX · N5 VOCABULARY</div><h1 id="pageTitle">Verb Flashcards</h1><div class="description">Register entries. Reveal answers. Master your set.</div></div></div><button class="button" id="shuffleBtn">🔀 Shuffle</button></header>
+<section class="set-picker"><label>SELECT A POKÉDEX CATEGORY</label><div class="set-options"><button class="set-option active" data-set="1-6"><strong>Verbs 1–6</strong><span>Verb conjugation</span></button><button class="set-option" data-set="7-12"><strong>Verbs 7–12</strong><span>Verb conjugation</span></button><button class="set-option" data-set="kanji"><strong>N5 Kanji with Words</strong><span>Word and character meanings</span></button></div></section>
 <section class="progress-area"><div class="progress-label"><span id="progressText"></span><span id="percentText"></span></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></section>
-<section class="flashcard" aria-live="polite"><div class="card-label" id="cardLabel">Masu form</div><div class="japanese" id="japanese"></div><div class="answer" id="answer" hidden><div class="reading" id="reading"></div><div class="meaning" id="meaning"></div><div class="group-label" id="groupLabel"></div><div class="section-label" id="formsLabel">Conjugations</div><div class="forms" id="forms"></div><div class="section-label" id="breakdownLabel" hidden>Kanji breakdown</div><div class="kanji-breakdown" id="kanjiBreakdown"></div></div></section>
-<div class="flip-row"><button class="button primary" id="flipBtn">See answer ↗</button></div><div class="controls"><button class="button" id="prevBtn">← Previous</button><button class="button" id="reviewBtn">↻ Review</button><button class="button primary" id="nextBtn">Next →</button><button class="button" id="restartBtn">Restart</button></div><p class="tip">Try to recall the answer before flipping. Mark difficult cards with Review; they appear after you finish the original set.</p></main></div>
+<div id="completionPanel" class="completion-panel" hidden><h2>ENTRY COMPLETE!</h2><p id="completionMessage">You have completed this Pokédex set.</p><p>お疲れ様でした！</p><button class="button primary" id="completionReviewBtn">Review marked entries</button></div><section class="flashcard" aria-live="polite"><div id="statusTag" class="status-tag" hidden></div><div class="card-label" id="cardLabel">Masu form</div><div class="japanese" id="japanese"></div><div class="answer" id="answer" hidden><div class="reading" id="reading"></div><div class="meaning" id="meaning"></div><div class="group-label" id="groupLabel"></div><div class="section-label" id="formsLabel">Conjugations</div><div class="forms" id="forms"></div><div class="section-label" id="breakdownLabel" hidden>Kanji breakdown</div><div class="kanji-breakdown" id="kanjiBreakdown"></div></div></section>
+<div class="flip-row"><button class="button primary" id="flipBtn">◉ SEE ANSWER</button></div>
+<div class="learning-levels" id="learningLevels" aria-label="Choose your learning level">
+<button class="level-btn level-mastered" data-level="mastered">✓ MASTERED<small>I remembered it correctly</small></button>
+<button class="level-btn level-intermediate" data-level="intermediate">◉ INTERMEDIATE<small>I want another look</small></button>
+<button class="level-btn level-needs" data-level="needs">✕ NEEDS REVISION<small>I couldn't recall it</small></button>
+</div>
+<div class="controls"><button class="button" id="prevBtn">← PREVIOUS</button><button class="button" id="restartBtn">↻ RESTART SET</button><button class="button sound-toggle" id="soundBtn">♫ Sound: Off</button></div>
+<aside class="device-status" aria-label="Pokédex status">
+<div class="device-status-card"><div class="device-status-heading">POKÉDEX PROGRESS</div><div class="mini-progress"><span id="sideProgressBar"></span></div><div id="sideProgressText">Ready to begin</div></div>
+<div class="device-status-card"><div class="device-status-heading">CURRENT ENTRY</div><div id="sideCurrentSet">Verbs 1–6</div><div id="sideCurrentWord">Japanese vocabulary</div></div>
+<div class="device-status-card"><div class="device-status-heading">STUDY MODE</div><div id="sideStudyMode">Learning · First round</div><div class="status-legend"><span>● Mastered</span><span>● Intermediate</span><span>● Needs revision</span></div></div>
+</aside>
+<p class="tip">POKÉDEX TIP: Reveal the answer, then choose how well you remembered the entry.</p></main></div>
 <script>
 const makeVerb=(masu,meaning,group,dictionary,nai,ta,nakatta,te)=>({masu,meaning,group,dictionary,nai,ta,nakatta,te});
 const sets={
@@ -55,6 +140,8 @@ let deck = [...originalDeck];
 let currentIndex = 0;
 let isFlipped = false;
 let reviewIds = new Set();
+const cardLevels = new Map();
+let soundEnabled = false;
 let reviewQueue = [];
 let reviewIndex = 0;
 let reviewMode = false;
@@ -71,6 +158,7 @@ function switchSet(key) {
   currentIndex = 0;
   isFlipped = false;
   reviewIds = new Set();
+  cardLevels.clear();
   reviewQueue = [];
   reviewIndex = 0;
   reviewMode = false;
@@ -144,6 +232,12 @@ function renderCard() {
   const isKanji = currentSet === "kanji";
   $("pageTitle").textContent = isKanji ? "N5 Kanji with Words" : "Verb Flashcards";
   $("japanese").textContent = isKanji ? v.word : v.masu;
+  const level = cardLevels.get(v.id);
+  const tag = $("statusTag");
+  tag.hidden = !level;
+  tag.className = "status-tag" + (level ? " status-" + level : "");
+  tag.textContent = level ? ({mastered:"✓ MASTERED",intermediate:"◉ INTERMEDIATE",needs:"✕ NEEDS REVISION"}[level]) : "";
+  document.querySelectorAll(".level-btn").forEach(btn => btn.classList.toggle("selected", btn.dataset.level === level));
   $("answer").hidden = !isFlipped;
   $("cardLabel").textContent = isFlipped
     ? (isKanji ? "Word meaning & kanji breakdown" : "Translation & verb forms")
@@ -210,6 +304,20 @@ function render() {
 
   renderCard();
   renderSidebar();
+  const shownCard = reviewMode ? reviewQueue[reviewIndex] : currentVerb();
+  const sideProgress = reviewMode ? (reviewIndex + 1) / Math.max(1, reviewQueue.length) : (currentIndex + 1) / Math.max(1, originalDeck.length);
+  if ($("sideProgressBar")) $("sideProgressBar").style.width = `${Math.round(sideProgress * 100)}%`;
+  if ($("sideProgressText")) $("sideProgressText").textContent = reviewMode ? `Review ${reviewIndex + 1} / ${reviewQueue.length}` : `${Math.min(currentIndex + 1, originalDeck.length)} / ${originalDeck.length} entries`;
+  if ($("sideCurrentSet")) $("sideCurrentSet").textContent = setInfo[currentSet];
+  if ($("sideCurrentWord")) $("sideCurrentWord").textContent = shownCard ? (currentSet === "kanji" ? shownCard.word : shownCard.masu) : "Set complete";
+  if ($("sideStudyMode")) $("sideStudyMode").textContent = reviewMode ? "Review round" : completedOriginalDeck ? "Set complete" : "Learning · First round";
+  $("completionPanel").hidden = !completedOriginalDeck || reviewMode;
+  $("completionMessage").textContent = `${setInfo[currentSet]} complete. ${reviewIds.size ? reviewIds.size + " entries queued for revision." : "All entries mastered for this session."}`;
+  $("learningLevels").hidden = completedOriginalDeck && !reviewMode;
+  $("flipBtn").hidden = completedOriginalDeck && !reviewMode;
+  $("prevBtn").hidden = completedOriginalDeck && !reviewMode;
+  $("restartBtn").hidden = completedOriginalDeck && !reviewMode;
+  $("soundBtn").textContent = soundEnabled ? "♫ Sound: On" : "♫ Sound: Off";
   document.querySelectorAll(".set-option").forEach(b =>
     b.classList.toggle("active", b.dataset.set === currentSet)
   );
@@ -227,29 +335,16 @@ function render() {
 
   $("progressFill").style.width = total ? `${Math.min(100, n / total * 100)}%` : "0%";
   $("prevBtn").disabled = reviewMode ? reviewIndex === 0 : currentIndex === 0;
-  $("nextBtn").disabled = reviewMode
-    ? reviewIndex === reviewQueue.length - 1
-    : currentIndex === originalDeck.length - 1 && !reviewIds.size && !completedOriginalDeck;
 
   $("reviewBtn").textContent = reviewIds.has((reviewMode ? reviewQueue[reviewIndex] : currentVerb())?.id)
     ? "✓ Marked"
     : "↻ Review";
 
-  if (reviewMode && reviewIndex === reviewQueue.length - 1) {
-    $("nextBtn").textContent = "Finish review";
-  } else if (!reviewMode && currentIndex === originalDeck.length - 1 && reviewIds.size) {
-    $("nextBtn").textContent = "Start review →";
-    $("nextBtn").disabled = false;
-  } else if (completedOriginalDeck && !reviewMode) {
-    $("nextBtn").textContent = "Finished";
-    $("nextBtn").disabled = true;
-  } else {
-    $("nextBtn").textContent = "Next →";
-  }
 }
 
 function startReview() {
-  reviewQueue = originalDeck.filter(v => reviewIds.has(v.id));
+  reviewQueue = originalDeck.filter(v => reviewIds.has(v.id))
+    .sort((a,b) => (cardLevels.get(b.id)==="needs" ? 1 : 0) - (cardLevels.get(a.id)==="needs" ? 1 : 0));
   if (!reviewQueue.length) {
     completedOriginalDeck = true;
     reviewMode = false;
@@ -279,69 +374,67 @@ $("flipBtn").addEventListener("click", () => {
   isFlipped = !isFlipped;
   render();
 });
-$("nextBtn").addEventListener("click", () => {
+function playTone(kind="select") {
+  if (!soundEnabled) return;
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const notes = kind === "complete" ? [523,659,784,1046] : kind === "needs" ? [330,260] : [523,659];
+    notes.forEach((freq,i) => {
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.type = "square"; osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.045, ctx.currentTime + i*0.12);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i*0.12 + 0.11);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + i*0.12); osc.stop(ctx.currentTime + i*0.12 + 0.12);
+    });
+    setTimeout(() => ctx.close(), 900);
+  } catch(e) {}
+}
+function chooseLevel(level) {
+  const v = reviewMode ? reviewQueue[reviewIndex] : currentVerb();
+  if (!v) return;
+  cardLevels.set(v.id, level);
+  if (level === "mastered") reviewIds.delete(v.id);
+  else reviewIds.add(v.id);
+  playTone(level === "needs" ? "needs" : "select");
+  isFlipped = false;
+
   if (reviewMode) {
+    // Each queued card is seen once in this review round; no endless loops.
     if (reviewIndex < reviewQueue.length - 1) {
       reviewIndex++;
-      isFlipped = false;
-      render();
     } else {
       reviewMode = false;
       completedOriginalDeck = true;
       reviewQueue = [];
       reviewIndex = 0;
-      render();
+      playTone("complete");
     }
-    return;
-  }
-
-  if (currentIndex < originalDeck.length - 1) {
+  } else if (currentIndex < originalDeck.length - 1) {
     currentIndex++;
-    isFlipped = false;
-    render();
-  } else if (reviewIds.size) {
-    startReview();
   } else {
     completedOriginalDeck = true;
-    render();
+    if (reviewIds.size) startReview();
+    else playTone("complete");
   }
-});
+  render();
+}
+document.querySelectorAll(".level-btn").forEach(btn =>
+  btn.addEventListener("click", () => chooseLevel(btn.dataset.level))
+);
 $("prevBtn").addEventListener("click", () => {
   if (reviewMode) {
-    if (reviewIndex > 0) {
-      reviewIndex--;
-      isFlipped = false;
-      render();
-    }
+    if (reviewIndex > 0) { reviewIndex--; isFlipped = false; render(); }
   } else if (currentIndex > 0) {
-    currentIndex--;
-    completedOriginalDeck = false;
-    isFlipped = false;
-    render();
+    currentIndex--; completedOriginalDeck = false; isFlipped = false; render();
   }
 });
-$("reviewBtn").addEventListener("click", () => {
-  const v = reviewMode ? reviewQueue[reviewIndex] : currentVerb();
-  if (!v) return;
-
-  // Toggle a stable ID in a set: marking a card never inserts it into the main deck.
-  if (reviewIds.has(v.id)) reviewIds.delete(v.id);
-  else reviewIds.add(v.id);
-
-  // If the user changes a mark while in review, rebuild the remaining queue.
-  if (reviewMode) {
-    const currentId = reviewQueue[reviewIndex]?.id;
-    reviewQueue = originalDeck.filter(item => reviewIds.has(item.id));
-    const found = reviewQueue.findIndex(item => item.id === currentId);
-    if (!reviewQueue.length) {
-      reviewMode = false;
-      completedOriginalDeck = true;
-      reviewIndex = 0;
-    } else {
-      reviewIndex = found >= 0 ? found : Math.min(reviewIndex, reviewQueue.length - 1);
-    }
-  }
-  isFlipped = false;
+$("completionReviewBtn").addEventListener("click", () => {
+  if (reviewIds.size) startReview();
+});
+$("soundBtn").addEventListener("click", () => {
+  soundEnabled = !soundEnabled;
+  if (soundEnabled) playTone("select");
   render();
 });
 $("shuffleBtn").addEventListener("click", () => {
@@ -366,6 +459,7 @@ $("restartBtn").addEventListener("click", () => {
   currentIndex = 0;
   isFlipped = false;
   reviewIds = new Set();
+  cardLevels.clear();
   reviewQueue = [];
   reviewIndex = 0;
   reviewMode = false;
