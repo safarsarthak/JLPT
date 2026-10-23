@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650">
+<defs>
+ <pattern id="pix" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#244d48" stroke-opacity=".14" stroke-width="1"/></pattern>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#64b9ed"/><stop offset="1" stop-color="#d5f1e5"/></linearGradient>
+</defs>
+<rect width="1200" height="650" fill="url(#sky)"/>
+<!-- pixel clouds -->
+<g fill="#f4fff7"><path d="M40 100h32V84h32V68h32v16h32v16h16v32H40z"/><path d="M780 80h32V64h48V48h32v16h32v16h32v32H780z"/><path d="M1020 170h32v-16h32v-16h32v16h32v16h16v32h-144z"/></g>
+<!-- far hills -->
+<path fill="#82c99d" d="M0 360l80-48 48 16 80-96 64 40 96-80 80 64 80-32 80 72 96-48 80 48 64-32 80 64 96-40 96 48v324H0z"/>
+<path fill="#4c9b72" d="M0 450l80-72 64 24 80-48 80 56 64-24 80 64 80-72 80 32 80-40 80 64 80-48 80 40 80-32 96 64v192H0z"/>
+<!-- little trees -->
+<g shape-rendering="crispEdges">
+ <g fill="#276b53"><path d="M90 330h28v60H90zM74 330l30-56 30 56zM68 350l36-58 36 58z"/><path d="M1060 315h28v62h-28zM1040 320l34-62 34 62zM1034 340l40-62 40 62z"/></g>
+ <g fill="#edcf8c"><rect x="0" y="500" width="1200" height="150"/><rect x="0" y="520" width="1200" height="12" fill="#d2b56f"/></g>
+ <g fill="#f4f0c9"><rect x="180" y="548" width="12" height="12"/><rect x="300" y="590" width="12" height="12"/><rect x="880" y="555" width="12" height="12"/><rect x="990" y="600" width="12" height="12"/></g>
+ <g fill="#d98268"><rect x="865" y="345" width="110" height="90" fill="#f4e6c8"/><path d="M845 350l75-65 75 65z" fill="#d95d55"/><rect x="900" y="380" width="28" height="55" fill="#79a9ba"/><rect x="942" y="370" width="18" height="18" fill="#79a9ba"/></g>
+ <g fill="#fff"><rect x="50" y="460" width="7" height="7"/><rect x="58" y="452" width="7" height="7"/><rect x="66" y="460" width="7" height="7"/><rect x="720" y="485" width="7" height="7"/><rect x="728" y="477" width="7" height="7"/><rect x="736" y="485" width="7" height="7"/></g>
+</g>
+<rect width="1200" height="650" fill="url(#pix)"/>
+</svg>
