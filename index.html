@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,390 +6,497 @@
 <title>JLPT N5 Revision</title>
 
 <style>
-  :root {
-    --bg: #f6f5f2;
-    --card: #ffffff;
-    --text: #252820;
-    --muted: #77796f;
-    --accent: #426b55;
-    --accent-light: #e6eee7;
-    --border: #e7e5de;
-  }
+:root {
+  --bg: #f6f5f2;
+  --card: #ffffff;
+  --text: #252820;
+  --muted: #77796f;
+  --accent: #426b55;
+  --accent-light: #e6eee7;
+  --border: #e7e5de;
+}
 
-  * { box-sizing: border-box; }
+* { box-sizing: border-box; }
 
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-  }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
 
-  button { font: inherit; cursor: pointer; }
+button { font: inherit; cursor: pointer; }
 
-  .app {
-    display: flex;
-    min-height: 100vh;
-  }
+button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
 
-  /* LEFT SIDEBAR */
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 280px;
+  flex: 0 0 280px;
+  background: white;
+  border-right: 1px solid var(--border);
+  padding: 26px 18px;
+  overflow-y: auto;
+  transition: margin-left .22s ease, opacity .22s ease;
+}
+
+.app.sidebar-collapsed .sidebar {
+  margin-left: -280px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.brand {
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.brand span { color: var(--accent); }
+
+.subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 30px;
+}
+
+.menu-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin: 22px 8px 10px;
+}
+
+.tab {
+  width: 100%;
+  border: none;
+  border-radius: 9px;
+  padding: 12px;
+  text-align: left;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.verb-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.verb-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  padding: 11px;
+  background: transparent;
+  color: var(--text);
+}
+
+.verb-item:hover { background: var(--bg); }
+
+.verb-item.active {
+  background: var(--accent-light);
+  border-color: #d5e2d6;
+}
+
+.verb-jp { font-weight: 700; font-size: 14px; }
+.verb-en { font-size: 12px; color: var(--muted); }
+
+/* MAIN AREA */
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 28px clamp(16px, 4vw, 56px);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 32px;
+}
+
+.heading { flex: 1; min-width: 0; }
+
+.eyebrow {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+}
+
+h1 {
+  font-size: clamp(24px, 3vw, 34px);
+  margin: 8px 0;
+}
+
+.description {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.button {
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.button:hover:not(:disabled) { background: var(--bg); }
+
+.button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.button.primary:hover:not(:disabled) { background: #345640; }
+
+.menu-toggle {
+  flex-shrink: 0;
+  width: 43px;
+  height: 43px;
+  padding: 0;
+  font-size: 21px;
+}
+
+/* PROGRESS */
+
+.progress-area {
+  max-width: 800px;
+  margin: 0 auto 22px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.progress-track {
+  height: 6px;
+  background: #e6e4dd;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 20%;
+  background: var(--accent);
+  border-radius: 10px;
+  transition: width .2s;
+}
+
+/* FLASHCARD */
+
+.flashcard {
+  width: 100%;
+  max-width: 800px;
+  min-height: 390px;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px #26282008;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 22px;
+}
+
+.card-label {
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 24px;
+}
+
+.japanese {
+  font-size: clamp(40px, 7vw, 66px);
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.romaji {
+  font-size: 17px;
+  color: var(--muted);
+}
+
+.answer {
+  width: 100%;
+}
+
+.meaning {
+  font-size: clamp(23px, 4vw, 30px);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.group-label {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 7px 13px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.forms {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  text-align: left;
+}
+
+.form-box {
+  padding: 12px;
+  background: var(--bg);
+  border-radius: 9px;
+  overflow-wrap: anywhere;
+}
+
+.form-name {
+  color: var(--muted);
+  font-size: 11px;
+  margin-bottom: 7px;
+}
+
+.form-value {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.flip-row {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px auto 0;
+  max-width: 800px;
+}
+
+.tip {
+  max-width: 800px;
+  margin: 22px auto;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.6;
+}
+
+[hidden] { display: none !important; }
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .app { min-height: 100vh; }
 
   .sidebar {
-    width: 280px;
-    flex-shrink: 0;
-    background: #fff;
-    border-right: 1px solid var(--border);
-    padding: 26px 18px;
+    width: 250px;
+    flex-basis: 250px;
+    padding: 20px 14px;
   }
 
-  .brand {
-    font-size: 21px;
-    font-weight: 800;
-    line-height: 1.3;
-    margin-bottom: 8px;
+  .app.sidebar-collapsed .sidebar {
+    margin-left: -250px;
   }
 
-  .brand span { color: var(--accent); }
-
-  .subtitle {
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 30px;
-  }
-
-  .menu-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--muted);
-    margin: 22px 8px 10px;
-  }
-
-  .tab {
-    width: 100%;
-    border: none;
-    border-radius: 9px;
-    padding: 12px;
-    text-align: left;
-    background: var(--accent-light);
-    color: var(--accent);
-    font-weight: 700;
-  }
-
-  .verb-list {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .verb-item {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    width: 100%;
-    text-align: left;
-    border: 1px solid transparent;
-    border-radius: 9px;
-    padding: 11px;
-    background: transparent;
-    color: var(--text);
-  }
-
-  .verb-item:hover { background: var(--bg); }
-
-  .verb-item.active {
-    background: var(--accent-light);
-    border-color: #d5e2d6;
-  }
-
-  .verb-jp { font-weight: 700; font-size: 14px; }
-  .verb-en { font-size: 12px; color: var(--muted); }
-
-  /* MAIN AREA */
-
-  .main {
-    flex: 1;
-    min-width: 0;
-    padding: 32px clamp(18px, 5vw, 64px);
-  }
+  .main { padding: 20px 14px; }
 
   .topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
+    align-items: flex-start;
     flex-wrap: wrap;
-    margin-bottom: 36px;
-  }
-
-  .eyebrow {
-    font-size: 12px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1.4px;
-  }
-
-  h1 {
-    font-size: clamp(24px, 3vw, 34px);
-    margin: 8px 0;
-  }
-
-  .description {
-    color: var(--muted);
-    font-size: 14px;
-  }
-
-  .button {
-    border: 1px solid var(--border);
-    background: #fff;
-    color: var(--text);
-    padding: 10px 15px;
-    border-radius: 9px;
-    font-size: 13px;
-    font-weight: 600;
-  }
-
-  .button:hover { background: var(--bg); }
-
-  .button.primary {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: white;
-  }
-
-  .button.primary:hover { background: #345640; }
-
-  .progress-area { margin-bottom: 22px; }
-
-  .progress-label {
-    display: flex;
-    justify-content: space-between;
     gap: 12px;
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 10px;
-  }
-
-  .progress-track {
-    height: 6px;
-    background: #e6e4dd;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    width: 20%;
-    background: var(--accent);
-    border-radius: 10px;
-    transition: width .2s;
-  }
-
-  /* FLASHCARD */
-
-  .flashcard {
-    width: 100%;
-    max-width: 760px;
-    min-height: 360px;
-    margin: 0 auto;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    box-shadow: 0 8px 30px #26282008;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 35px 24px;
-  }
-
-  .card-label {
-    color: var(--muted);
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 24px;
-  }
-
-  .japanese {
-    font-size: clamp(38px, 7vw, 66px);
-    font-weight: 700;
-    margin-bottom: 12px;
-    line-height: 1.4;
-  }
-
-  .romanji {
-    font-size: 17px;
-    color: var(--muted);
-  }
-
-  .meaning {
-    font-size: 28px;
-    font-weight: 700;
     margin-bottom: 26px;
   }
 
-  .forms {
-    width: 100%;
-    max-width: 420px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    text-align: left;
+  .heading { flex: 1 1 calc(100% - 60px); }
+
+  .menu-toggle { order: -1; }
+
+  .flashcard {
+    min-height: 350px;
+    padding: 28px 14px;
   }
 
-  .form-box {
-    padding: 12px;
-    background: var(--bg);
-    border-radius: 9px;
-    overflow-wrap: anywhere;
+  .forms { gap: 8px; }
+
+  .form-box { padding: 10px; }
+
+  .form-value { font-size: 16px; }
+
+  .controls .button {
+    flex: 1 1 40%;
+    min-width: 0;
   }
 
-  .form-name {
-    color: var(--muted);
-    font-size: 11px;
-    margin-bottom: 7px;
-  }
+  .progress-label { font-size: 12px; }
+}
 
-  .form-value { font-size: 16px; font-weight: 700; }
-
-  .flip-row {
-    margin-top: 24px;
-    text-align: center;
-  }
-
-  .controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 24px auto 0;
-    max-width: 760px;
-  }
-
-  .controls .button { min-width: 95px; }
-
-  .tip {
-    max-width: 760px;
-    margin: 24px auto;
-    font-size: 12px;
-    color: var(--muted);
-    text-align: center;
-    line-height: 1.6;
-  }
-
-  @media (max-width: 700px) {
-    .app { flex-direction: column; }
-
-    .sidebar {
-      width: 100%;
-      padding: 18px;
-      border-right: none;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .subtitle { margin-bottom: 18px; }
-
-    .menu-label { margin-top: 18px; }
-
-    .verb-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .main { padding: 24px 16px; }
-
-    .topbar { margin-bottom: 25px; }
-
-    .flashcard { min-height: 330px; }
-
-    .controls .button { flex: 1; }
-  }
+@media (max-width: 380px) {
+  .forms { grid-template-columns: 1fr; }
+  .flashcard { min-height: 320px; }
+}
 </style>
 </head>
 
 <body>
-<div class="app">
+<div class="app" id="app">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
+  <!-- SIDEBAR: FIXED ORIGINAL INDEX -->
+  <aside class="sidebar" id="sidebar">
     <div class="brand">JLPT N5 <span>Revision</span></div>
     <div class="subtitle">Your personal Japanese study space</div>
 
     <div class="menu-label">Study menu</div>
-    <button class="tab">📚 &nbsp; Verbs</button>
+    <button class="tab" type="button">📚 &nbsp; Verbs</button>
 
-    <div class="menu-label">Choose a verb</div>
+    <div class="menu-label">Verb index</div>
     <div class="verb-list" id="verbList"></div>
   </aside>
 
   <!-- MAIN CONTENT -->
   <main class="main">
     <header class="topbar">
-      <div>
-        <div class="eyebrow">Japanese • N5 Vocabulary</div>
+
+      <button
+        class="button menu-toggle"
+        id="toggleSidebar"
+        type="button"
+        aria-label="Collapse navigation"
+        aria-expanded="true"
+        aria-controls="sidebar"
+        title="Collapse or open sidebar"
+      >☰</button>
+
+      <div class="heading">
+        <div class="eyebrow">Japanese · N5 Vocabulary</div>
         <h1>Verb Flashcards</h1>
         <div class="description">
           Learn the meaning. Recall the forms. Repeat.
         </div>
       </div>
 
-      <button class="button" id="shuffleBtn">🔀 Shuffle</button>
+      <button class="button" id="shuffleBtn" type="button">
+        🔀 Shuffle
+      </button>
     </header>
 
     <section class="progress-area">
       <div class="progress-label">
         <span id="progressText">Card 1 of 5</span>
-        <span id="percentText">20% complete</span>
+        <span id="percentText">20% through deck</span>
       </div>
-      <div class="progress-track">
+      <div
+        class="progress-track"
+        role="progressbar"
+        aria-label="Position in flashcard deck"
+        aria-valuemin="1"
+        aria-valuemax="5"
+        aria-valuenow="1"
+        id="progressBar"
+      >
         <div class="progress-fill" id="progressFill"></div>
       </div>
     </section>
 
     <section class="flashcard" aria-live="polite">
       <div class="card-label" id="cardLabel">Masu form</div>
-      <div class="japanese" id="japanese">飲みます</div>
-      <div class="romanji" id="romanji">nomimasu</div>
 
-      <div id="answer" hidden>
+      <div class="japanese" id="japanese">のみます</div>
+      <div class="romaji" id="romaji">nomimasu</div>
+
+      <div class="answer" id="answer" hidden>
         <div class="meaning" id="meaning"></div>
+        <div class="group-label" id="groupLabel"></div>
         <div class="forms" id="forms"></div>
       </div>
     </section>
 
     <div class="flip-row">
-      <button class="button primary" id="flipBtn">See answer ↗</button>
+      <button class="button primary" id="flipBtn" type="button">
+        See answer ↗
+      </button>
     </div>
 
     <div class="controls">
-      <button class="button" id="prevBtn">← Previous</button>
-      <button class="button" id="reviewBtn">↻ Review</button>
-      <button class="button primary" id="nextBtn">Next →</button>
-      <button class="button" id="restartBtn">Restart</button>
+      <button class="button" id="prevBtn" type="button">
+        ← Previous
+      </button>
+      <button class="button" id="reviewBtn" type="button">
+        ↻ Review
+      </button>
+      <button class="button primary" id="nextBtn" type="button">
+        Next →
+      </button>
+      <button class="button" id="restartBtn" type="button">
+        Restart
+      </button>
     </div>
 
     <p class="tip">
-      Tip: Say the meaning aloud before revealing the answer.
-      Use Review to bring a difficult verb back at the end.
+      Try recalling the meaning before revealing the answer.
+      Use Review to put a difficult verb at the end of your queue.
     </p>
   </main>
 </div>
 
 <script>
-/* =================================================
-   VERB DATA
-   Add more verbs inside this array.
-   Keep the same property names for every verb.
-   ================================================= */
+/* =========================================
+   ORIGINAL VERB INDEX
+
+   Add new verbs inside this array.
+   The sidebar always uses this original list.
+   Japanese forms must be written in hiragana.
+   ========================================= */
 
 const verbs = [
   {
+    id: 1,
     masu: "のみます",
     romaji: "nomimasu",
     meaning: "To drink",
+    group: "Group I",
     dictionary: "のむ",
     nai: "のまない",
     ta: "のんだ",
@@ -398,9 +504,11 @@ const verbs = [
     te: "のんで"
   },
   {
+    id: 2,
     masu: "ききます",
     romaji: "kikimasu",
     meaning: "To listen",
+    group: "Group I",
     dictionary: "きく",
     nai: "きかない",
     ta: "きいた",
@@ -408,9 +516,11 @@ const verbs = [
     te: "きいて"
   },
   {
+    id: 3,
     masu: "かきます",
     romaji: "kakimasu",
     meaning: "To write",
+    group: "Group I",
     dictionary: "かく",
     nai: "かかない",
     ta: "かいた",
@@ -418,9 +528,11 @@ const verbs = [
     te: "かいて"
   },
   {
+    id: 4,
     masu: "よみます",
     romaji: "yomimasu",
     meaning: "To read",
+    group: "Group I",
     dictionary: "よむ",
     nai: "よまない",
     ta: "よんだ",
@@ -428,9 +540,11 @@ const verbs = [
     te: "よんで"
   },
   {
+    id: 5,
     masu: "はなします",
     romaji: "hanashimasu",
     meaning: "To speak / talk",
+    group: "Group I",
     dictionary: "はなす",
     nai: "はなさない",
     ta: "はなした",
@@ -439,9 +553,12 @@ const verbs = [
   }
 ];
 
-/* =================================================
-   FLASHCARD LOGIC
-   ================================================= */
+/* =========================================
+   FLASHCARD STATE
+
+   deck can be shuffled or contain review copies.
+   verbs remains the unchanged sidebar index.
+   ========================================= */
 
 let deck = [...verbs];
 let currentIndex = 0;
@@ -453,13 +570,25 @@ function currentVerb() {
   return deck[currentIndex];
 }
 
-function renderSidebar() {
-  $("verbList").innerHTML = "";
+/* =========================================
+   SIDEBAR INDEX
+   Always displays verbs in original order.
+   ========================================= */
 
-  deck.forEach((verb, index) => {
+function renderSidebar() {
+  const list = $("verbList");
+  list.innerHTML = "";
+
+  verbs.forEach(verb => {
     const button = document.createElement("button");
+    button.type = "button";
     button.className = "verb-item";
-    button.classList.toggle("active", index === currentIndex);
+
+    const selectedVerb = currentVerb();
+    button.classList.toggle(
+      "active",
+      selectedVerb && selectedVerb.id === verb.id
+    );
 
     const jp = document.createElement("span");
     jp.className = "verb-jp";
@@ -470,23 +599,36 @@ function renderSidebar() {
     en.textContent = verb.meaning;
 
     button.append(jp, en);
+
     button.addEventListener("click", () => {
-      currentIndex = index;
-      isFlipped = false;
-      render();
+      // Find the original verb in the current shuffled deck.
+      const index = deck.findIndex(item => item.id === verb.id);
+
+      if (index !== -1) {
+        currentIndex = index;
+        isFlipped = false;
+        render();
+      }
     });
 
-    $("verbList").appendChild(button);
+    list.appendChild(button);
   });
 }
+
+/* =========================================
+   FLASHCARD DISPLAY
+   ========================================= */
 
 function renderCard() {
   const verb = currentVerb();
 
+  if (!verb) return;
+
   $("japanese").textContent = verb.masu;
-  $("romanji").textContent = verb.romaji;
+  $("romaji").textContent = verb.romaji;
 
   $("answer").hidden = !isFlipped;
+
   $("cardLabel").textContent = isFlipped
     ? "Translation & verb forms"
     : "Masu form";
@@ -495,36 +637,42 @@ function renderCard() {
     ? "↩ Hide answer"
     : "See answer ↗";
 
-  if (isFlipped) {
-    $("meaning").textContent = verb.meaning;
+  if (!isFlipped) return;
 
-    const formItems = [
-      ["Dictionary Form", verb.dictionary],
-      ["Nai Form", verb.nai],
-      ["Ta Form", verb.ta],
-      ["Nakatta Form", verb.nakatta],
-      ["Te Form", verb.te]
-    ];
+  $("meaning").textContent = verb.meaning;
+  $("groupLabel").textContent = verb.group;
 
-    $("forms").innerHTML = "";
+  const formItems = [
+    ["Dictionary Form", verb.dictionary],
+    ["Nai Form", verb.nai],
+    ["Ta Form", verb.ta],
+    ["Nakatta Form", verb.nakatta],
+    ["Te Form", verb.te]
+  ];
 
-    formItems.forEach(([label, value]) => {
-      const box = document.createElement("div");
-      box.className = "form-box";
+  const forms = $("forms");
+  forms.innerHTML = "";
 
-      const name = document.createElement("div");
-      name.className = "form-name";
-      name.textContent = label;
+  formItems.forEach(([label, value]) => {
+    const box = document.createElement("div");
+    box.className = "form-box";
 
-      const val = document.createElement("div");
-      val.className = "form-value";
-      val.textContent = value;
+    const name = document.createElement("div");
+    name.className = "form-name";
+    name.textContent = label;
 
-      box.append(name, val);
-      $("forms").appendChild(box);
-    });
-  }
+    const val = document.createElement("div");
+    val.className = "form-value";
+    val.textContent = value;
+
+    box.append(name, val);
+    forms.appendChild(box);
+  });
 }
+
+/* =========================================
+   PROGRESS AND NAVIGATION
+   ========================================= */
 
 function renderProgress() {
   const total = deck.length;
@@ -534,6 +682,9 @@ function renderProgress() {
   $("progressText").textContent = `Card ${number} of ${total}`;
   $("percentText").textContent = `${percent}% through deck`;
   $("progressFill").style.width = `${percent}%`;
+
+  $("progressBar").setAttribute("aria-valuemax", total);
+  $("progressBar").setAttribute("aria-valuenow", number);
 
   $("prevBtn").disabled = currentIndex === 0;
   $("nextBtn").disabled = currentIndex === total - 1;
@@ -545,13 +696,40 @@ function render() {
   renderSidebar();
 }
 
-/* Flip the card */
+/* =========================================
+   COLLAPSIBLE SIDEBAR
+   Works on desktop and mobile.
+   The toggle stays in the main content area.
+   ========================================= */
+
+$("toggleSidebar").addEventListener("click", () => {
+  const app = $("app");
+  const collapsed = app.classList.toggle("sidebar-collapsed");
+  const button = $("toggleSidebar");
+
+  button.setAttribute("aria-expanded", String(!collapsed));
+  button.setAttribute(
+    "aria-label",
+    collapsed ? "Open navigation" : "Collapse navigation"
+  );
+  button.title = collapsed
+    ? "Open sidebar"
+    : "Collapse sidebar";
+});
+
+/* =========================================
+   FLIP CARD
+   ========================================= */
+
 $("flipBtn").addEventListener("click", () => {
   isFlipped = !isFlipped;
   render();
 });
 
-/* Next card */
+/* =========================================
+   NEXT CARD
+   ========================================= */
+
 $("nextBtn").addEventListener("click", () => {
   if (currentIndex < deck.length - 1) {
     currentIndex++;
@@ -560,7 +738,10 @@ $("nextBtn").addEventListener("click", () => {
   }
 });
 
-/* Previous card */
+/* =========================================
+   PREVIOUS CARD
+   ========================================= */
+
 $("prevBtn").addEventListener("click", () => {
   if (currentIndex > 0) {
     currentIndex--;
@@ -569,17 +750,30 @@ $("prevBtn").addEventListener("click", () => {
   }
 });
 
-/* Review: add this verb to the end of the deck */
+/* =========================================
+   REVIEW
+   Adds a copy of this card to the end.
+   ========================================= */
+
 $("reviewBtn").addEventListener("click", () => {
   const verbToReview = currentVerb();
+
   deck.push(verbToReview);
   currentIndex = deck.length - 1;
-  isFlipped = true;
+  isFlipped = false;
+
   render();
 });
 
-/* Shuffle the current deck */
+/* =========================================
+   SHUFFLE
+   Randomises the study deck only.
+   The sidebar index stays unchanged.
+   ========================================= */
+
 $("shuffleBtn").addEventListener("click", () => {
+  deck = [...verbs];
+
   for (let i = deck.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [deck[i], deck[j]] = [deck[j], deck[i]];
@@ -590,7 +784,12 @@ $("shuffleBtn").addEventListener("click", () => {
   render();
 });
 
-/* Restart the original deck */
+/* =========================================
+   RESTART
+   Restores the original study order.
+   Sidebar remains in original order.
+   ========================================= */
+
 $("restartBtn").addEventListener("click", () => {
   deck = [...verbs];
   currentIndex = 0;
@@ -598,7 +797,8 @@ $("restartBtn").addEventListener("click", () => {
   render();
 });
 
-/* Initial display */
+/* INITIAL DISPLAY */
+
 render();
 </script>
 </body>
