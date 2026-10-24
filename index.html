@@ -98,7 +98,7 @@ ruby{ruby-position:over;ruby-align:center}rt{font-size:.42em;color:#b91f27;font-
 
 </style>
 </head>
-<body><div class="app sidebar-collapsed" id="app"><aside class="sidebar"><div class="brand">POKÉDEX <span>JLPT N5 & N1 REVISION</span></div><div class="subtitle">Catalogue your Japanese. Master every entry.</div><div class="menu-label">POKÉDEX INDEX</div><div id="sidebarSets"></div></aside>
+<body><div class="app sidebar-collapsed" id="app"><aside class="sidebar"><div class="brand">POKÉDEX <span> & N1 REVISION</span></div><div class="subtitle">Catalogue your Japanese. Master every entry.</div><div class="menu-label">POKÉDEX INDEX</div><div id="sidebarSets"></div></aside>
 <main class="main"><header class="topbar"><div class="header-left"><button class="button icon-button" id="toggleSidebar" aria-label="Toggle sidebar">☰</button><div><div class="eyebrow">POKÉDEX · N5 VOCABULARY</div><h1 id="pageTitle">Verb Flashcards</h1><div class="description">Register entries. Reveal answers. Master your set.</div></div></div><button class="button" id="shuffleBtn">🔀 Shuffle</button></header>
 <section class="study-location" id="studyLocation"><strong>JLPT N5</strong> / Choose a category from the Pokédex Index menu.</section>
 <section class="progress-area"><div class="progress-label"><span id="progressText"></span><span id="percentText"></span></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></section>
@@ -466,7 +466,7 @@ function makeNavButton(label, detail, count, className, active, expanded, onClic
 function renderSidebar() {
   const root = $("sidebarSets");
   root.innerHTML = "";
-  const major = makeNavButton("JLPT N5", "All study categories", expandedN5 ? "⌄" : "›", "nav-major", expandedN5, expandedN5, () => {
+  const major = makeNavButton("JLPT N5 ", "All", expandedN5 ? "⌄" : "›", "nav-major", expandedN5, expandedN5, () => {
     expandedN5 = !expandedN5;
     renderSidebar();
   });
@@ -499,10 +499,10 @@ function renderSidebar() {
     });
     menu.appendChild(children);
   };
-  addGroup("Verbs", "Verb conjugation practice", ["1-6", "7-12"]);
-  addDirect("Kanji", "Words and character breakdowns", "kanji", String(sets.kanji.length));
-  addDirect("Adjectives", "い-adjectives and な-adjectives", "adjectives", String(adjectives.length));
-  addGroup("Counters", "Numbers and counting words", Object.keys(counterCategories));
+  addGroup("Verbs ", "conjugation practice", ["1-6", "7-12"]);
+  addDirect("Kanji ", "with words", "kanji", String(sets.kanji.length));
+  addDirect("Adjectives ", "い-adjectives and な-adjectives", "adjectives", String(adjectives.length));
+  addGroup("Counters ", "Numbers and counting words", Object.keys(counterCategories));
   root.appendChild(menu);
   }
 
