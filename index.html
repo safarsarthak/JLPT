@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="theme-color" content="#d9272e"><meta name="description" content="A Pokédex-inspired Japanese JLPT N5 revision flashcard tool."><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pokédex · JLPT N5 Revision</title>
+<meta charset="UTF-8"><meta name="theme-color" content="#d9272e"><meta name="description" content="A Pokédex-inspired Japanese JLPT N5 and N1 revision flashcard tool."><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pokédex · JLPT N5 & N1 Revision</title>
 <style>
 :root{--bg:#f5f6fa;--white:#fff;--text:#202337;--muted:#777b91;--border:#e5e7ef;--accent:#6258e8;--light:#eeecff;--sidebar:#17182a}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}button{font:inherit;cursor:pointer}.app{min-height:100vh}.sidebar{width:280px;position:fixed;inset:0 auto 0 0;z-index:10;padding:24px 16px;background:var(--sidebar);color:#f4f4ff;overflow-y:auto;transition:transform .25s}.brand{font-size:23px;font-weight:800}.brand span{display:block;color:#aaa5ff}.subtitle{font-size:12px;color:#aaaac2;line-height:1.6;margin-top:8px}.menu-label{font-size:10px;letter-spacing:1.5px;color:#9999b4;font-weight:800;margin:26px 0 10px;text-transform:uppercase}.category-toggle{display:flex;justify-content:space-between;width:100%;padding:12px;margin-bottom:6px;border:1px solid #373751;border-radius:9px;background:#292944;color:#fff;font-weight:750;text-align:left}.category-toggle.active{background:#39365f;border-color:#6258e8}.verb-list{display:flex;flex-direction:column;gap:4px;margin:0 0 12px 8px}.verb-item{display:flex;flex-direction:column;gap:3px;width:100%;padding:9px 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:#eeeefe;text-align:left}.verb-item:hover{background:#292944}.verb-item.active{background:#39365f;border-color:#6258e8}.verb-jp{font-weight:750;font-size:15px}.verb-en{font-size:11px;color:#b4b4ca;line-height:1.4}.main{min-height:100vh;margin-left:280px;padding:30px clamp(16px,4vw,54px);transition:margin-left .25s}.app.sidebar-collapsed .sidebar{transform:translateX(-100%)}.app.sidebar-collapsed .main{margin-left:0}.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:24px}.header-left{display:flex;align-items:flex-start;gap:12px}.button{padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text);font-size:12px;font-weight:750}.button:hover:not(:disabled){border-color:var(--accent)}.button.primary{background:var(--accent);border-color:var(--accent);color:white}.button:disabled{opacity:.35;cursor:not-allowed}.icon-button{width:40px;height:40px;padding:0;font-size:18px;flex-shrink:0}.eyebrow{font-size:10px;color:var(--accent);font-weight:800;letter-spacing:1.5px;text-transform:uppercase}h1{font-size:clamp(24px,3vw,34px);letter-spacing:-1px;margin:7px 0}.description{font-size:13px;color:var(--muted);line-height:1.6}.set-picker{max-width:850px;margin:0 auto 22px;padding:18px;border:1px solid var(--border);border-radius:14px;background:#fff}.set-picker label{display:block;margin-bottom:10px;font-size:12px;font-weight:800}.set-options{display:flex;gap:10px;flex-wrap:wrap}.set-option{flex:1;min-width:145px;padding:12px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text);text-align:left}.set-option strong,.set-option span{display:block}.set-option strong{font-size:13px}.set-option span{font-size:11px;color:var(--muted);margin-top:4px}.set-option.active{background:var(--light);border-color:var(--accent)}.progress-area{max-width:850px;margin:0 auto 18px}.progress-label{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;font-size:11px;font-weight:700;color:var(--muted)}.progress-track{height:6px;border-radius:20px;background:#e4e5ef;overflow:hidden}.progress-fill{height:100%;width:0;background:var(--accent);transition:width .2s}.flashcard{max-width:850px;min-height:350px;margin:auto;padding:32px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:22px;background:#fff;box-shadow:0 8px 30px #25254408;text-align:center}.card-label{margin-bottom:24px;font-size:10px;letter-spacing:1.6px;font-weight:800;color:var(--muted);text-transform:uppercase}.japanese{font-size:clamp(44px,8vw,76px);font-weight:800;line-height:1.35;overflow-wrap:anywhere}.answer{width:100%;margin-top:22px}.reading{font-size:clamp(20px,4vw,28px);font-weight:800;color:var(--accent);margin-bottom:8px}.meaning{font-size:20px;font-weight:800}.group-label{display:inline-block;margin-top:9px;padding:6px 11px;border-radius:25px;background:var(--light);color:var(--accent);font-size:11px;font-weight:800}.forms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:22px;text-align:left}.form-box{min-width:0;padding:12px;border:1px solid var(--border);border-radius:10px;background:#fcfcff}.form-name{margin-bottom:7px;color:var(--muted);font-size:10px;font-weight:700}.form-value{font-size:clamp(16px,2vw,20px);font-weight:800;overflow-wrap:anywhere}.flip-row{text-align:center;margin-top:20px}.flip-row .button{min-width:170px}.controls{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;max-width:850px;margin:18px auto}.controls .button{min-width:90px}.tip{max-width:700px;margin:20px auto;color:var(--muted);font-size:12px;line-height:1.7;text-align:center}.kanji-breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:20px;text-align:left}.char-box{border:1px solid var(--border);border-radius:12px;padding:13px;background:#fcfcff}.char-symbol{font-size:32px;font-weight:800;text-align:center}.char-reading{font-size:14px;color:var(--accent);font-weight:800;text-align:center;margin:3px 0 7px}.char-meaning{font-size:12px;line-height:1.5;text-align:center}.section-label{font-size:10px;font-weight:800;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-top:20px}
@@ -80,13 +80,29 @@ h1{font-family:'Press Start 2P',monospace;font-size:clamp(14px,1.7vw,22px);line-
 .status-legend{display:grid;gap:4px;margin-top:10px;font-size:10px;color:#c2dbd5}
 @media(min-width:1450px){.main{padding-right:235px}.device-status{right:22px;width:190px}.set-picker,.progress-area,.flashcard,.learning-levels,.controls{max-width:calc(100% - 210px)}}
 @media(max-width:1449px){.device-status{display:none}}
+[hidden]{display:none!important}
+.adjective-kanji{font-size:clamp(26px,5vw,40px);font-weight:900;margin:8px 0 16px;color:#17252b}
+ruby{ruby-position:over;ruby-align:center}rt{font-size:.42em;color:#b91f27;font-weight:800}
+@media(max-width:700px){.adjective-kanji{font-size:28px}}
+
+/* Easier N5 navigation and counter cards */
+.study-location{max-width:920px;margin:0 auto 18px;padding:14px 17px;background:#17272e;color:#e9f5e9;border:3px solid #071419;border-radius:10px;box-shadow:inset 0 0 0 2px #45626a;font-size:12px;line-height:1.7}
+.study-location strong{color:#fff}.nav-major{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:13px 12px;border:2px solid #e94c50;border-radius:9px;background:#15262c;color:#fff;font-weight:900;text-align:left;box-shadow:0 3px 0 #70171c;margin:5px 0 10px}
+.nav-major.active{background:#24505a}.nav-category{display:flex;align-items:center;justify-content:space-between;width:100%;gap:8px;padding:10px 11px;margin:4px 0;border:1px solid #526a6c;border-radius:7px;background:#20343a;color:#f4fbf7;font-weight:800;text-align:left}
+.nav-category.active,.nav-category:hover{background:#345158;border-color:#e94c50}.nav-sublist{display:grid;gap:4px;margin:4px 0 10px 10px;padding-left:9px;border-left:2px solid #597b7b}
+.nav-subitem{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;width:100%;padding:9px 10px;border:1px solid transparent;border-radius:7px;background:transparent;color:#edf8f3;text-align:left;font-size:12px;font-weight:750}
+.nav-subitem small{display:block;color:#b9d0ce;font-size:10px;font-weight:600;margin-top:3px;line-height:1.4}.nav-subitem:hover,.nav-subitem.active{background:#345158;border-color:#d94a4e}.nav-count{flex-shrink:0;color:#c4dfd6;font-size:10px;font-weight:800}
+.counter-prompt{font-size:clamp(28px,5vw,46px);font-weight:900;line-height:1.35}.counter-hint{font-size:12px;color:#496765;margin-top:8px}
+[hidden]{display:none!important}
+@media(max-width:700px){.study-location{padding:11px 12px}.nav-sublist{margin-left:6px}.nav-subitem{padding:9px 7px}}
+
 </style>
 </head>
-<body><div class="app sidebar-collapsed" id="app"><aside class="sidebar"><div class="brand">POKÉDEX <span>JLPT N5 REVISION</span></div><div class="subtitle">Catalogue your Japanese. Master every entry.</div><div class="menu-label">POKÉDEX INDEX</div><div id="sidebarSets"></div></aside>
+<body><div class="app sidebar-collapsed" id="app"><aside class="sidebar"><div class="brand">POKÉDEX <span>JLPT N5 & N1 REVISION</span></div><div class="subtitle">Catalogue your Japanese. Master every entry.</div><div class="menu-label">POKÉDEX INDEX</div><div id="sidebarSets"></div></aside>
 <main class="main"><header class="topbar"><div class="header-left"><button class="button icon-button" id="toggleSidebar" aria-label="Toggle sidebar">☰</button><div><div class="eyebrow">POKÉDEX · N5 VOCABULARY</div><h1 id="pageTitle">Verb Flashcards</h1><div class="description">Register entries. Reveal answers. Master your set.</div></div></div><button class="button" id="shuffleBtn">🔀 Shuffle</button></header>
-<section class="set-picker"><label>SELECT A POKÉDEX CATEGORY</label><div class="set-options"><button class="set-option active" data-set="1-6"><strong>Verbs 1–6</strong><span>Verb conjugation</span></button><button class="set-option" data-set="7-12"><strong>Verbs 7–12</strong><span>Verb conjugation</span></button><button class="set-option" data-set="kanji"><strong>N5 Kanji with Words</strong><span>Word and character meanings</span></button></div></section>
+<section class="study-location" id="studyLocation"><strong>JLPT N5</strong> / Choose a category from the Pokédex Index menu.</section>
 <section class="progress-area"><div class="progress-label"><span id="progressText"></span><span id="percentText"></span></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></section>
-<div id="completionPanel" class="completion-panel" hidden><h2>ENTRY COMPLETE!</h2><p id="completionMessage">You have completed this Pokédex set.</p><p>お疲れ様でした！</p><div class="completion-actions"><button class="button primary" id="completionReviewBtn">↻ Review marked entries</button><button class="button" id="completionRestartBtn">⚡ Start a new adventure</button></div></div><section class="flashcard" aria-live="polite"><div id="statusTag" class="status-tag" hidden></div><div class="card-label" id="cardLabel">Masu form</div><div class="japanese" id="japanese"></div><div class="answer" id="answer" hidden><div class="reading" id="reading"></div><div class="meaning" id="meaning"></div><div class="group-label" id="groupLabel"></div><div class="section-label" id="formsLabel">Conjugations</div><div class="forms" id="forms"></div><div class="section-label" id="breakdownLabel" hidden>Kanji breakdown</div><div class="kanji-breakdown" id="kanjiBreakdown"></div></div></section>
+<div id="completionPanel" class="completion-panel" hidden><h2>ENTRY COMPLETE!</h2><p id="completionMessage">You have completed this Pokédex set.</p><p>お疲れ様でした！</p><div class="completion-actions"><button class="button primary" id="completionReviewBtn">↻ Review marked entries</button><button class="button" id="completionRestartBtn">⚡ Start a new adventure</button></div></div><section class="flashcard" aria-live="polite"><div id="statusTag" class="status-tag" hidden></div><div class="card-label" id="cardLabel">Masu form</div><div class="japanese" id="japanese"></div><div class="answer" id="answer" hidden><div class="reading" id="reading"></div><div class="adjective-kanji" id="adjectiveKanji" hidden></div><div class="meaning" id="meaning"></div><div class="group-label" id="groupLabel"></div><div class="section-label" id="formsLabel">Conjugations</div><div class="forms" id="forms"></div><div class="section-label" id="breakdownLabel" hidden>Kanji breakdown</div><div class="kanji-breakdown" id="kanjiBreakdown"></div></div></section>
 <div class="flip-row"><button class="button primary" id="flipBtn">◉ SEE ANSWER</button></div>
 <div class="learning-levels" id="learningLevels" aria-label="Choose your learning level">
 <button class="level-btn level-mastered" data-level="mastered">✓ MASTERED<small>I remembered it correctly</small></button>
@@ -128,15 +144,271 @@ Object.entries(sets).forEach(([name, rows]) => {
 });
 sets.kanji = kanji.map((v, i) => ({ ...v, id: "kanji-" + i, masu: v.word, group: "Kanji" }));
 
+// JLPT N5 adjectives from JLPT Sensei's N5 adjective list (84 entries).
+const A = (reading, word, meaning, type) => {
+  let negative, past, pastNegative;
+  if (type === "i") {
+    if (word === "良い" || reading === "いい") {
+      negative = "よくない"; past = "よかった"; pastNegative = "よくなかった";
+    } else {
+      const stem = reading.slice(0, -1);
+      negative = stem + "くない";
+      past = stem + "かった";
+      pastNegative = stem + "くなかった";
+    }
+  } else {
+    negative = reading + "じゃない";
+    past = reading + "だった";
+    pastNegative = reading + "じゃなかった";
+  }
+  return { reading, word, meaning, type, negative, past, pastNegative };
+};
+const adjectives = [
+  A("あぶない","危ない","dangerous","i"),
+  A("あかい","赤い","red; crimson; scarlet","i"),
+  A("あかるい","明るい","bright; light","i"),
+  A("あまい","甘い","sweet; sugary; naive","i"),
+  A("あおい","青い","blue; azure","i"),
+  A("あたらしい","新しい","new; novel; fresh; recent","i"),
+  A("あたたかい","暖かい","warm","i"),
+  A("あつい","熱い","hot (to the touch)","i"),
+  A("あつい","厚い","thick","i"),
+  A("あつい","暑い","hot (weather)","i"),
+  A("べんり","便利","convenient; handy; useful","na"),
+  A("ちいさい","小さい","small; little; tiny","i"),
+  A("ちかい","近い","near; close","i"),
+  A("だいじょうぶ","大丈夫","okay; all right; problem-free","na"),
+  A("だいすき","大好き","love; like very much","na"),
+  A("ふるい","古い","old (not used for people)","i"),
+  A("ふとい","太い","thick; fat","i"),
+  A("げんき","元気","lively; energetic; healthy","na"),
+  A("はやい","速い","fast; quick","i"),
+  A("はやい","早い","early; fast","i"),
+  A("へた","下手","unskilled; poor at","na"),
+  A("ひくい","低い","low; short","i"),
+  A("ひま","暇","free; having free time","na"),
+  A("ひろい","広い","wide; spacious","i"),
+  A("ほんとう","本当","true; truth; reality","na"),
+  A("ほしい","欲しい","wanted; desired","i"),
+  A("ほそい","細い","thin; slender","i"),
+  A("いろいろ","色々","various","na"),
+  A("いそがしい","忙しい","busy","i"),
+  A("いたい","痛い","painful; sore","i"),
+  A("いや","嫌","unpleasant; disliked","na"),
+  A("じょうぶ","丈夫","strong; durable","na"),
+  A("じょうず","上手","skillful; good at","na"),
+  A("からい","辛い","spicy","i"),
+  A("かるい","軽い","light (weight)","i"),
+  A("かわいい","可愛い","cute; lovely","i"),
+  A("きいろい","黄色い","yellow","i"),
+  A("けっこう","結構","splendid; enough","na"),
+  A("きらい","嫌い","disliked; hateful","na"),
+  A("きれい","綺麗","pretty; beautiful; clean","na"),
+  A("きたない","汚い","dirty","i"),
+  A("くらい","暗い","dark; gloomy","i"),
+  A("くろい","黒い","black","i"),
+  A("まるい","丸い","round; circular","i"),
+  A("まっすぐ","真っ直ぐ","straight; directly","na"),
+  A("まずい","不味い","unpleasant; bad-tasting","i"),
+  A("みじかい","短い","short","i"),
+  A("むずかしい","難しい","difficult","i"),
+  A("ながい","長い","long; lengthy","i"),
+  A("にぎやか","賑やか","lively; bustling","na"),
+  A("ぬるい","温い","lukewarm","i"),
+  A("おいしい","美味しい","delicious","i"),
+  A("おもい","重い","heavy","i"),
+  A("おもしろい","面白い","interesting; funny","i"),
+  A("おおい","多い","many; numerous","i"),
+  A("おおきい","大きい","big; large","i"),
+  A("おそい","遅い","slow; late","i"),
+  A("りっぱ","立派","splendid; admirable","na"),
+  A("さむい","寒い","cold (weather)","i"),
+  A("せまい","狭い","narrow","i"),
+  A("しろい","白い","white","i"),
+  A("しずか","静か","quiet","na"),
+  A("すき","好き","liked; fond of","na"),
+  A("すくない","少ない","few; little; scarce","i"),
+  A("すずしい","涼しい","cool; refreshing","i"),
+  A("たぶん","多分","perhaps; probably","na"),
+  A("たいへん","大変","serious; difficult; very","na"),
+  A("たいせつ","大切","important; precious","na"),
+  A("たかい","高い","high; tall; expensive","i"),
+  A("たくさん","沢山","many; a lot","na"),
+  A("たのしい","楽しい","fun; enjoyable","i"),
+  A("とおい","遠い","far; distant","i"),
+  A("つまらない","詰まらない","boring; uninteresting","i"),
+  A("つめたい","冷たい","cold to the touch","i"),
+  A("つよい","強い","strong; powerful","i"),
+  A("うるさい","煩い","noisy; annoying","i"),
+  A("うすい","薄い","thin; weak; pale","i"),
+  A("わかい","若い","young","i"),
+  A("わるい","悪い","bad; poor","i"),
+  A("やさしい","易しい","easy; simple","i"),
+  A("やすい","安い","cheap; inexpensive","i"),
+  A("いい","良い","good","i"),
+  A("よわい","弱い","weak","i"),
+  A("ゆうめい","有名","famous","na"),
+].map((v, i) => ({ ...v, id: "adjectives-" + i, masu: v.reading, group: v.type === "i" ? "い-adjective" : "な-adjective" }));
+
+
+// JLPT N5 counter practice, based on the supplied counter chart.
+const counterCategories = {
+  "counter-flat": {name:"Flat Objects", short:"枚 (まい)", description:"Flat objects: paper, shirts", counter:"枚", readings:["いちまい","にまい","さんまい","よんまい","ごまい","ろくまい","ななまい","はちまい","きゅうまい","じゅうまい","なんまい"], kanji:["一枚","二枚","三枚","四枚","五枚","六枚","七枚","八枚","九枚","十枚","何枚"], prompts:["1 flat object","2 flat objects","3 flat objects","4 flat objects","5 flat objects","6 flat objects","7 flat objects","8 flat objects","9 flat objects","10 flat objects","How many flat objects?"]},
+  "counter-machines": {name:"Cars & Appliances", short:"台 (だい)", description:"Cars and electrical appliances", counter:"台", readings:["いちだい","にだい","さんだい","よんだい","ごだい","ろくだい","ななだい","はちだい","きゅうだい","じゅうだい","なんだい"], kanji:["一台","二台","三台","四台","五台","六台","七台","八台","九台","十台","何台"], prompts:["1 car/appliance","2 cars/appliances","3 cars/appliances","4 cars/appliances","5 cars/appliances","6 cars/appliances","7 cars/appliances","8 cars/appliances","9 cars/appliances","10 cars/appliances","How many cars/appliances?"]},
+  "counter-cylinders": {name:"Long Cylindrical Objects", short:"本 (ほん)", description:"Pens, umbrellas, bottles and other long objects", counter:"本", readings:["いっぽん","にほん","さんぼん","よんほん","ごほん","ろっぽん","ななほん","はっぽん","きゅうほん","じゅっぽん / じっぽん","なんぼん"], kanji:["一本","二本","三本","四本","五本","六本","七本","八本","九本","十本","何本"], prompts:["1 long object","2 long objects","3 long objects","4 long objects","5 long objects","6 long objects","7 long objects","8 long objects","9 long objects","10 long objects","How many long objects?"]},
+  "counter-animals": {name:"Small Animals", short:"匹 (ひき)", description:"Small animals such as cats, dogs and fish", counter:"匹", readings:["いっぴき","にひき","さんびき","よんひき","ごひき","ろっぴき","ななひき","はっぴき","きゅうひき","じゅっぴき / じっぴき","なんびき"], kanji:["一匹","二匹","三匹","四匹","五匹","六匹","七匹","八匹","九匹","十匹","何匹"], prompts:["1 small animal","2 small animals","3 small animals","4 small animals","5 small animals","6 small animals","7 small animals","8 small animals","9 small animals","10 small animals","How many small animals?"]},
+  "counter-cups": {name:"Cups & Glasses", short:"杯 (はい)", description:"Cups or glasses of liquid", counter:"杯", readings:["いっぱい","にはい","さんばい","よんはい","ごはい","ろっぱい","ななはい","はっぱい","きゅうはい","じゅっぱい / じっぱい","なんばい"], kanji:["一杯","二杯","三杯","四杯","五杯","六杯","七杯","八杯","九杯","十杯","何杯"], prompts:["1 cup/glass","2 cups/glasses","3 cups/glasses","4 cups/glasses","5 cups/glasses","6 cups/glasses","7 cups/glasses","8 cups/glasses","9 cups/glasses","10 cups/glasses","How many cups/glasses?"]},
+  "counter-books": {name:"Books", short:"冊 (さつ)", description:"Bound books, notebooks and magazines", counter:"冊", readings:["いっさつ","にさつ","さんさつ","よんさつ","ごさつ","ろくさつ","ななさつ","はっさつ","きゅうさつ","じゅっさつ / じっさつ","なんさつ"], kanji:["一冊","二冊","三冊","四冊","五冊","六冊","七冊","八冊","九冊","十冊","何冊"], prompts:["1 book","2 books","3 books","4 books","5 books","6 books","7 books","8 books","9 books","10 books","How many books?"]},
+  "counter-floors": {name:"Building Floors", short:"階 (かい)", description:"Floors or storeys in a building", counter:"階", readings:["いっかい","にかい","さんがい","よんかい","ごかい","ろっかい","ななかい","はっかい","きゅうかい","じゅっかい / じっかい","なんがい"], kanji:["一階","二階","三階","四階","五階","六階","七階","八階","九階","十階","何階"], prompts:["1st floor","2nd floor","3rd floor","4th floor","5th floor","6th floor","7th floor","8th floor","9th floor","10th floor","Which/how many floor?"]},
+  "counter-people": {name:"People", short:"人 (にん / り)", description:"Counting people; note the special readings for one and two", counter:"人", readings:["ひとり","ふたり","さんにん","よにん","ごにん","ろくにん","ななにん","はちにん","きゅうにん","じゅうにん","なんにん"], kanji:["一人","二人","三人","四人","五人","六人","七人","八人","九人","十人","何人"], prompts:["1 person","2 people","3 people","4 people","5 people","6 people","7 people","8 people","9 people","10 people","How many people?"]},
+  "counter-general": {name:"General Objects", short:"つ", description:"General-purpose native Japanese counter", counter:"つ", readings:["ひとつ","ふたつ","みっつ","よっつ","いつつ","むっつ","ななつ","やっつ","ここのつ","とお","いくつ"], kanji:["一つ","二つ","三つ","四つ","五つ","六つ","七つ","八つ","九つ","十","いくつ"], prompts:["1 thing","2 things","3 things","4 things","5 things","6 things","7 things","8 things","9 things","10 things","How many things?"]}
+};
+const counters = {};
+Object.entries(counterCategories).forEach(([key, category]) => {
+  counters[key] = category.readings.map((reading, i) => ({
+    id: `${key}-${i}`,
+    prompt: category.prompts[i],
+    reading,
+    written: category.kanji[i],
+    meaning: `${category.description}. ${category.prompts[i]}.`,
+    counterName: category.short,
+    group: category.name,
+    masu: category.prompts[i],
+    word: category.kanji[i]
+  }));
+});
+
+
+// N1 starter collection based on the JLPT Sensei N1 list. The JLPT has no official kanji syllabus.
+// Each entry includes core readings, a common compound, and an example vocabulary item.
+const n1Raw = [
+["氏","シ","うじ","family name; clan","氏名（しめい）","氏","し","surname / family name"],
+["統","トウ","す.べる","govern; unify","統一（とういつ）","統計（とうけい）","とうけい","statistics"],
+["基","キ","もと・もとい","basis; foundation","基本（きほん）","基準（きじゅん）","きじゅん","standard / criterion"],
+["価","カ","あたい","value; price","価値（かち）","価格（かかく）","かかく","price"],
+["提","テイ","さ.げる","propose; present","提出（ていしゅつ）","提案（ていあん）","ていあん","proposal"],
+["挙","キョ","あ.げる・こぞ.る","raise; action","選挙（せんきょ）","挙手（きょしゅ）","きょしゅ","raising one's hand"],
+["応","オウ","こた.える","respond; apply","対応（たいおう）","応募（おうぼ）","おうぼ","application"],
+["企","キ","くわだ.てる・たくら.む","plan; undertake","企業（きぎょう）","企画（きかく）","きかく","plan / project"],
+["検","ケン","しら.べる","examine; inspect","検査（けんさ）","検索（けんさく）","けんさく","search"],
+["藤","トウ","ふじ","wisteria","藤色（ふじいろ）","藤原（ふじわら）","ふじわら","Fujiwara (surname)"],
+["沢","タク","さわ","marsh; abundance","贅沢（ぜいたく）","沢山（たくさん）","たくさん","many / plenty"],
+["裁","サイ","た.つ・さば.く","judge; cut out","裁判（さいばん）","裁判所（さいばんしょ）","さいばんしょ","court of law"],
+["証","ショウ","あかし","proof; certificate","証明（しょうめい）","証拠（しょうこ）","しょうこ","evidence"],
+["援","エン","—","aid; support","援助（えんじょ）","支援（しえん）","しえん","support / assistance"],
+["可","カ","べ.き","possible; permitted","可能（かのう）","許可（きょか）","きょか","permission"],
+["施","シ・セ","ほどこ.す","carry out; bestow","実施（じっし）","施設（しせつ）","しせつ","facility"],
+["井","セイ・ショウ","い","well","井戸（いど）","天井（てんじょう）","てんじょう","ceiling"],
+["護","ゴ","まも.る","protect; defend","保護（ほご）","看護（かんご）","かんご","nursing / care"],
+["展","テン","—","expand; unfold","発展（はってん）","展示（てんじ）","てんじ","exhibition"],
+["態","タイ","わざ.と","condition; attitude","状態（じょうたい）","態度（たいど）","たいど","attitude"],
+["鮮","セン","あざ.やか","fresh; vivid","新鮮（しんせん）","鮮明（せんめい）","せんめい","clear / vivid"],
+["視","シ","み.る","look at; regard","視点（してん）","視野（しや）","しや","field of vision"],
+["条","ジョウ","えだ・すじ","article; clause","条件（じょうけん）","条約（じょうやく）","じょうやく","treaty"],
+["幹","カン","みき","trunk; main part","幹部（かんぶ）","新幹線（しんかんせん）","しんかんせん","bullet train"],
+["独","ドク","ひと.り","alone; independent","独立（どくりつ）","独自（どくじ）","どくじ","unique / original"],
+["宮","キュウ・グウ・ク","みや","palace; shrine","宮殿（きゅうでん）","神宮（じんぐう）","じんぐう","Shinto shrine"],
+["率","ソツ・リツ","ひき.いる","rate; lead","確率（かくりつ）","効率（こうりつ）","こうりつ","efficiency"],
+["衛","エイ","—","defend; protect","衛生（えいせい）","防衛（ぼうえい）","ぼうえい","defence"],
+["張","チョウ","は.る","stretch; spread","主張（しゅちょう）","緊張（きんちょう）","きんちょう","tension"],
+["監","カン","—","oversee; supervise","監督（かんとく）","監視（かんし）","かんし","surveillance"],
+["環","カン","わ","ring; environment","環境（かんきょう）","循環（じゅんかん）","じゅんかん","circulation"],
+["審","シン","つまび.らか","judge; examine","審査（しんさ）","審判（しんぱん）","しんぱん","referee / judge"],
+["義","ギ","—","justice; righteousness","意義（いぎ）","講義（こうぎ）","こうぎ","lecture"],
+["訴","ソ","うった.える","sue; appeal","訴訟（そしょう）","訴える（うったえる）","うったえる","to appeal / complain"],
+["株","シュ","かぶ","stock; share","株式（かぶしき）","株主（かぶぬし）","かぶぬし","shareholder"],
+["姿","シ","すがた","figure; appearance","姿勢（しせい）","姿（すがた）","すがた","appearance / figure"],
+["閣","カク","—","tower; cabinet","内閣（ないかく）","閣僚（かくりょう）","かくりょう","cabinet minister"],
+["韓","カン","から","Korea","韓国（かんこく）","韓国語（かんこくご）","かんこくご","Korean language"],
+["衆","シュウ・シュ","おお.い","multitude; masses","観衆（かんしゅう）","大衆（たいしゅう）","たいしゅう","the public / masses"],
+["評","ヒョウ","—","evaluate; criticism","評価（ひょうか）","評判（ひょうばん）","ひょうばん","reputation"],
+["岡","コウ","おか","hill; ridge","岡山（おかやま）","静岡（しずおか）","しずおか","Shizuoka (place name)"],
+["影","エイ","かげ","shadow; influence","影響（えいきょう）","撮影（さつえい）","さつえい","photography / filming"],
+["松","ショウ","まつ","pine tree","松林（まつばやし）","松竹（しょうちく）","しょうちく","Shochiku (name)"],
+["撃","ゲキ","う.つ","attack; strike","攻撃（こうげき）","撃退（げきたい）","げきたい","repel / drive back"],
+["佐","サ","—","assist; help","補佐（ほさ）","佐藤（さとう）","さとう","Sato (surname)"],
+["核","カク","—","nucleus; core","核家族（かくかぞく）","核心（かくしん）","かくしん","core / heart"],
+["整","セイ","ととの.える・ととの.う","arrange; put in order","整理（せいり）","調整（ちょうせい）","ちょうせい","adjustment"],
+["融","ユウ","と.ける","melt; finance","金融（きんゆう）","融通（ゆうずう）","ゆうずう","accommodation / flexibility"],
+["製","セイ","—","manufacture; made","製品（せいひん）","製造（せいぞう）","せいぞう","manufacturing"],
+["票","ヒョウ","—","ballot; ticket","投票（とうひょう）","伝票（でんぴょう）","でんぴょう","slip / voucher"],
+["渉","ショウ","わた.る","cross; involve","交渉（こうしょう）","干渉（かんしょう）","かんしょう","interference"],
+["響","キョウ","ひび.く","echo; resonate","影響（えいきょう）","音響（おんきょう）","おんきょう","acoustics / sound"],
+["推","スイ","お.す","infer; recommend","推測（すいそく）","推薦（すいせん）","すいせん","recommendation"],
+["請","セイ・シン・ショウ","こ.う・う.ける","request; ask","申請（しんせい）","請求（せいきゅう）","せいきゅう","claim / request"],
+["器","キ","うつわ","vessel; ability","楽器（がっき）","機器（きき）","きき","equipment"],
+["士","シ","さむらい","scholar; warrior","博士（はかせ）","弁護士（べんごし）","べんごし","lawyer"],
+["討","トウ","う.つ","attack; discuss","検討（けんとう）","討論（とうろん）","とうろん","debate"],
+["攻","コウ","せ.める","attack; study intensively","攻撃（こうげき）","専攻（せんこう）","せんこう","major / specialization"],
+["崎","キ","さき・みさき","cape; promontory","長崎（ながさき）","宮崎（みやざき）","みやざき","Miyazaki (place name)"],
+["督","トク","—","supervise; direct","監督（かんとく）","督促（とくそく）","とくそく","demand / reminder"],
+["授","ジュ","さず.ける","grant; teach","授業（じゅぎょう）","教授（きょうじゅ）","きょうじゅ","professor / instruction"],
+["催","サイ","もよお.す","hold; sponsor","開催（かいさい）","催促（さいそく）","さいそく","urging / reminder"],
+["及","キュウ","およ.ぶ・およ.び","reach; extend","影響及ぶ（えいきょうおよぶ）","普及（ふきゅう）","ふきゅう","spread / diffusion"],
+["憲","ケン","—","constitution; law","憲法（けんぽう）","憲章（けんしょう）","けんしょう","charter"],
+["離","リ","はな.れる・はな.す","separate; leave","距離（きょり）","離婚（りこん）","りこん","divorce"],
+["激","ゲキ","はげ.しい","intense; violent","刺激（しげき）","激増（げきぞう）","げきぞう","sharp increase"],
+["摘","テキ","つ.む","pluck; point out","指摘（してき）","摘発（てきはつ）","てきはつ","exposure / detection"],
+["系","ケイ","—","system; lineage","体系（たいけい）","関係（かんけい）","かんけい","relationship"],
+["批","ヒ","—","criticize","批判（ひはん）","批評（ひひょう）","ひひょう","criticism / review"],
+["郎","ロウ","おとこ","son; young man","長男（ちょうなん）","新郎（しんろう）","しんろう","bridegroom"],
+["健","ケン","すこ.やか","healthy; strong","健康（けんこう）","健全（けんぜん）","けんぜん","sound / wholesome"],
+["従","ジュウ・ショウ・ジュ","したが.う・より","obey; follow","従来（じゅうらい）","従業員（じゅうぎょういん）","じゅうぎょういん","employee"],
+["修","シュウ・シュ","おさ.める","master; discipline","修理（しゅうり）","修正（しゅうせい）","しゅうせい","correction"],
+["隊","タイ","—","group; squad","部隊（ぶたい）","軍隊（ぐんたい）","ぐんたい","military"],
+["織","ショク・シキ","お.る","weave; fabric","組織（そしき）","織物（おりもの）","おりもの","woven fabric"],
+["拡","カク","ひろ.がる","expand; extend","拡大（かくだい）","拡張（かくちょう）","かくちょう","expansion"],
+["故","コ","ゆえ・ふる.い","reason; deceased","故障（こしょう）","事故（じこ）","じこ","accident"],
+["振","シン","ふ.る","shake; wave","振動（しんどう）","振込（ふりこみ）","ふりこみ","bank transfer"],
+["弁","ベン・ヘン","わきま.える・わ.ける","speech; distinguish","弁当（べんとう）","弁護士（べんごし）","べんごし","lawyer"],
+["就","シュウ・ジュ","つ.く","take a position; begin","就職（しゅうしょく）","就任（しゅうにん）","しゅうにん","appointment to a post"],
+["異","イ","こと・こと.なる","different; unusual","異常（いじょう）","異文化（いぶんか）","いぶんか","different culture"],
+["献","ケン・コン","たてまつ.る","offer; dedicate","貢献（こうけん）","献立（こんだて）","こんだて","menu / meal plan"],
+["厳","ゲン・ゴン","きび.しい・おごそ.か","strict; severe","厳格（げんかく）","厳しい（きびしい）","きびしい","strict / severe"],
+["維","イ","—","maintain; fiber","維持（いじ）","繊維（せんい）","せんい","fibre"],
+["浜","ヒン","はま","beach; shore","浜辺（はまべ）","横浜（よこはま）","よこはま","Yokohama"],
+["遺","イ・ユイ","のこ.す","leave behind; bequeath","遺産（いさん）","遺伝（いでん）","いでん","heredity"],
+["塁","ルイ","とりで","base; fort","塁審（るいしん）","満塁（まんるい）","まんるい","bases loaded"],
+["邦","ホウ","くに","homeland; country","邦人（ほうじん）","連邦（れんぽう）","れんぽう","federation"],
+["素","ソ・ス","もと","element; plain","素材（そざい）","素直（すなお）","すなお","honest / obedient"],
+["遣","ケン","つか.う・や.る","dispatch; use","派遣（はけん）","遣い（つかい）","つかい","errand / messenger"],
+["抗","コウ","あらが.う","resist; oppose","抵抗（ていこう）","抗議（こうぎ）","こうぎ","protest"],
+["模","モ・ボ","—","imitation; model","模型（もけい）","模様（もよう）","もよう","pattern"],
+["雄","ユウ","おす・お","male; hero","英雄（えいゆう）","雄大（ゆうだい）","ゆうだい","grand / majestic"],
+["益","エキ・ヤク","ま.す","benefit; profit","利益（りえき）","有益（ゆうえき）","ゆうえき","beneficial"],
+["緊","キン","—","tense; urgent","緊張（きんちょう）","緊急（きんきゅう）","きんきゅう","emergency"],
+["標","ヒョウ","しるべ・しるし","mark; sign","目標（もくひょう）","標準（ひょうじゅん）","ひょうじゅん","standard"],
+["宣","セン","のたま.う","proclaim; announce","宣伝（せんでん）","宣言（せんげん）","せんげん","declaration"],
+["昭","ショウ","—","bright; shining","昭和（しょうわ）","昭明（しょうめい）","しょうめい","bright / clear"],
+["廃","ハイ","すた.れる","abolish; obsolete","廃止（はいし）","廃棄（はいき）","はいき","disposal / abolition"],
+["伊","イ","かれ","Italy; that one","伊太利（いたり）","伊豆（いず）","いず","Izu (place name)"]
+];
+const n1Kanji = n1Raw.map((r,i)=>({id:`n1-${i}`,word:r[0],reading:`On: ${r[1]} · Kun: ${r[2]}`,meaning:`${r[3]}\nCompound: ${r[4]}\nExample: ${r[5]} (${r[6]}) — ${r[7]}`,onReading:r[1],kunReading:r[2],compound:r[4],example:r[5],exampleReading:r[6],exampleMeaning:r[7],chars:[[r[0],`On: ${r[1]}`,`${r[3]} · Kun: ${r[2]}`]],masu:r[0],group:"JLPT N1 Kanji"}));
+
 const setInfo = {
   "1-6": "Verbs 1–6",
   "7-12": "Verbs 7–12",
-  kanji: "N5 Kanji with Words"
+  kanji: "N5 Kanji with Words",
+  "n1-kanji": "N1 Kanji · Starter Collection",
+  adjectives: "N5 Adjectives",
+  "counter-flat": "Flat Objects",
+  "counter-machines": "Cars & Appliances",
+  "counter-cylinders": "Long Cylindrical Objects",
+  "counter-animals": "Small Animals",
+  "counter-cups": "Cups & Glasses",
+  "counter-books": "Books",
+  "counter-floors": "Building Floors",
+  "counter-people": "People",
+  "counter-general": "General Objects"
 };
-
+const getSetData = key => key === "adjectives" ? adjectives : key === "n1-kanji" ? n1Kanji : key.startsWith("counter-") ? counters[key] : sets[key];
+const groupLabels = {"1-6":"Verbs", "7-12":"Verbs", kanji:"Kanji", "n1-kanji":"N1 Kanji", adjectives:"Adjectives", ...Object.fromEntries(Object.keys(counterCategories).map(k=>[k,"Counters"]))};
 let currentSet = "1-6";
-let expandedSet = null;
-let originalDeck = [...sets[currentSet]];
+let expandedN5 = false;
+let expandedN1 = false;
+let expandedIndex = false;
+let expandedGroup = null;
+let originalDeck = [...getSetData(currentSet)];
 let deck = [...originalDeck];
 let currentIndex = 0;
 let isFlipped = false;
@@ -153,8 +425,7 @@ const currentVerb = () => deck[currentIndex];
 
 function switchSet(key) {
   currentSet = key;
-  expandedSet = null;
-  originalDeck = [...sets[key]];
+  originalDeck = [...getSetData(key)];
   deck = [...originalDeck];
   currentIndex = 0;
   isFlipped = false;
@@ -164,75 +435,128 @@ function switchSet(key) {
   reviewIndex = 0;
   reviewMode = false;
   completedOriginalDeck = false;
+  expandedN5 = !key.startsWith("n1-");
+  expandedN1 = key.startsWith("n1-");
+  expandedGroup = groupLabels[key] === "Counters" ? "Counters" : groupLabels[key] === "Verbs" ? "Verbs" : null;
   render();
+}
+
+function makeNavButton(label, detail, count, className, active, expanded, onClick) {
+  const button = document.createElement("button");
+  button.className = className + (active ? " active" : "");
+  if (expanded !== null) button.setAttribute("aria-expanded", String(expanded));
+  const textWrap = document.createElement("span");
+  textWrap.textContent = label;
+  if (detail) {
+    const small = document.createElement("small");
+    small.textContent = detail;
+    textWrap.appendChild(small);
+  }
+  button.appendChild(textWrap);
+  if (count) {
+    const right = document.createElement("span");
+    right.className = "nav-count";
+    right.textContent = count;
+    button.appendChild(right);
+  }
+  button.addEventListener("click", onClick);
+  return button;
 }
 
 function renderSidebar() {
   const root = $("sidebarSets");
   root.innerHTML = "";
-
-  Object.keys(setInfo).forEach(key => {
-    const isExpanded = expandedSet === key;
-    const toggle = document.createElement("button");
-    toggle.className = "category-toggle" + (currentSet === key ? " active" : "");
-    toggle.setAttribute("aria-expanded", String(isExpanded));
-    toggle.innerHTML = `<span>${setInfo[key]}</span><span>${isExpanded ? "⌄" : "›"}</span>`;
-    toggle.addEventListener("click", () => {
-      if (currentSet !== key) {
-        switchSet(key);
-        expandedSet = key;
-      } else {
-        expandedSet = isExpanded ? null : key;
-      }
+  const major = makeNavButton("JLPT N5", "All study categories", expandedN5 ? "⌄" : "›", "nav-major", expandedN5, expandedN5, () => {
+    expandedN5 = !expandedN5;
+    renderSidebar();
+  });
+  root.appendChild(major);
+  if (!expandedN5) {
+    // N1 is a separate top-level menu, independent of the N5 tree.
+  } else {
+  const menu = document.createElement("div");
+  menu.className = "nav-sublist";
+  const addDirect = (label, detail, key, count) => {
+    menu.appendChild(makeNavButton(label, detail, count, "nav-category", currentSet === key, null, () => switchSet(key)));
+  };
+  const addGroup = (label, detail, keys) => {
+    const expanded = expandedGroup === label;
+    const groupButton = makeNavButton(label, detail, expanded ? "⌄" : "›", "nav-category", keys.includes(currentSet), expanded, () => {
+      expandedGroup = expanded ? null : label;
       renderSidebar();
     });
-    root.appendChild(toggle);
+    menu.appendChild(groupButton);
+    if (!expanded) return;
+    const children = document.createElement("div");
+    children.className = "nav-sublist";
+    keys.forEach(key => {
+      const data = getSetData(key);
+      const detailText = key.startsWith("counter-") ? counterCategories[key].short + " · " + data.length + " cards" : key === "1-6" || key === "7-12" ? "Verb conjugation · " + data.length + " cards" : "";
+      children.appendChild(makeNavButton(setInfo[key], detailText, String(data.length), "nav-subitem", currentSet === key, null, () => {
+        switchSet(key);
+        if (window.matchMedia("(max-width: 700px)").matches) $("app").classList.add("sidebar-collapsed");
+      }));
+    });
+    menu.appendChild(children);
+  };
+  addGroup("Verbs", "Verb conjugation practice", ["1-6", "7-12"]);
+  addDirect("Kanji", "Words and character breakdowns", "kanji", String(sets.kanji.length));
+  addDirect("Adjectives", "い-adjectives and な-adjectives", "adjectives", String(adjectives.length));
+  addGroup("Counters", "Numbers and counting words", Object.keys(counterCategories));
+  root.appendChild(menu);
+  }
 
-    if (isExpanded) {
-      const list = document.createElement("div");
-      list.className = "verb-list";
-
-      // Keep the sidebar list stable and in source order, even when shuffled.
-      sets[key].forEach((v, i) => {
-        const b = document.createElement("button");
-        b.className = "verb-item" + (
-          (!reviewMode && deck[currentIndex]?.id === v.id) ||
-          (reviewMode && reviewQueue[reviewIndex]?.id === v.id) ? " active" : ""
-        );
-
-        const jp = document.createElement("span");
-        jp.className = "verb-jp";
-        jp.textContent = key === "kanji" ? v.word : v.masu;
-
-        const en = document.createElement("span");
-        en.className = "verb-en";
-        en.textContent = v.meaning;
-
-        b.append(jp, en);
-        b.addEventListener("click", () => {
-          if (currentSet !== key) switchSet(key);
-          reviewMode = false;
-          const foundIndex = deck.findIndex(item => item.id === v.id);
-          currentIndex = foundIndex >= 0 ? foundIndex : i;
-          isFlipped = false;
-          render();
-          if (window.matchMedia("(max-width: 700px)").matches) {
-            $("app").classList.add("sidebar-collapsed");
-          }
-        });
-        list.appendChild(b);
-      });
-      root.appendChild(list);
-    }
+  const n1Major = makeNavButton("JLPT N1", "Advanced kanji study", expandedN1 ? "⌄" : "›", "nav-major", currentSet === "n1-kanji", expandedN1, () => {
+    expandedN1 = !expandedN1;
+    renderSidebar();
   });
+  root.appendChild(n1Major);
+  if (expandedN1) {
+    const n1Menu = document.createElement("div"); n1Menu.className = "nav-sublist";
+    n1Menu.appendChild(makeNavButton("N1 Kanji Collection", "Readings, meanings & vocabulary", String(n1Kanji.length), "nav-subitem", currentSet === "n1-kanji", null, () => switchSet("n1-kanji")));
+    root.appendChild(n1Menu);
+  }
+
+  // The Index is always the final collapsible item and offers direct card navigation.
+  const indexButton = makeNavButton("Index", "Quick access to every card in the selected set", expandedIndex ? "⌄" : "›", "nav-category", false, expandedIndex, () => { expandedIndex = !expandedIndex; renderSidebar(); });
+  root.appendChild(indexButton);
+  if (expandedIndex) {
+    const indexList = document.createElement("div"); indexList.className = "nav-sublist";
+    const entries = getSetData(currentSet) || [];
+    entries.forEach((entry, i) => {
+      const label = currentSet === "kanji" || currentSet === "n1-kanji" ? entry.word : currentSet === "adjectives" ? entry.reading : currentSet.startsWith("counter-") ? entry.reading : entry.masu;
+      const detail = entry.meaning || "";
+      indexList.appendChild(makeNavButton(label, detail, String(i+1), "nav-subitem", i === currentIndex, null, () => {
+        currentIndex = i; isFlipped = false; reviewMode = false; completedOriginalDeck = false; render();
+      }));
+    });
+    root.appendChild(indexList);
+  }
+}
+function furiganaHTML(word, reading) {
+  // Attach the reading to the kanji stem, leaving matching kana endings as okurigana.
+  const trailingKana = (word.match(/[ぁ-ゖー]+$/) || [""])[0];
+  if (trailingKana && /[一-龯々]/.test(word.slice(0, -trailingKana.length))) {
+    const stemReading = reading.endsWith(trailingKana)
+      ? reading.slice(0, -trailingKana.length)
+      : reading;
+    const stem = word.slice(0, -trailingKana.length);
+    return `<ruby>${stem}<rt>${stemReading}</rt></ruby>${trailingKana}`;
+  }
+  return `<ruby>${word}<rt>${reading}</rt></ruby>`;
 }
 function renderCard() {
   const v = reviewMode ? reviewQueue[reviewIndex] : currentVerb();
   if (!v) return;
 
   const isKanji = currentSet === "kanji";
-  $("pageTitle").textContent = isKanji ? "N5 Kanji with Words" : "Verb Flashcards";
-  $("japanese").textContent = isKanji ? v.word : v.masu;
+  const isN1 = currentSet === "n1-kanji";
+  const isAdjective = currentSet === "adjectives";
+  const isCounter = currentSet.startsWith("counter-");
+  const setTitle = setInfo[currentSet] || "JLPT N5";
+  $("pageTitle").textContent = isN1 ? "JLPT N1 Kanji Collection" : isKanji ? "N5 Kanji with Words" : isAdjective ? "N5 Adjectives" : isCounter ? `Counters · ${setTitle}` : `Verb Flashcards · ${setTitle}`;
+  $("japanese").textContent = (isKanji || isN1) ? v.word : isAdjective ? v.reading : isCounter ? v.prompt : v.masu;
+  $("japanese").classList.toggle("counter-prompt", isCounter);
   const level = cardLevels.get(v.id);
   const tag = $("statusTag");
   tag.hidden = !level;
@@ -241,60 +565,65 @@ function renderCard() {
   document.querySelectorAll(".level-btn").forEach(btn => btn.classList.toggle("selected", btn.dataset.level === level));
   $("answer").hidden = !isFlipped;
   $("cardLabel").textContent = isFlipped
-    ? (isKanji ? "Word meaning & kanji breakdown" : "Translation & verb forms")
-    : (isKanji ? "Kanji word" : "Masu form");
+    ? (isN1 ? "Meaning, readings & vocabulary" : isKanji ? "Word meaning & kanji breakdown" : isAdjective ? "Translation, forms & kanji" : isCounter ? "Counter reading & written form" : "Translation & verb forms")
+    : (isN1 ? "JLPT N1 kanji" : isKanji ? "Kanji word" : isAdjective ? "Hiragana reading" : isCounter ? "Counting prompt" : "Masu form");
   $("flipBtn").textContent = isFlipped ? "↩ Hide answer" : "See answer ↗";
-  $("reading").hidden = !isKanji;
+  $("reading").hidden = !(isKanji || isN1 || isCounter);
   $("meaning").textContent = v.meaning;
-  $("groupLabel").textContent = isKanji ? "Vocabulary meaning" : `Group ${v.group}`;
-  $("formsLabel").hidden = isKanji;
-  $("forms").hidden = isKanji;
-  $("breakdownLabel").hidden = !isKanji;
-  $("kanjiBreakdown").hidden = !isKanji;
+  $("adjectiveKanji").hidden = !((isAdjective || isCounter) && isFlipped);
+  $("groupLabel").textContent = isN1 ? "On’yomi / Kun’yomi & example vocabulary" : isKanji ? "Vocabulary meaning" : isAdjective ? (v.type === "i" ? "い-adjective" : "な-adjective") : isCounter ? `Counter: ${v.counterName}` : `Group ${v.group}`;
+  $("formsLabel").hidden = isKanji || isN1 || isCounter;
+  $("forms").hidden = isKanji || isN1 || isCounter;
+  $("breakdownLabel").hidden = !(isKanji || isN1);
+  $("kanjiBreakdown").hidden = !(isKanji || isN1);
 
-  if (isKanji) {
-    $("reading").textContent = v.reading;
+  if (isAdjective) {
+    $("adjectiveKanji").innerHTML = furiganaHTML(v.word, v.reading);
+    $("reading").textContent = "";
     $("forms").innerHTML = "";
-    const box = $("kanjiBreakdown");
-    box.innerHTML = "";
+    [["Present negative", v.negative], ["Past", v.past], ["Past negative", v.pastNegative]].forEach(([label, value]) => {
+      const b = document.createElement("div"); b.className = "form-box";
+      const n = document.createElement("div"); n.className = "form-name"; n.textContent = label;
+      const x = document.createElement("div"); x.className = "form-value"; x.textContent = value;
+      b.append(n, x); $("forms").appendChild(b);
+    });
+    $("kanjiBreakdown").innerHTML = "";
+  } else if (isKanji || isN1) {
+    $("reading").textContent = v.reading;
+    $("adjectiveKanji").innerHTML = "";
+    $("forms").innerHTML = "";
+    const box = $("kanjiBreakdown"); box.innerHTML = "";
+    if (isN1) {
+      const details = document.createElement("div"); details.className = "form-box";
+      details.innerHTML = `<div class="form-name">Common compound</div><div class="form-value">${v.compound}</div><div class="form-name" style="margin-top:8px">Example vocabulary</div><div class="form-value">${v.example} · ${v.exampleReading}</div><div class="form-name" style="margin-top:4px">Meaning</div><div class="form-value">${v.exampleMeaning}</div>`; box.appendChild(details);
+    }
     if (!v.chars || !v.chars.length) {
-      const note = document.createElement("div");
-      note.className = "form-box";
+      const note = document.createElement("div"); note.className = "form-box";
       note.textContent = "The source sheet does not provide a clear character-by-character breakdown for this entry.";
       box.appendChild(note);
     } else {
       v.chars.forEach(([symbol, reading, meaning]) => {
-        const c = document.createElement("div");
-        c.className = "char-box";
-        const s = document.createElement("div");
-        s.className = "char-symbol";
-        s.textContent = symbol;
-        const r = document.createElement("div");
-        r.className = "char-reading";
-        r.textContent = reading;
-        const m = document.createElement("div");
-        m.className = "char-meaning";
-        m.textContent = meaning;
-        c.append(s, r, m);
-        box.appendChild(c);
+        const c = document.createElement("div"); c.className = "char-box";
+        const sym = document.createElement("div"); sym.className = "char-symbol"; sym.textContent = symbol;
+        const r = document.createElement("div"); r.className = "char-reading"; r.textContent = reading;
+        const m = document.createElement("div"); m.className = "char-meaning"; m.textContent = meaning;
+        c.append(sym, r, m); box.appendChild(c);
       });
     }
+  } else if (isCounter) {
+    $("reading").textContent = v.reading;
+    $("adjectiveKanji").innerHTML = furiganaHTML(v.written, v.reading.split(" / ")[0]);
+    $("forms").innerHTML = "";
+    $("kanjiBreakdown").innerHTML = "";
   } else {
     $("reading").textContent = "";
-    const forms = $("forms");
-    forms.innerHTML = "";
-    [["Dictionary Form", v.dictionary], ["Nai Form", v.nai], ["Ta Form", v.ta],
-     ["Nakatta Form", v.nakatta], ["Te Form", v.te]].forEach(([label, value]) => {
-      const b = document.createElement("div");
-      b.className = "form-box";
-      const n = document.createElement("div");
-      n.className = "form-name";
-      n.textContent = label;
-      const x = document.createElement("div");
-      x.className = "form-value";
-      x.textContent = value;
-      b.append(n, x);
-      forms.appendChild(b);
+    $("adjectiveKanji").hidden = true;
+    const forms = $("forms"); forms.innerHTML = "";
+    [["Dictionary Form", v.dictionary], ["Nai Form", v.nai], ["Ta Form", v.ta], ["Nakatta Form", v.nakatta], ["Te Form", v.te]].forEach(([label, value]) => {
+      const b = document.createElement("div"); b.className = "form-box";
+      const n = document.createElement("div"); n.className = "form-name"; n.textContent = label;
+      const x = document.createElement("div"); x.className = "form-value"; x.textContent = value;
+      b.append(n, x); forms.appendChild(b);
     });
   }
 }
@@ -309,8 +638,9 @@ function render() {
   const sideProgress = reviewMode ? (reviewIndex + 1) / Math.max(1, reviewQueue.length) : (currentIndex + 1) / Math.max(1, originalDeck.length);
   if ($("sideProgressBar")) $("sideProgressBar").style.width = `${Math.round(sideProgress * 100)}%`;
   if ($("sideProgressText")) $("sideProgressText").textContent = reviewMode ? `Review ${reviewIndex + 1} / ${reviewQueue.length}` : `${Math.min(currentIndex + 1, originalDeck.length)} / ${originalDeck.length} entries`;
-  if ($("sideCurrentSet")) $("sideCurrentSet").textContent = setInfo[currentSet];
-  if ($("sideCurrentWord")) $("sideCurrentWord").textContent = shownCard ? (currentSet === "kanji" ? shownCard.word : shownCard.masu) : "Set complete";
+  if ($("sideCurrentSet")) $("sideCurrentSet").textContent = setInfo[currentSet] || currentSet;
+  if ($("studyLocation")) $("studyLocation").innerHTML = `<strong>${currentSet === "n1-kanji" ? "JLPT N1" : "JLPT N5"}</strong> / <strong>${groupLabels[currentSet] || "Study"}</strong> / ${setInfo[currentSet] || currentSet}. Open the Pokédex Index to change categories.`;
+  if ($("sideCurrentWord")) $("sideCurrentWord").textContent = shownCard ? ((currentSet === "kanji" || currentSet === "n1-kanji") ? shownCard.word : currentSet === "adjectives" ? shownCard.reading : currentSet.startsWith("counter-") ? shownCard.prompt : shownCard.masu) : "Set complete";
   if ($("sideStudyMode")) $("sideStudyMode").textContent = reviewMode ? "Review round" : completedOriginalDeck ? "Set complete" : "Learning · First round";
   $("completionPanel").hidden = !completedOriginalDeck || reviewMode;
   $("completionMessage").textContent = `${setInfo[currentSet]} complete. ${reviewIds.size ? reviewIds.size + " entries still need a review." : "All entries mastered for this session."}`;
@@ -339,10 +669,6 @@ function render() {
   $("progressFill").style.width = total ? `${Math.min(100, n / total * 100)}%` : "0%";
   $("prevBtn").disabled = reviewMode ? reviewIndex === 0 : currentIndex === 0;
 
-  $("reviewBtn").textContent = reviewIds.has((reviewMode ? reviewQueue[reviewIndex] : currentVerb())?.id)
-    ? "✓ Marked"
-    : "↻ Review";
-
 }
 
 function startReview() {
@@ -360,9 +686,6 @@ function startReview() {
   render();
 }
 
-document.querySelectorAll(".set-option").forEach(b =>
-  b.addEventListener("click", () => switchSet(b.dataset.set))
-);
 $("toggleSidebar").addEventListener("click", () => $("app").classList.toggle("sidebar-collapsed"));
 document.addEventListener("click", event => {
   const app = $("app");
@@ -440,7 +763,7 @@ $("completionReviewBtn").addEventListener("click", () => {
   startReview();
 });
 function restartAdventure() {
-  originalDeck = [...sets[currentSet]];
+  originalDeck = [...getSetData(currentSet)];
   deck = [...originalDeck];
   currentIndex = 0;
   isFlipped = false;
@@ -459,7 +782,7 @@ $("soundBtn").addEventListener("click", () => {
   render();
 });
 $("shuffleBtn").addEventListener("click", () => {
-  originalDeck = [...sets[currentSet]];
+  originalDeck = [...getSetData(currentSet)];
   for (let i = originalDeck.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [originalDeck[i], originalDeck[j]] = [originalDeck[j], originalDeck[i]];
