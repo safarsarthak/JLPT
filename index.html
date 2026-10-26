@@ -97,6 +97,15 @@ ruby{ruby-position:over;ruby-align:center}rt{font-size:.42em;color:#b91f27;font-
 @media(max-width:700px){.study-location{padding:11px 12px}.nav-sublist{margin-left:6px}.nav-subitem{padding:9px 7px}}
 
 
+
+/* Individual Kanji character cards: separate readings and practical vocabulary. */
+#reading{white-space:pre-line}
+.character-example{display:grid;grid-template-columns:minmax(54px,auto) minmax(0,1fr);gap:12px;align-items:center;text-align:left;padding:12px 14px;border:1px solid #a8c9bc;border-radius:7px;background:#f3faf3}
+.character-example-word{font-size:clamp(21px,3vw,29px);font-weight:900;color:#17252b;min-width:54px}
+.character-example-reading{font-size:15px;font-weight:900;color:#b91f27}
+.character-example-meaning{font-size:12px;color:#50686b;margin-top:3px;line-height:1.5}
+.character-examples-list{display:grid;gap:8px;width:100%;text-align:left}
+
 /* Genki example sentences: textbook-style furigana above kanji */
 .genki-sentence{font-size:clamp(19px,2.5vw,25px);line-height:2.15;text-align:center;overflow-wrap:anywhere}
 .genki-sentence ruby{ruby-position:over;ruby-align:center;white-space:nowrap}
@@ -149,6 +158,114 @@ Object.entries(sets).forEach(([name, rows]) => {
   sets[name] = rows.map((v, i) => ({ ...v, id: name + "-" + i, reading: v.masu }));
 });
 sets.kanji = kanji.map((v, i) => ({ ...v, id: "kanji-" + i, masu: v.word, group: "Kanji" }));
+
+
+/* Individual Kanji-character deck transcribed from the attached textbook screenshots.
+   Each card groups readings with the practical vocabulary printed alongside that character. */
+const kanjiCharacters = [
+ {word:"一",meaning:"One",onyomi:"いち・いっ",kunyomi:"ひと",examples:[["一","いち","one"],["一時","いちじ","one o’clock"],["一年生","いちねんせい","first-year student"],["一月","いちがつ","January"],["一つ","ひとつ","one thing"]]},
+ {word:"二",meaning:"Two",onyomi:"に",kunyomi:"ふた・ふつ",examples:[["二","に","two"],["二時","にじ","two o’clock"],["二年生","にねんせい","second-year student"],["二月","にがつ","February"],["二つ","ふたつ","two things"]]},
+ {word:"三",meaning:"Three",onyomi:"さん",kunyomi:"みっ・み",examples:[["三","さん","three"],["三時","さんじ","three o’clock"],["三年生","さんねんせい","third-year student"],["三月","さんがつ","March"],["三つ","みっつ","three things"]]},
+ {word:"四",meaning:"Four",onyomi:"し",kunyomi:"よ・よん・よっ",examples:[["四","し","four"],["四時","よじ","four o’clock"],["四月","しがつ","April"],["四つ","よっつ","four things"]]},
+ {word:"五",meaning:"Five",onyomi:"ご",kunyomi:"いつ・いつつ",examples:[["五","ご","five"],["五時","ごじ","five o’clock"],["五月","ごがつ","May"],["五つ","いつつ","five things"]]},
+ {word:"六",meaning:"Six",onyomi:"ろく",kunyomi:"むっ・むい",examples:[["六","ろく","six"],["六時","ろくじ","six o’clock"],["六月","ろくがつ","June"],["六つ","むっつ","six things"]]},
+ {word:"七",meaning:"Seven",onyomi:"しち",kunyomi:"なな・なの",examples:[["七","しち","seven"],["七時","しちじ","seven o’clock"],["七月","しちがつ","July"],["七つ","ななつ","seven things"]]},
+ {word:"八",meaning:"Eight",onyomi:"はち",kunyomi:"やっ・よう",examples:[["八","はち","eight"],["八時","はちじ","eight o’clock"],["八月","はちがつ","August"],["八つ","やっつ","eight things"]]},
+ {word:"九",meaning:"Nine",onyomi:"きゅう・く",kunyomi:"ここの",examples:[["九","きゅう","nine"],["九時","くじ","nine o’clock"],["九月","くがつ","September"],["九つ","ここのつ","nine things"]]},
+ {word:"十",meaning:"Ten",onyomi:"じゅう・じっ",kunyomi:"とお",examples:[["十","じゅう","ten"],["十時","じゅうじ","ten o’clock"],["十月","じゅうがつ","October"],["十日","とおか","tenth day of the month"]]},
+ {word:"百",meaning:"Hundred",onyomi:"ひゃく",kunyomi:"—",examples:[["百","ひゃく","hundred"],["三百","さんびゃく","three hundred"],["六百","ろっぴゃく","six hundred"],["八百","はっぴゃく","eight hundred"]]},
+ {word:"千",meaning:"Thousand",onyomi:"せん",kunyomi:"—",examples:[["千","せん","thousand"],["三千","さんぜん","three thousand"],["八千","はっせん","eight thousand"]]},
+ {word:"万",meaning:"Ten thousand",onyomi:"まん",kunyomi:"—",examples:[["万","まん","ten thousand"],["一万円","いちまんえん","10,000 yen"]]},
+ {word:"円",meaning:"Yen; circle",onyomi:"えん",kunyomi:"まる・まるい",examples:[["円","えん","yen; circle"],["千円","せんえん","1,000 yen"],["一万円","いちまんえん","10,000 yen"]]},
+ {word:"時",meaning:"Time; hour",onyomi:"じ",kunyomi:"とき",examples:[["時","じ","time; hour"],["一時","いちじ","one o’clock"],["三時","さんじ","three o’clock"],["時間","じかん","time; duration"],["一時間半","いちじかんはん","one and a half hours"]]},
+ {word:"日",meaning:"Day; sun",onyomi:"にち・じつ",kunyomi:"ひ・か・び",examples:[["日","ひ","day; sun"],["日曜日","にちようび","Sunday"],["日本","にほん","Japan"],["毎日","まいにち","every day"],["三日","みっか","third day of the month"]]},
+ {word:"本",meaning:"Book; origin",onyomi:"ほん",kunyomi:"もと",examples:[["日本","にほん","Japan"],["日本人","にほんじん","Japanese person"],["本","ほん","book"],["本屋","ほんや","bookstore"]]},
+ {word:"人",meaning:"Person",onyomi:"じん・にん",kunyomi:"ひと・り",examples:[["人","ひと","person"],["日本人","にほんじん","Japanese person"],["一人","ひとり","one person"],["三人","さんにん","three people"]]},
+ {word:"月",meaning:"Moon; month",onyomi:"げつ・がつ",kunyomi:"つき",examples:[["月","つき","moon"],["月曜日","げつようび","Monday"],["一月","いちがつ","January"],["三月","さんがつ","March"]]},
+ {word:"火",meaning:"Fire",onyomi:"か",kunyomi:"ひ・び",examples:[["火","ひ","fire"],["火曜日","かようび","Tuesday"],["火山","かざん","volcano"],["花火","はなび","fireworks"]]},
+ {word:"水",meaning:"Water",onyomi:"すい",kunyomi:"みず",examples:[["水","みず","water"],["水曜日","すいようび","Wednesday"],["水田","すいでん","paddy field"]]},
+ {word:"木",meaning:"Tree; wood",onyomi:"もく・ぼく",kunyomi:"き",examples:[["木","き","tree; wood"],["木曜日","もくようび","Thursday"],["土木","どぼく","civil engineering"]]},
+ {word:"金",meaning:"Gold; money",onyomi:"きん・こん",kunyomi:"かね",examples:[["金","きん","gold"],["金曜日","きんようび","Friday"],["お金","おかね","money"]]},
+ {word:"土",meaning:"Soil; earth",onyomi:"ど・と",kunyomi:"つち",examples:[["土","つち","soil; earth"],["土曜日","どようび","Saturday"],["土木","どぼく","civil engineering"]]},
+ {word:"曜",meaning:"Weekday marker",onyomi:"よう",kunyomi:"—",examples:[["月曜日","げつようび","Monday"],["火曜日","かようび","Tuesday"],["土曜日","どようび","Saturday"]]},
+ {word:"山",meaning:"Mountain",onyomi:"さん",kunyomi:"やま",examples:[["山","やま","mountain"],["火山","かざん","volcano"]]},
+ {word:"川",meaning:"River",onyomi:"せん",kunyomi:"かわ",examples:[["川","かわ","river"],["山川","やまかわ","mountains and rivers"]]},
+ {word:"元",meaning:"Origin; former",onyomi:"げん・がん",kunyomi:"もと",examples:[["元気","げんき","healthy; energetic"],["元日","がんじつ","New Year’s Day"]]},
+ {word:"気",meaning:"Spirit; feeling",onyomi:"き・け",kunyomi:"—",examples:[["元気","げんき","healthy; energetic"],["天気","てんき","weather"],["気分","きぶん","mood; feeling"]]},
+ {word:"天",meaning:"Sky; heaven",onyomi:"てん",kunyomi:"あめ・あま",examples:[["天気","てんき","weather"],["天気予報","てんきよほう","weather forecast"]]},
+ {word:"私",meaning:"I; private",onyomi:"し",kunyomi:"わたし・わたくし",examples:[["私","わたし","I; me"],["私たち","わたしたち","we; us"]]},
+ {word:"今",meaning:"Now",onyomi:"こん・きん",kunyomi:"いま",examples:[["今","いま","now"],["今日","きょう","today"],["今月","こんげつ","this month"],["今週","こんしゅう","this week"]]},
+ {word:"田",meaning:"Rice field",onyomi:"でん",kunyomi:"た",examples:[["田んぼ","たんぼ","rice field"],["水田","すいでん","paddy field"]]},
+ {word:"女",meaning:"Woman; female",onyomi:"じょ・にょ",kunyomi:"おんな・め",examples:[["女の子","おんなのこ","girl"],["女子学生","じょしがくせい","female student"]]},
+ {word:"男",meaning:"Man; male",onyomi:"だん・なん",kunyomi:"おとこ",examples:[["男の子","おとこのこ","boy"],["男子学生","だんしがくせい","male student"],["長男","ちょうなん","eldest son"]]},
+ {word:"見",meaning:"See; look",onyomi:"けん",kunyomi:"み・みる",examples:[["見ます","みます","to see; watch"]]},
+ {word:"行",meaning:"Go; proceed",onyomi:"こう・ぎょう",kunyomi:"い・ゆ・おこな",examples:[["行きます","いきます","to go"]]},
+ {word:"食",meaning:"Eat; food",onyomi:"しょく",kunyomi:"た・く",examples:[["食べます","たべます","to eat"],["食事","しょくじ","meal"]]},
+ {word:"飲",meaning:"Drink",onyomi:"いん",kunyomi:"の・のむ",examples:[["飲みます","のみます","to drink"],["飲食","いんしょく","eating and drinking"]]},
+ {word:"買",meaning:"Buy",onyomi:"ばい",kunyomi:"か・かう",examples:[["買います","かいます","to buy"],["買い物","かいもの","shopping"]]},
+ {word:"新",meaning:"New",onyomi:"しん",kunyomi:"あたら・あら・にい",examples:[["新しい","あたらしい","new"],["新聞","しんぶん","newspaper"],["新車","しんしゃ","new car"],["新年","しんねん","New Year"]]},
+ {word:"聞",meaning:"Hear; listen",onyomi:"ぶん・もん",kunyomi:"き・きく",examples:[["聞きます","ききます","to listen; ask"],["新聞","しんぶん","newspaper"]]},
+ {word:"作",meaning:"Make; create",onyomi:"さく",kunyomi:"つく・つくる",examples:[["作ります","つくります","to make"],["作文","さくぶん","composition"]]},
+ {word:"仕",meaning:"Serve; do",onyomi:"し・じ",kunyomi:"つか・つかえる",examples:[["仕事","しごと","work; job"],["仕方","しかた","way; method"]]},
+ {word:"事",meaning:"Thing; matter",onyomi:"じ・ず",kunyomi:"こと",examples:[["仕事","しごと","work; job"],["食事","しょくじ","meal"]]},
+ {word:"電",meaning:"Electricity",onyomi:"でん",kunyomi:"—",examples:[["電気","でんき","electricity"],["電車","でんしゃ","train"],["電話","でんわ","telephone"]]},
+ {word:"車",meaning:"Vehicle; car",onyomi:"しゃ",kunyomi:"くるま",examples:[["車","くるま","car"],["電車","でんしゃ","train"],["自転車","じてんしゃ","bicycle"]]},
+ {word:"毎",meaning:"Every",onyomi:"まい",kunyomi:"ごと",examples:[["毎日","まいにち","every day"],["毎週","まいしゅう","every week"],["毎年","まいとし","every year"]]},
+ {word:"語",meaning:"Language; word",onyomi:"ご",kunyomi:"かた・かたる",examples:[["日本語","にほんご","Japanese language"],["英語","えいご","English language"]]},
+ {word:"文",meaning:"Sentence; writing",onyomi:"ぶん・もん",kunyomi:"ふみ",examples:[["文","ぶん","sentence; writing"],["作文","さくぶん","composition"],["文化","ぶんか","culture"]]},
+ {word:"帰",meaning:"Return; go home",onyomi:"き",kunyomi:"かえ・かえる",examples:[["帰ります","かえります","to return home"],["帰国","きこく","return to one's country"]]},
+ {word:"入",meaning:"Enter; put in",onyomi:"にゅう",kunyomi:"はい・い・いる・いれる",examples:[["入ります","はいります","to enter"],["入口","いりぐち","entrance"],["入学","にゅうがく","school admission"]]},
+ {word:"京",meaning:"Capital",onyomi:"きょう・けい",kunyomi:"みやこ",examples:[["東京","とうきょう","Tokyo"],["京都","きょうと","Kyoto"]]},
+ {word:"子",meaning:"Child",onyomi:"し・す",kunyomi:"こ",examples:[["子ども","こども","child"],["女子学生","じょしがくせい","female student"]]},
+ {word:"小",meaning:"Small",onyomi:"しょう",kunyomi:"ちい・こ・お",examples:[["小さい","ちいさい","small"],["小学校","しょうがっこう","elementary school"],["小学生","しょうがくせい","elementary school student"]]},
+ {word:"会",meaning:"Meet; association",onyomi:"かい・え",kunyomi:"あ・あう",examples:[["会社","かいしゃ","company"],["会います","あいます","to meet"],["会話","かいわ","conversation"]]},
+ {word:"社",meaning:"Company; shrine",onyomi:"しゃ",kunyomi:"やしろ",examples:[["会社","かいしゃ","company"],["社会","しゃかい","society"],["社長","しゃちょう","company president"]]},
+ {word:"父",meaning:"Father",onyomi:"ふ",kunyomi:"ちち・とう",examples:[["父","ちち","father (my own)"],["お父さん","おとうさん","father"]]},
+ {word:"母",meaning:"Mother",onyomi:"ぼ",kunyomi:"はは・かあ",examples:[["母","はは","mother (my own)"],["お母さん","おかあさん","mother"]]},
+ {word:"高",meaning:"High; tall",onyomi:"こう",kunyomi:"たか",examples:[["高い","たかい","high; expensive"],["高校","こうこう","high school"],["高校生","こうこうせい","high school student"]]},
+ {word:"校",meaning:"School",onyomi:"こう",kunyomi:"—",examples:[["学校","がっこう","school"],["高校","こうこう","high school"],["小学校","しょうがっこう","elementary school"]]},
+ {word:"分",meaning:"Part; minute",onyomi:"ぶん・ふん・ぷん",kunyomi:"わ・わか",examples:[["分","ふん","minute"],["十分","じゅっぷん","ten minutes"],["分かります","わかります","to understand"]]},
+ {word:"先",meaning:"Before; ahead",onyomi:"せん",kunyomi:"さき",examples:[["先生","せんせい","teacher"],["先週","せんしゅう","last week"],["先月","せんげつ","last month"]]},
+ {word:"生",meaning:"Life; birth; student",onyomi:"せい・しょう",kunyomi:"い・う・なま",examples:[["先生","せんせい","teacher"],["学生","がくせい","student"],["一年生","いちねんせい","first-year student"]]},
+ {word:"大",meaning:"Big; large",onyomi:"だい・たい",kunyomi:"おお",examples:[["大学","だいがく","university"],["大人","おとな","adult"],["大きい","おおきい","big"]]},
+ {word:"学",meaning:"Study; learning",onyomi:"がく",kunyomi:"まな",examples:[["学生","がくせい","student"],["学校","がっこう","school"],["大学","だいがく","university"]]},
+ {word:"外",meaning:"Outside; foreign",onyomi:"がい・げ",kunyomi:"そと・ほか",examples:[["外国","がいこく","foreign country"],["外国人","がいこくじん","foreigner"],["外","そと","outside"]]},
+ {word:"国",meaning:"Country",onyomi:"こく",kunyomi:"くに",examples:[["国","くに","country"],["外国","がいこく","foreign country"],["外国人","がいこくじん","foreigner"]]},
+ {word:"東",meaning:"East",onyomi:"とう",kunyomi:"ひがし",examples:[["東京","とうきょう","Tokyo"],["東口","ひがしぐち","east exit"]]},
+ {word:"西",meaning:"West",onyomi:"せい・さい",kunyomi:"にし",examples:[["西口","にしぐち","west exit"],["東西","とうざい","east and west"]]},
+ {word:"南",meaning:"South",onyomi:"なん",kunyomi:"みなみ",examples:[["南口","みなみぐち","south exit"]]},
+ {word:"北",meaning:"North",onyomi:"ほく",kunyomi:"きた",examples:[["北口","きたぐち","north exit"],["東北","とうほく","north-east region"]]},
+ {word:"口",meaning:"Mouth; opening",onyomi:"こう・く",kunyomi:"くち",examples:[["口","くち","mouth"],["入口","いりぐち","entrance"],["出口","でぐち","exit"],["人口","じんこう","population"]]},
+ {word:"出",meaning:"Exit; go out",onyomi:"しゅつ",kunyomi:"で・だ",examples:[["出ます","でます","to go out"],["出口","でぐち","exit"]]},
+ {word:"右",meaning:"Right",onyomi:"う・ゆう",kunyomi:"みぎ",examples:[["右","みぎ","right"],["右手","みぎて","right hand"]]},
+ {word:"左",meaning:"Left",onyomi:"さ",kunyomi:"ひだり",examples:[["左","ひだり","left"],["左手","ひだりて","left hand"]]},
+ {word:"年",meaning:"Year",onyomi:"ねん",kunyomi:"とし",examples:[["年","とし","year; age"],["一年","いちねん","one year"],["来年","らいねん","next year"],["毎年","まいとし","every year"]]},
+ {word:"長",meaning:"Long; chief",onyomi:"ちょう",kunyomi:"なが",examples:[["長い","ながい","long"],["社長","しゃちょう","company president"],["長男","ちょうなん","eldest son"]]},
+ {word:"道",meaning:"Road; way",onyomi:"どう",kunyomi:"みち",examples:[["道","みち","road; way"],["水道","すいどう","water supply"]]},
+ {word:"立",meaning:"Stand",onyomi:"りつ",kunyomi:"た・たつ",examples:[["立つ","たつ","to stand"],["立入禁止","たちいりきんし","no entry"]]},
+ {word:"手",meaning:"Hand",onyomi:"しゅ",kunyomi:"て",examples:[["手","て","hand"],["上手","じょうず","good at"],["下手","へた","poor at"]]},
+ {word:"友",meaning:"Friend",onyomi:"ゆう",kunyomi:"とも",examples:[["友だち","ともだち","friend"],["友人","ゆうじん","friend"]]},
+ {word:"間",meaning:"Interval; between",onyomi:"かん・けん",kunyomi:"あいだ・ま",examples:[["時間","じかん","time; duration"],["一時間","いちじかん","one hour"],["間","あいだ","between"]]},
+ {word:"家",meaning:"House; home",onyomi:"か・け",kunyomi:"いえ・や・うち",examples:[["家","いえ","house; home"],["家族","かぞく","family"],["家事","かじ","housework"]]},
+ {word:"話",meaning:"Talk; story",onyomi:"わ",kunyomi:"はな・はなし",examples:[["話します","はなします","to speak"],["電話","でんわ","telephone"],["会話","かいわ","conversation"]]},
+ {word:"少",meaning:"Few; little",onyomi:"しょう",kunyomi:"すく・すこ",examples:[["少し","すこし","a little"],["少ない","すくない","few; little"]]},
+ {word:"知",meaning:"Know",onyomi:"ち",kunyomi:"し・しる",examples:[["知る","しる","to know"],["知っています","しっています","to know"]]},
+ {word:"来",meaning:"Come; next",onyomi:"らい",kunyomi:"く・き・こ",examples:[["来ます","きます","to come"],["来週","らいしゅう","next week"],["来年","らいねん","next year"]]},
+ {word:"午",meaning:"Noon",onyomi:"ご",kunyomi:"—",examples:[["午前","ごぜん","morning; a.m."],["午後","ごご","afternoon; p.m."]]},
+ {word:"後",meaning:"After; behind",onyomi:"ご・こう",kunyomi:"あと・うし・のち",examples:[["午後","ごご","afternoon; p.m."],["後ろ","うしろ","behind"]]},
+ {word:"前",meaning:"Before; in front",onyomi:"ぜん",kunyomi:"まえ",examples:[["午前","ごぜん","morning; a.m."],["名前","なまえ","name"],["前","まえ","before; in front"]]},
+ {word:"名",meaning:"Name",onyomi:"めい・みょう",kunyomi:"な",examples:[["名前","なまえ","name"],["有名","ゆうめい","famous"]]},
+ {word:"白",meaning:"White",onyomi:"はく・びゃく",kunyomi:"しろ・しら",examples:[["白い","しろい","white"],["白紙","はくし","blank paper"]]},
+ {word:"雨",meaning:"Rain",onyomi:"う",kunyomi:"あめ・あま",examples:[["雨","あめ","rain"],["雨天","うてん","rainy weather"]]},
+ {word:"書",meaning:"Write; book",onyomi:"しょ",kunyomi:"か・かく",examples:[["書きます","かきます","to write"],["書店","しょてん","bookstore"]]},
+ {word:"休",meaning:"Rest; holiday",onyomi:"きゅう",kunyomi:"やす・やすむ",examples:[["休み","やすみ","holiday; rest"],["休みます","やすみます","to rest"],["休日","きゅうじつ","holiday"]]},
+ {word:"言",meaning:"Say; word",onyomi:"げん・ごん",kunyomi:"い・こと",examples:[["言います","いいます","to say"],["言葉","ことば","word; language"]]},
+ {word:"読",meaning:"Read",onyomi:"どく・とく",kunyomi:"よ・よむ",examples:[["読みます","よみます","to read"],["読書","どくしょ","reading books"]]},
+ {word:"思",meaning:"Think",onyomi:"し",kunyomi:"おも・おもう",examples:[["思います","おもいます","to think"],["思い出","おもいで","memory"]]},
+ {word:"次",meaning:"Next",onyomi:"じ・し",kunyomi:"つぎ",examples:[["次","つぎ","next"],["次回","じかい","next time"]]},
+ {word:"何",meaning:"What; how many",onyomi:"か",kunyomi:"なに・なん",examples:[["何","なに","what"],["何人","なんにん","how many people"],["何時","なんじ","what time"]]}
+].map((v,i)=>({ ...v, id:"kanji-character-"+i, reading:`On’yomi: ${v.onyomi}\nKun’yomi: ${v.kunyomi}`, masu:v.word, group:"Kanji Characters" }));
+
 
 // JLPT N5 adjectives from JLPT Sensei's N5 adjective list (84 entries).
 const A = (reading, word, meaning, type) => {
@@ -402,6 +519,7 @@ const setInfo = {
   "genki-7-12": "Genki · Lessons 7–12 Vocabulary",
   "7-12": "Verbs 7–12",
   kanji: "N5 Kanji with Words",
+  "kanji-characters": "Kanji Characters · Individual Kanji & Examples",
   "n1-kanji": "N1 Kanji · Starter Collection",
   adjectives: "N5 Adjectives",
   "counter-flat": "Flat Objects",
@@ -414,8 +532,8 @@ const setInfo = {
   "counter-people": "People",
   "counter-general": "General Objects"
 };
-const getSetData = key => key === "adjectives" ? adjectives : key === "n1-kanji" ? n1Kanji : key === "genki-1-6" ? genki16 : key === "genki-7-12" ? genki712 : key.startsWith("counter-") ? counters[key] : key === "kanji" ? sets.kanji : sets[key];
-const groupLabels = {"1-6":"Verbs", "7-12":"Verbs", kanji:"Kanji", "n1-kanji":"N1 Kanji", adjectives:"Adjectives", "genki-1-6":"Genki Vocabulary", "genki-7-12":"Genki Vocabulary", ...Object.fromEntries(Object.keys(counterCategories).map(k=>[k,"Counters"]))};
+const getSetData = key => key === "kanji-characters" ? kanjiCharacters : key === "adjectives" ? adjectives : key === "n1-kanji" ? n1Kanji : key === "genki-1-6" ? genki16 : key === "genki-7-12" ? genki712 : key.startsWith("counter-") ? counters[key] : key === "kanji" ? sets.kanji : sets[key];
+const groupLabels = {"1-6":"Verbs", "7-12":"Verbs", kanji:"Kanji", "kanji-characters":"Kanji Characters", "n1-kanji":"N1 Kanji", adjectives:"Adjectives", "genki-1-6":"Genki Vocabulary", "genki-7-12":"Genki Vocabulary", ...Object.fromEntries(Object.keys(counterCategories).map(k=>[k,"Counters"]))};
 let currentSet = "1-6";
 let expandedN5 = false;
 let expandedN1 = false;
@@ -514,6 +632,7 @@ function renderSidebar() {
   };
   addGroup("Verbs ", "conjugation practice", ["1-6", "7-12"]);
   addDirect("Kanji ", "with words", "kanji", String(sets.kanji.length));
+  addDirect("Kanji ", "with Characters", "kanji-characters", String(kanjiCharacters.length));
   addDirect("Adjectives ", "い-adjectives and な-adjectives", "adjectives", String(adjectives.length));
   addGroup("Counters ", "Numbers and counting words", Object.keys(counterCategories));
   addDirect("Genki Lesson 1–6 ", "Vocabulary", "genki-1-6", String(genki16.length));
@@ -539,7 +658,7 @@ function renderSidebar() {
     const indexList = document.createElement("div"); indexList.className = "nav-sublist";
     const entries = getSetData(currentSet) || [];
     entries.forEach((entry, i) => {
-      const label = currentSet === "kanji" || currentSet === "n1-kanji" ? entry.word : (currentSet === "genki-1-6" || currentSet === "genki-7-12") ? entry.reading : currentSet === "adjectives" ? entry.reading : currentSet.startsWith("counter-") ? entry.reading : entry.masu;
+      const label = currentSet === "kanji" || currentSet === "n1-kanji" || currentSet === "kanji-characters" ? entry.word : (currentSet === "genki-1-6" || currentSet === "genki-7-12") ? entry.reading : currentSet === "adjectives" ? entry.reading : currentSet.startsWith("counter-") ? entry.reading : entry.masu;
       const detail = entry.meaning || "";
       indexList.appendChild(makeNavButton(label, detail, String(i+1), "nav-subitem", i === currentIndex, null, () => {
         currentIndex = i; isFlipped = false; reviewMode = false; completedOriginalDeck = false; render();
@@ -617,13 +736,14 @@ function renderCard() {
   if (!v) return;
 
   const isKanji = currentSet === "kanji";
+  const isKanjiCharacters = currentSet === "kanji-characters";
   const isN1 = currentSet === "n1-kanji";
   const isAdjective = currentSet === "adjectives";
   const isCounter = currentSet.startsWith("counter-");
   const isGenki = currentSet === "genki-1-6" || currentSet === "genki-7-12";
   const setTitle = setInfo[currentSet] || "JLPT N5";
-  $("pageTitle").textContent = isN1 ? "JLPT N1 Kanji Collection" : isKanji ? "N5 Kanji with Words" : isAdjective ? "N5 Adjectives" : isCounter ? `Counters · ${setTitle}` : isGenki ? setTitle : `Verb Flashcards · ${setTitle}`;
-  $("japanese").textContent = (isKanji || isN1) ? v.word : (isAdjective || isGenki) ? v.reading : isCounter ? v.prompt : v.masu;
+  $("pageTitle").textContent = isKanjiCharacters ? "Kanji Characters · Readings & Words" : isN1 ? "JLPT N1 Kanji Collection" : isKanji ? "N5 Kanji with Words" : isAdjective ? "N5 Adjectives" : isCounter ? `Counters · ${setTitle}` : isGenki ? setTitle : `Verb Flashcards · ${setTitle}`;
+  $("japanese").textContent = (isKanji || isN1 || isKanjiCharacters) ? v.word : (isAdjective || isGenki) ? v.reading : isCounter ? v.prompt : v.masu;
   $("japanese").classList.toggle("counter-prompt", isCounter);
   const level = cardLevels.get(v.id);
   const tag = $("statusTag");
@@ -633,17 +753,17 @@ function renderCard() {
   document.querySelectorAll(".level-btn").forEach(btn => btn.classList.toggle("selected", btn.dataset.level === level));
   $("answer").hidden = !isFlipped;
   $("cardLabel").textContent = isFlipped
-    ? (isGenki ? `${v.group} · Vocabulary details` : isN1 ? "Meaning, readings & vocabulary" : isKanji ? "Word meaning & kanji breakdown" : isAdjective ? "Translation, forms & kanji" : isCounter ? "Counter reading & written form" : "Translation & verb forms")
-    : (isGenki ? `${v.group} · Vocabulary` : isN1 ? "JLPT N1 kanji" : isKanji ? "Kanji word" : isAdjective ? "Hiragana reading" : isCounter ? "Counting prompt" : "Masu form");
+    ? (isGenki ? `${v.group} · Vocabulary details` : isKanjiCharacters ? "Meaning, readings & practical vocabulary" : isN1 ? "Meaning, readings & vocabulary" : isKanji ? "Word meaning & kanji breakdown" : isAdjective ? "Translation, forms & kanji" : isCounter ? "Counter reading & written form" : "Translation & verb forms")
+    : (isGenki ? `${v.group} · Vocabulary` : isKanjiCharacters ? "Individual Kanji character" : isN1 ? "JLPT N1 kanji" : isKanji ? "Kanji word" : isAdjective ? "Hiragana reading" : isCounter ? "Counting prompt" : "Masu form");
   $("flipBtn").textContent = isFlipped ? "↩ Hide answer" : "See answer ↗";
-  $("reading").hidden = !(isKanji || isN1 || isCounter);
+  $("reading").hidden = !(isKanji || isN1 || isKanjiCharacters || isCounter);
   $("meaning").textContent = v.meaning;
   $("adjectiveKanji").hidden = !((isAdjective || isCounter) && isFlipped);
-  $("groupLabel").textContent = isGenki ? `${v.group} · Genki vocabulary` : isN1 ? "On’yomi / Kun’yomi & example vocabulary" : isKanji ? "Vocabulary meaning" : isAdjective ? (v.type === "i" ? "い-adjective" : "な-adjective") : isCounter ? `Counter: ${v.counterName}` : `Group ${v.group}`;
-  $("formsLabel").hidden = isKanji || isN1 || isCounter || isGenki;
-  $("forms").hidden = isKanji || isN1 || isCounter || isGenki;
-  $("breakdownLabel").hidden = !(isKanji || isN1 || isGenki);
-  $("kanjiBreakdown").hidden = !(isKanji || isN1 || isGenki);
+  $("groupLabel").textContent = isGenki ? `${v.group} · Genki vocabulary` : isKanjiCharacters ? "On’yomi / Kun’yomi & example vocabulary" : isN1 ? "On’yomi / Kun’yomi & example vocabulary" : isKanji ? "Vocabulary meaning" : isAdjective ? (v.type === "i" ? "い-adjective" : "な-adjective") : isCounter ? `Counter: ${v.counterName}` : `Group ${v.group}`;
+  $("formsLabel").hidden = isKanji || isN1 || isKanjiCharacters || isCounter || isGenki;
+  $("forms").hidden = isKanji || isN1 || isKanjiCharacters || isCounter || isGenki;
+  $("breakdownLabel").hidden = !(isKanji || isN1 || isKanjiCharacters || isGenki);
+  $("kanjiBreakdown").hidden = !(isKanji || isN1 || isKanjiCharacters || isGenki);
 
   if (isGenki) {
     $("reading").textContent = "";
@@ -668,6 +788,21 @@ function renderCard() {
       b.append(n, x); $("forms").appendChild(b);
     });
     $("kanjiBreakdown").innerHTML = "";
+  } else if (isKanjiCharacters) {
+    $("reading").textContent = `On’yomi: ${v.onyomi}\\nKun’yomi: ${v.kunyomi}`;
+    $("meaning").textContent = v.meaning;
+    $("adjectiveKanji").hidden = true;
+    $("forms").innerHTML = "";
+    const box = $("kanjiBreakdown"); box.innerHTML = "";
+    $("breakdownLabel").textContent = "Practical vocabulary";
+    (v.examples || []).forEach(([word, reading, meaning]) => {
+      const row = document.createElement("div"); row.className = "character-example";
+      const wordEl = document.createElement("div"); wordEl.className = "character-example-word"; wordEl.textContent = word;
+      const detail = document.createElement("div");
+      const readingEl = document.createElement("div"); readingEl.className = "character-example-reading"; readingEl.textContent = reading;
+      const meaningEl = document.createElement("div"); meaningEl.className = "character-example-meaning"; meaningEl.textContent = meaning;
+      detail.append(readingEl, meaningEl); row.append(wordEl, detail); box.appendChild(row);
+    });
   } else if (isKanji || isN1) {
     $("reading").textContent = v.reading;
     $("adjectiveKanji").innerHTML = "";
