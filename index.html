@@ -105,6 +105,12 @@ ruby{ruby-position:over;ruby-align:center}rt{font-size:.42em;color:#b91f27;font-
 .character-example-reading{font-size:15px;font-weight:900;color:#b91f27}
 .character-example-meaning{font-size:12px;color:#50686b;margin-top:3px;line-height:1.5}
 .character-examples-list{display:grid;gap:8px;width:100%;text-align:left}
+/* Keep practical vocabulary cards readable on laptop widths, like the mobile layout. */
+#kanjiBreakdown.character-examples-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+#kanjiBreakdown.character-examples-grid .character-example{min-width:0;grid-template-columns:minmax(58px,auto) minmax(0,1fr);gap:10px;padding:12px}
+#kanjiBreakdown.character-examples-grid .character-example-word{font-size:clamp(19px,2vw,27px);overflow-wrap:anywhere}
+#kanjiBreakdown.character-examples-grid .character-example-reading{overflow-wrap:anywhere;word-break:normal}
+@media(max-width:420px){#kanjiBreakdown.character-examples-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#kanjiBreakdown.character-examples-grid .character-example{grid-template-columns:minmax(0,1fr);gap:5px}}
 
 /* Genki example sentences: textbook-style furigana above kanji */
 .genki-sentence{font-size:clamp(19px,2.5vw,25px);line-height:2.15;text-align:center;overflow-wrap:anywhere}
@@ -759,11 +765,12 @@ function renderCard() {
   $("reading").hidden = !(isKanji || isN1 || isKanjiCharacters || isCounter);
   $("meaning").textContent = v.meaning;
   $("adjectiveKanji").hidden = !((isAdjective || isCounter) && isFlipped);
-  $("groupLabel").textContent = isGenki ? `${v.group} · Genki vocabulary` : isKanjiCharacters ? "On’yomi / Kun’yomi & example vocabulary" : isN1 ? "On’yomi / Kun’yomi & example vocabulary" : isKanji ? "Vocabulary meaning" : isAdjective ? (v.type === "i" ? "い-adjective" : "な-adjective") : isCounter ? `Counter: ${v.counterName}` : `Group ${v.group}`;
+  $("groupLabel").textContent = isGenki ? `${v.group} · Genki vocabulary` : isKanjiCharacters ? "Readings & practical vocabulary" : isN1 ? "On’yomi / Kun’yomi & example vocabulary" : isKanji ? "Vocabulary meaning" : isAdjective ? (v.type === "i" ? "い-adjective" : "な-adjective") : isCounter ? `Counter: ${v.counterName}` : `Group ${v.group}`;
   $("formsLabel").hidden = isKanji || isN1 || isKanjiCharacters || isCounter || isGenki;
   $("forms").hidden = isKanji || isN1 || isKanjiCharacters || isCounter || isGenki;
   $("breakdownLabel").hidden = !(isKanji || isN1 || isKanjiCharacters || isGenki);
   $("kanjiBreakdown").hidden = !(isKanji || isN1 || isKanjiCharacters || isGenki);
+  $("kanjiBreakdown").classList.toggle("character-examples-grid", isKanjiCharacters);
 
   if (isGenki) {
     $("reading").textContent = "";
@@ -789,11 +796,11 @@ function renderCard() {
     });
     $("kanjiBreakdown").innerHTML = "";
   } else if (isKanjiCharacters) {
-    $("reading").textContent = `On’yomi: ${v.onyomi}\\nKun’yomi: ${v.kunyomi}`;
+    $("reading").textContent = `${v.onyomi}\n${v.kunyomi}`;
     $("meaning").textContent = v.meaning;
     $("adjectiveKanji").hidden = true;
     $("forms").innerHTML = "";
-    const box = $("kanjiBreakdown"); box.innerHTML = "";
+    const box = $("kanjiBreakdown"); box.innerHTML = ""; box.classList.add("character-examples-grid");
     $("breakdownLabel").textContent = "Practical vocabulary";
     (v.examples || []).forEach(([word, reading, meaning]) => {
       const row = document.createElement("div"); row.className = "character-example";
