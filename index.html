@@ -273,112 +273,106 @@ const kanjiCharacters = [
 ].map((v,i)=>({ ...v, id:"kanji-character-"+i, reading:`On’yomi: ${v.onyomi}\nKun’yomi: ${v.kunyomi}`, masu:v.word, group:"Kanji Characters" }));
 
 
-// JLPT N5 adjectives from JLPT Sensei's N5 adjective list (84 entries).
-const A = (reading, word, meaning, type) => {
-  let negative, past, pastNegative;
-  if (type === "i") {
-    if (word === "良い" || reading === "いい") {
-      negative = "よくない"; past = "よかった"; pastNegative = "よくなかった";
-    } else {
-      const stem = reading.slice(0, -1);
-      negative = stem + "くない";
-      past = stem + "かった";
-      pastNegative = stem + "くなかった";
-    }
-  } else {
-    negative = reading + "じゃない";
-    past = reading + "だった";
-    pastNegative = reading + "じゃなかった";
-  }
-  return { reading, word, meaning, type, negative, past, pastNegative };
-};
-const adjectives = [
-  A("あぶない","危ない","dangerous","i"),
-  A("あかい","赤い","red; crimson; scarlet","i"),
-  A("あかるい","明るい","bright; light","i"),
-  A("あまい","甘い","sweet; sugary; naive","i"),
-  A("あおい","青い","blue; azure","i"),
-  A("あたらしい","新しい","new; novel; fresh; recent","i"),
-  A("あたたかい","暖かい","warm","i"),
-  A("あつい","熱い","hot (to the touch)","i"),
-  A("あつい","厚い","thick","i"),
-  A("あつい","暑い","hot (weather)","i"),
-  A("べんり","便利","convenient; handy; useful","na"),
-  A("ちいさい","小さい","small; little; tiny","i"),
-  A("ちかい","近い","near; close","i"),
-  A("だいじょうぶ","大丈夫","okay; all right; problem-free","na"),
-  A("だいすき","大好き","love; like very much","na"),
-  A("ふるい","古い","old (not used for people)","i"),
-  A("ふとい","太い","thick; fat","i"),
-  A("げんき","元気","lively; energetic; healthy","na"),
-  A("はやい","速い","fast; quick","i"),
-  A("はやい","早い","early; fast","i"),
-  A("へた","下手","unskilled; poor at","na"),
-  A("ひくい","低い","low; short","i"),
-  A("ひま","暇","free; having free time","na"),
-  A("ひろい","広い","wide; spacious","i"),
-  A("ほんとう","本当","true; truth; reality","na"),
-  A("ほしい","欲しい","wanted; desired","i"),
-  A("ほそい","細い","thin; slender","i"),
-  A("いろいろ","色々","various","na"),
-  A("いそがしい","忙しい","busy","i"),
-  A("いたい","痛い","painful; sore","i"),
-  A("いや","嫌","unpleasant; disliked","na"),
-  A("じょうぶ","丈夫","strong; durable","na"),
-  A("じょうず","上手","skillful; good at","na"),
-  A("からい","辛い","spicy","i"),
-  A("かるい","軽い","light (weight)","i"),
-  A("かわいい","可愛い","cute; lovely","i"),
-  A("きいろい","黄色い","yellow","i"),
-  A("けっこう","結構","splendid; enough","na"),
-  A("きらい","嫌い","disliked; hateful","na"),
-  A("きれい","綺麗","pretty; beautiful; clean","na"),
-  A("きたない","汚い","dirty","i"),
-  A("くらい","暗い","dark; gloomy","i"),
-  A("くろい","黒い","black","i"),
-  A("まるい","丸い","round; circular","i"),
-  A("まっすぐ","真っ直ぐ","straight; directly","na"),
-  A("まずい","不味い","unpleasant; bad-tasting","i"),
-  A("みじかい","短い","short","i"),
-  A("むずかしい","難しい","difficult","i"),
-  A("ながい","長い","long; lengthy","i"),
-  A("にぎやか","賑やか","lively; bustling","na"),
-  A("ぬるい","温い","lukewarm","i"),
-  A("おいしい","美味しい","delicious","i"),
-  A("おもい","重い","heavy","i"),
-  A("おもしろい","面白い","interesting; funny","i"),
-  A("おおい","多い","many; numerous","i"),
-  A("おおきい","大きい","big; large","i"),
-  A("おそい","遅い","slow; late","i"),
-  A("りっぱ","立派","splendid; admirable","na"),
-  A("さむい","寒い","cold (weather)","i"),
-  A("せまい","狭い","narrow","i"),
-  A("しろい","白い","white","i"),
-  A("しずか","静か","quiet","na"),
-  A("すき","好き","liked; fond of","na"),
-  A("すくない","少ない","few; little; scarce","i"),
-  A("すずしい","涼しい","cool; refreshing","i"),
-  A("たぶん","多分","perhaps; probably","na"),
-  A("たいへん","大変","serious; difficult; very","na"),
-  A("たいせつ","大切","important; precious","na"),
-  A("たかい","高い","high; tall; expensive","i"),
-  A("たくさん","沢山","many; a lot","na"),
-  A("たのしい","楽しい","fun; enjoyable","i"),
-  A("とおい","遠い","far; distant","i"),
-  A("つまらない","詰まらない","boring; uninteresting","i"),
-  A("つめたい","冷たい","cold to the touch","i"),
-  A("つよい","強い","strong; powerful","i"),
-  A("うるさい","煩い","noisy; annoying","i"),
-  A("うすい","薄い","thin; weak; pale","i"),
-  A("わかい","若い","young","i"),
-  A("わるい","悪い","bad; poor","i"),
-  A("やさしい","易しい","easy; simple","i"),
-  A("やすい","安い","cheap; inexpensive","i"),
-  A("いい","良い","good","i"),
-  A("よわい","弱い","weak","i"),
-  A("ゆうめい","有名","famous","na"),
-].map((v, i) => ({ ...v, id: "adjectives-" + i, masu: v.reading, group: v.type === "i" ? "い-adjective" : "な-adjective" }));
-
+// Adjectives transcribed from the supplied Meguro Language Center JLPT N5 PDF.
+const A = (reading, word, meaning) => ({ reading, word, meaning });
+const iAdjectives = [
+  A("おおきい","大きい","big"),
+  A("ちいさい","小さい","small"),
+  A("たかい","高い","expensive"),
+  A("やすい","安い","cheap"),
+  A("あたらしい","新しい","new; fresh"),
+  A("ふるい","古い","old"),
+  A("いい","いい","good"),
+  A("わるい","わるい","bad"),
+  A("むずかしい","むずかしい","difficult"),
+  A("やさしい","やさしい","easy"),
+  A("とおい","とおい","far"),
+  A("ちかい","近い","near; close"),
+  A("おいしい","おいしい","good; tasty"),
+  A("まずい","まずい","bad-tasting"),
+  A("いそがしい","いそがしい","busy"),
+  A("あつい","あつい","hot"),
+  A("さむい","さむい","cold (temperature)"),
+  A("つめたい","つめたい","cold (object)"),
+  A("あたたかい","あたたかい","warm"),
+  A("すずしい","すずしい","cool"),
+  A("おもしろい","おもしろい","interesting; fun"),
+  A("つまらない","つまらない","boring"),
+  A("せまい","せまい","narrow"),
+  A("ひろい","広い","wide; spacious"),
+  A("たかい","高い","high; tall"),
+  A("ひくい","ひくい","low"),
+  A("ながい","長い","long"),
+  A("おもい","おもい","heavy"),
+  A("かるい","かるい","light"),
+  A("つよい","つよい","strong in strength, power"),
+  A("よわい","よわい","weak in strength, power"),
+  A("くらい","くらい","dark"),
+  A("あかるい","あかるい","bright; cheerful"),
+  A("かわいい","かわいい","cute; pretty"),
+  A("あまい","あまい","sweet"),
+  A("からい","からい","hot; spicy"),
+  A("あつい","あつい","thick; Things that have a substantial depth, thickness, or width across a flat surface, page, or wall."),
+  A("うすい","うすい","thin; Things that have a substantial depth, thickness, or width across a flat surface, page, or wall."),
+  A("うすい","うすい","weak in Concentration or Thickness"),
+  A("ふとい","ふとい","thick; Things that are long and round, cylindrical, or tube-like (like a pillar, log, or limb)"),
+  A("ほそい","ほそい","thin, fine, or narrow for 3-dimensional, cylindrical, or linear objects (A slim person, a slender arm, or fine/thin hair)"),
+  A("わかい","わかい","young"),
+  A("すくない","少ない","a few"),
+  A("おおい","多い","many; much"),
+  A("いたい","いたい","painful"),
+  A("きたない","きたない","dirty; messy"),
+  A("あぶない","あぶない","dangerous"),
+  A("うるさい","うるさい","noisy"),
+  A("たのしい","たのしい","pleasant"),
+  A("ほしい","ほしい","want"),
+  A("あおい","あおい","blue"),
+  A("あかい","赤い","red"),
+  A("きいろい","きいろい","yellow"),
+  A("くろい","くろい","black"),
+  A("しろい","白い","white"),
+  A("ちゃいろい","ちゃいろい","brown"),
+  A("ぬるい","ぬるい","lukewarm; tepid"),
+  A("まるい","まるい","round; circular"),
+  A("おおきな + noun","大きな + Noun","big ... (before a noun)"),
+  A("ちいさな + noun","小さな + Noun","small ... (before a noun)")
+].map((v, i) => ({ ...v, id: "adjectives-i-" + i, type: "adjectives-i", masu: v.reading, group: "い-adjective" }));
+const naAdjectives = [
+  A("きれい","きれい","beautiful; clean"),
+  A("ゆうめい","有名","famous"),
+  A("ていねい","ていねい","polite"),
+  A("すき","すき","like (preference); favorite"),
+  A("きらい","きらい","don’t like; hate"),
+  A("しずか","しずか","quiet"),
+  A("ひま","ひま","free"),
+  A("にぎやか","にぎやか","lively"),
+  A("べんり","べんり","convenient; useful"),
+  A("げんき","げんき","well; healthy"),
+  A("いろいろ","いろいろ","various"),
+  A("だいじょうぶ","大丈夫","okay"),
+  A("じょうぶ","じょうぶ","healthy; strong"),
+  A("たいへん","大変","hard"),
+  A("らく","らく","easy; comfortable"),
+  A("いや","いや","nasty; disgusting"),
+  A("たいせつ","大切","important"),
+  A("じょうず","上手","skillful"),
+  A("へた","下手","unskillful"),
+  A("いっしょうけんめい","いっしょうけんめい","hard; desperately"),
+  A("きけん","きけん","dangerous; risky"),
+  A("ざんねん","ざんねん","regrettable; unlucky"),
+  A("しんぱい","しんぱい","worry; concern"),
+  A("じゆう","じゆう","free; liberty"),
+  A("じゅうぶん","十分","enough"),
+  A("だいすき","大好き","like very much"),
+  A("てきとう","てきとう","suitable; appropriate"),
+  A("とくべつ","とくべつ","special"),
+  A("ねっしん","ねっしん","enthusiastic"),
+  A("ひつよう","ひつよう","necessary; essential"),
+  A("まじめ","まじめ","serious; earnest"),
+  A("まっすぐ","まっすぐ","straight"),
+  A("むり","むり","impossible"),
+  A("りっぱ","りっぱ","excellent; magnificent")
+].map((v, i) => ({ ...v, id: "adjectives-na-" + i, type: "adjectives-na", masu: v.reading, group: "な-adjective" }));
 
 // JLPT N5 counter practice, based on the supplied counter chart.
 const counterCategories = {
@@ -527,7 +521,8 @@ const setInfo = {
   kanji: "N5 Kanji with Words",
   "kanji-characters": "Kanji Characters · Individual Kanji & Examples",
   "n1-kanji": "N1 Kanji · Starter Collection",
-  adjectives: "N5 Adjectives",
+  "adjectives-i": "い-adjectives",
+  "adjectives-na": "な-adjectives",
   "counter-flat": "Flat Objects",
   "counter-machines": "Cars & Appliances",
   "counter-cylinders": "Long Cylindrical Objects",
@@ -538,8 +533,8 @@ const setInfo = {
   "counter-people": "People",
   "counter-general": "General Objects"
 };
-const getSetData = key => key === "kanji-characters" ? kanjiCharacters : key === "adjectives" ? adjectives : key === "n1-kanji" ? n1Kanji : key === "genki-1-6" ? genki16 : key === "genki-7-12" ? genki712 : key.startsWith("counter-") ? counters[key] : key === "kanji" ? sets.kanji : sets[key];
-const groupLabels = {"1-6":"Verbs", "7-12":"Verbs", kanji:"Kanji", "kanji-characters":"Kanji Characters", "n1-kanji":"N1 Kanji", adjectives:"Adjectives", "genki-1-6":"Genki Vocabulary", "genki-7-12":"Genki Vocabulary", ...Object.fromEntries(Object.keys(counterCategories).map(k=>[k,"Counters"]))};
+const getSetData = key => key === "kanji-characters" ? kanjiCharacters : key === "adjectives-i" ? iAdjectives : key === "adjectives-na" ? naAdjectives : key === "n1-kanji" ? n1Kanji : key === "genki-1-6" ? genki16 : key === "genki-7-12" ? genki712 : key.startsWith("counter-") ? counters[key] : key === "kanji" ? sets.kanji : sets[key];
+const groupLabels = {"1-6":"Verbs", "7-12":"Verbs", kanji:"Kanji", "kanji-characters":"Kanji Characters", "n1-kanji":"N1 Kanji", "adjectives-i":"Adjectives", "adjectives-na":"Adjectives", "genki-1-6":"Genki Vocabulary", "genki-7-12":"Genki Vocabulary", ...Object.fromEntries(Object.keys(counterCategories).map(k=>[k,"Counters"]))};
 let currentSet = "1-6";
 let expandedN5 = false;
 let expandedN1 = false;
@@ -574,7 +569,7 @@ function switchSet(key) {
   completedOriginalDeck = false;
   expandedN5 = !key.startsWith("n1-");
   expandedN1 = key.startsWith("n1-");
-  expandedGroup = groupLabels[key] === "Counters" ? "Counters" : groupLabels[key] === "Verbs" ? "Verbs" : null;
+  expandedGroup = groupLabels[key] === "Counters" ? "Counters" : groupLabels[key] === "Verbs" ? "Verbs" : groupLabels[key] === "Adjectives" ? "Adjectives" : null;
   render();
 }
 
@@ -639,7 +634,7 @@ function renderSidebar() {
   addGroup("Verbs ", "conjugation practice", ["1-6", "7-12"]);
   addDirect("Kanji ", "with words", "kanji", String(sets.kanji.length));
   addDirect("Kanji ", "with Characters", "kanji-characters", String(kanjiCharacters.length));
-  addDirect("Adjectives ", "い-adjectives and な-adjectives", "adjectives", String(adjectives.length));
+  addGroup("Adjectives ", "い-adjectives and な-adjectives", ["adjectives-i", "adjectives-na"]);
   addGroup("Counters ", "Numbers and counting words", Object.keys(counterCategories));
   addDirect("Genki Lesson 1–6 ", "Vocabulary", "genki-1-6", String(genki16.length));
   addDirect("Genki Lesson 7–12 ", "Vocabulary", "genki-7-12", String(genki712.length));
@@ -664,7 +659,7 @@ function renderSidebar() {
     const indexList = document.createElement("div"); indexList.className = "nav-sublist";
     const entries = getSetData(currentSet) || [];
     entries.forEach((entry, i) => {
-      const label = currentSet === "kanji" || currentSet === "n1-kanji" || currentSet === "kanji-characters" ? entry.word : (currentSet === "genki-1-6" || currentSet === "genki-7-12") ? entry.reading : currentSet === "adjectives" ? entry.reading : currentSet.startsWith("counter-") ? entry.reading : entry.masu;
+      const label = currentSet === "kanji" || currentSet === "n1-kanji" || currentSet === "kanji-characters" ? entry.word : (currentSet === "genki-1-6" || currentSet === "genki-7-12") ? entry.reading : currentSet.startsWith("adjectives-") ? entry.word : currentSet.startsWith("counter-") ? entry.reading : entry.masu;
       const detail = entry.meaning || "";
       indexList.appendChild(makeNavButton(label, detail, String(i+1), "nav-subitem", i === currentIndex, null, () => {
         currentIndex = i; isFlipped = false; reviewMode = false; completedOriginalDeck = false; render();
@@ -744,12 +739,16 @@ function renderCard() {
   const isKanji = currentSet === "kanji";
   const isKanjiCharacters = currentSet === "kanji-characters";
   const isN1 = currentSet === "n1-kanji";
-  const isAdjective = currentSet === "adjectives";
+  const isAdjective = currentSet.startsWith("adjectives-");
   const isCounter = currentSet.startsWith("counter-");
   const isGenki = currentSet === "genki-1-6" || currentSet === "genki-7-12";
   const setTitle = setInfo[currentSet] || "JLPT N5";
-  $("pageTitle").textContent = isKanjiCharacters ? "Kanji Characters · Readings & Words" : isN1 ? "JLPT N1 Kanji Collection" : isKanji ? "N5 Kanji with Words" : isAdjective ? "N5 Adjectives" : isCounter ? `Counters · ${setTitle}` : isGenki ? setTitle : `Verb Flashcards · ${setTitle}`;
-  $("japanese").textContent = (isKanji || isN1 || isKanjiCharacters) ? v.word : (isAdjective || isGenki) ? v.reading : isCounter ? v.prompt : v.masu;
+  $("pageTitle").textContent = isKanjiCharacters ? "Kanji Characters · Readings & Words" : isN1 ? "JLPT N1 Kanji Collection" : isKanji ? "N5 Kanji with Words" : isAdjective ? (currentSet === "adjectives-i" ? "I-adjectives" : "Na-adjectives") : isCounter ? `Counters · ${setTitle}` : isGenki ? setTitle : `Verb Flashcards · ${setTitle}`;
+  if (isAdjective) {
+    $("japanese").innerHTML = /[一-龯々]/.test(v.word) ? furiganaHTML(v.word, v.reading) : escapeHTML(v.word);
+  } else {
+    $("japanese").textContent = (isKanji || isN1 || isKanjiCharacters) ? v.word : isGenki ? v.reading : isCounter ? v.prompt : v.masu;
+  }
   $("japanese").classList.toggle("counter-prompt", isCounter);
   const level = cardLevels.get(v.id);
   const tag = $("statusTag");
@@ -759,15 +758,16 @@ function renderCard() {
   document.querySelectorAll(".level-btn").forEach(btn => btn.classList.toggle("selected", btn.dataset.level === level));
   $("answer").hidden = !isFlipped;
   $("cardLabel").textContent = isFlipped
-    ? (isGenki ? `${v.group} · Vocabulary details` : isKanjiCharacters ? "Meaning, readings & practical vocabulary" : isN1 ? "Meaning, readings & vocabulary" : isKanji ? "Word meaning & kanji breakdown" : isAdjective ? "Translation, forms & kanji" : isCounter ? "Counter reading & written form" : "Translation & verb forms")
-    : (isGenki ? `${v.group} · Vocabulary` : isKanjiCharacters ? "Individual Kanji character" : isN1 ? "JLPT N1 kanji" : isKanji ? "Kanji word" : isAdjective ? "Hiragana reading" : isCounter ? "Counting prompt" : "Masu form");
+    ? (isGenki ? `${v.group} · Vocabulary details` : isKanjiCharacters ? "Meaning, readings & practical vocabulary" : isN1 ? "Meaning, readings & vocabulary" : isKanji ? "Word meaning & kanji breakdown" : isAdjective ? "English translation" : isCounter ? "Counter reading & written form" : "Translation & verb forms")
+    : (isGenki ? `${v.group} · Vocabulary` : isKanjiCharacters ? "Individual Kanji character" : isN1 ? "JLPT N1 kanji" : isKanji ? "Kanji word" : isAdjective ? (currentSet === "adjectives-i" ? "I-adjective" : "Na-adjective") : isCounter ? "Counting prompt" : "Masu form");
   $("flipBtn").textContent = isFlipped ? "↩ Hide answer" : "See answer ↗";
   $("reading").hidden = !(isKanji || isN1 || isKanjiCharacters || isCounter);
   $("meaning").textContent = v.meaning;
   $("adjectiveKanji").hidden = !((isAdjective || isCounter) && isFlipped);
+  $("groupLabel").hidden = isAdjective;
   $("groupLabel").textContent = isGenki ? `${v.group} · Genki vocabulary` : isKanjiCharacters ? "Readings & practical vocabulary" : isN1 ? "On’yomi / Kun’yomi & example vocabulary" : isKanji ? "Vocabulary meaning" : isAdjective ? (v.type === "i" ? "い-adjective" : "な-adjective") : isCounter ? `Counter: ${v.counterName}` : `Group ${v.group}`;
-  $("formsLabel").hidden = isKanji || isN1 || isKanjiCharacters || isCounter || isGenki;
-  $("forms").hidden = isKanji || isN1 || isKanjiCharacters || isCounter || isGenki;
+  $("formsLabel").hidden = isKanji || isN1 || isKanjiCharacters || isCounter || isGenki || isAdjective;
+  $("forms").hidden = isKanji || isN1 || isKanjiCharacters || isCounter || isGenki || isAdjective;
   $("breakdownLabel").hidden = !(isKanji || isN1 || isKanjiCharacters || isGenki);
   $("kanjiBreakdown").hidden = !(isKanji || isN1 || isKanjiCharacters || isGenki);
   $("kanjiBreakdown").classList.toggle("character-examples-grid", isKanjiCharacters);
@@ -785,16 +785,12 @@ function renderCard() {
     sentenceBox.append(sentenceHeading, sentence, translation); box.appendChild(sentenceBox);
     $("breakdownLabel").textContent = "Example sentence";
   } else if (isAdjective) {
-    $("adjectiveKanji").innerHTML = furiganaHTML(v.word, v.reading);
     $("reading").textContent = "";
+    $("reading").hidden = true;
+    $("adjectiveKanji").hidden = true;
     $("forms").innerHTML = "";
-    [["Present negative", v.negative], ["Past", v.past], ["Past negative", v.pastNegative]].forEach(([label, value]) => {
-      const b = document.createElement("div"); b.className = "form-box";
-      const n = document.createElement("div"); n.className = "form-name"; n.textContent = label;
-      const x = document.createElement("div"); x.className = "form-value"; x.textContent = value;
-      b.append(n, x); $("forms").appendChild(b);
-    });
     $("kanjiBreakdown").innerHTML = "";
+    $("meaning").textContent = v.meaning;
   } else if (isKanjiCharacters) {
     $("reading").textContent = `${v.onyomi}\n${v.kunyomi}`;
     $("meaning").textContent = v.meaning;
@@ -862,7 +858,7 @@ function render() {
   if ($("sideProgressText")) $("sideProgressText").textContent = reviewMode ? `Review ${reviewIndex + 1} / ${reviewQueue.length}` : `${Math.min(currentIndex + 1, originalDeck.length)} / ${originalDeck.length} entries`;
   if ($("sideCurrentSet")) $("sideCurrentSet").textContent = setInfo[currentSet] || currentSet;
   if ($("studyLocation")) $("studyLocation").innerHTML = `<strong>${currentSet === "n1-kanji" ? "JLPT N1" : "JLPT N5"}</strong> / <strong>${groupLabels[currentSet] || "Study"}</strong> / ${setInfo[currentSet] || currentSet}. Open the Pokédex Index to change categories.`;
-  if ($("sideCurrentWord")) $("sideCurrentWord").textContent = shownCard ? ((currentSet === "kanji" || currentSet === "n1-kanji") ? shownCard.word : (currentSet === "genki-1-6" || currentSet === "genki-7-12") ? shownCard.reading : currentSet === "adjectives" ? shownCard.reading : currentSet.startsWith("counter-") ? shownCard.prompt : shownCard.masu) : "Set complete";
+  if ($("sideCurrentWord")) $("sideCurrentWord").textContent = shownCard ? ((currentSet === "kanji" || currentSet === "n1-kanji") ? shownCard.word : (currentSet === "genki-1-6" || currentSet === "genki-7-12") ? shownCard.reading : currentSet.startsWith("adjectives-") ? shownCard.word : currentSet.startsWith("counter-") ? shownCard.prompt : shownCard.masu) : "Set complete";
   if ($("sideStudyMode")) $("sideStudyMode").textContent = reviewMode ? "Review round" : completedOriginalDeck ? "Set complete" : "Learning · First round";
   $("completionPanel").hidden = !completedOriginalDeck || reviewMode;
   $("completionMessage").textContent = `${setInfo[currentSet]} complete. ${reviewIds.size ? reviewIds.size + " entries still need a review." : "All entries mastered for this session."}`;
